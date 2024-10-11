@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const BASE_URL = process.env.VITE_BASE_URL || "http://localhost:3001"
+
+const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3001";
 
 /** API Class.
  *
