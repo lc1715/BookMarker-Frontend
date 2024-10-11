@@ -14,14 +14,14 @@ class BookMarkerApi {
     static token;
 
     static async request(endpoint, data = {}, method = "get") {
-        console.debug('API Call:', endpoint, data, method)
+        console.debug('API Call:', 'endpoint:', endpoint, 'data:', data, 'method:', method)
 
         const url = `${BASE_URL}/${endpoint}`;
         const headers = { Authorization: `Bearer ${BookMarkerApi.token}` };
         const params = (method === "get") ? data : {};
 
         try {
-            return (await axios(url, method, data, params, headers)).data;
+            return (await axios({ url, method, data, params, headers })).data;
         }
         catch (err) {
             let message = err.response.data.error.message;
@@ -33,13 +33,14 @@ class BookMarkerApi {
 
     /**Sign up and get token from username, password and email*/
     static async signup(data) {
-        const res = await this.request(`/users/register`, data, "post");
+        console.log('api.signup data', data)
+        const res = await this.request(`users/register`, data, "post");
         return res.token;
     }
 
     /**Log in and get token from username and password */
     static async login(data) {
-        const res = await this.request(`/users/login`, data, "post");
+        const res = await this.request(`users/login`, data, "post");
         return res.token;
     }
 
@@ -47,7 +48,7 @@ class BookMarkerApi {
      * Returns: { id, username, email, saved_booksId: [id, ...]}}
     */
     static async getCurrentUser(username) {
-        const res = await this.request(`/users/${username}`);
+        const res = await this.request(`users/${username}`);
         return res.user;
     }
 
@@ -55,16 +56,17 @@ class BookMarkerApi {
      * Data: email
      * Returns: { id, username, email }}
      */
-    static async updateUserProfile(data) {
-        const res = await this.request(`/users/${username}`, data, "patch");
-        return res.user;
+    static async updateUserProfile(username, data) {
+        const res = await this.request(`users/${username}`, data, "patch");
+        console.log('res:', res)
+        return res.updatedUser;
     }
 
     /**Delete a user
      * Returns: username
      */
     static async deleteUser(username) {
-        const res = await this.request(`/users/${username}`, "delete");
+        const res = await this.request(`users/${username}`, "delete");
         return res.deleted;
     }
 
@@ -76,7 +78,7 @@ class BookMarkerApi {
      * Returns: {id, user_id, volume_id, title, author, publisher, category, description, image, has_read}
      */
     static async addSavedBooks(username, volumeId, data) {
-        const res = await this.request(`/savedbooks/${volumeId}/user/${username}`, data, "post");
+        const res = await this.request(`savedbooks/${volumeId}/user/${username}`, data, "post");
         return res.savedBook;
     }
 
@@ -85,7 +87,7 @@ class BookMarkerApi {
      * Returns: {id, user_id, volume_id, title, author, publisher, category, description, image, has_read}
      */
     static async changeBookStatus(savedBookId, username, data) {
-        const res = await this.request(`/savedbooks/${savedBookId}/user/${username}`, data, "patch");
+        const res = await this.request(`savedbooks/${savedBookId}/user/${username}`, data, "patch");
         return res.updatedBook;
     }
 
@@ -94,7 +96,7 @@ class BookMarkerApi {
      * Returns: {id, user_id, volume_id, title, author, publisher, category, description, image, has_read}
      */
     static async getReadBooks(username, data) {
-        const res = await this.request(`/savedbooks/read/user/${username}`, data);
+        const res = await this.request(`savedbooks/read/user/${username}`, data);
         return res.readBooks;
     }
 
@@ -103,7 +105,7 @@ class BookMarkerApi {
      * Returns:{id, user_id, volume_id, title, author, publisher, category, description, image, has_read}
      */
     static async getWishBooks(username, data) {
-        const res = await this.request(`/savedbooks/wish/user/${username}`, data);
+        const res = await this.request(`savedbooks/wish/user/${username}`, data);
         return res.wishBooks;
     }
 
@@ -113,7 +115,7 @@ class BookMarkerApi {
      *           rating: {id, saved_book_id, user_id, rating, volume_id} or 'None'} 
      */
     static async getSavedBook(savedBookId, username) {
-        const res = await this.request(`/savedbooks/${savedBookId}/user/${username}`);
+        const res = await this.request(`savedbooks/${savedBookId}/user/${username}`);
         return res.savedBook;
     }
 
@@ -121,7 +123,7 @@ class BookMarkerApi {
      * Returns: id
      */
     static async deleteSavedBook(savedBookId, username) {
-        const res = await this.request(`/savedbooks/${savedBookId}/user/${username}`, "delete");
+        const res = await this.request(`savedbooks/${savedBookId}/user/${username}`, "delete");
         return res.deletedBook;
     }
 
@@ -133,7 +135,7 @@ class BookMarkerApi {
      * Returns: {id, comment, saved_book_id, user_id, volume_id, created_at}
      */
     static async addReview(savedBookId, username, data) {
-        const res = await this.request(`/reviews/savedbook/${savedBookId}/user/${username}`, data, "post");
+        const res = await this.request(`reviews/savedbook/${savedBookId}/user/${username}`, data, "post");
         return res.review;
     }
 
@@ -142,7 +144,7 @@ class BookMarkerApi {
      * Returns: {id, comment, saved_book_id, user_id, volume_id, created_at}
      */
     static async updateReview(reviewId, username, data) {
-        const res = await this.request(`/reviews/${reviewId}/user/${username}`, data, "patch");
+        const res = await this.request(`reviews/${reviewId}/user/${username}`, data, "patch");
         return res.updatedReview;
     }
 
@@ -150,7 +152,7 @@ class BookMarkerApi {
      * Returns: [{id, comment, created_at, volume_id, saved_book_id, user_id, username}, ...]
      */
     static async getAllReviews(volumeId) {
-        const res = await this.request(`/reviews/${volumeId}`);
+        const res = await this.request(`reviews/${volumeId}`);
         return res.allReviews;
     }
 
@@ -158,7 +160,7 @@ class BookMarkerApi {
      * Returns: id
      */
     static async deleteReview(reviewId, username) {
-        const res = await this.request(`/reviews/${reviewId}/user/${username}`, "delete");
+        const res = await this.request(`reviews/${reviewId}/user/${username}`, "delete");
         return res.deletedReview;
     }
 
@@ -170,7 +172,7 @@ class BookMarkerApi {
      * Returns: {id, rating, saved_book_id, user_id, volume_id}
      */
     static async addRating(savedBookId, username, data) {
-        const res = await this.request(`/ratings/savedbook/${savedBookId}/user/${username}`, data, "post");
+        const res = await this.request(`ratings/savedbook/${savedBookId}/user/${username}`, data, "post");
         return res.rating;
     }
 
@@ -179,7 +181,7 @@ class BookMarkerApi {
      * Returns: {id, rating, saved_book_id, user_id, volume_id}
      */
     static async updateRating(ratingId, username, data) {
-        const res = await this.request(`/ratings/${ratingId}/user/${username}`, data, "patch");
+        const res = await this.request(`ratings/${ratingId}/user/${username}`, data, "patch");
         return res.updatedRating;
     }
 
@@ -187,7 +189,7 @@ class BookMarkerApi {
      * Returns: {id, rating, saved_book_id, user_id, volume_id}
      */
     static async getRating(savedBookId, username) {
-        const res = await this.request(`/ratings/${savedBookId}/user/${username}`);
+        const res = await this.request(`ratings/${savedBookId}/user/${username}`);
         return res.rating;
     }
 
@@ -198,7 +200,7 @@ class BookMarkerApi {
      * Returns: [{book1}, {book2}, ...]
     */
     static async getGoogleBooksList(term) {
-        const res = await this.request(`/books/?term=${term}`);
+        const res = await this.request(`books/?term=${term}`);
         return res;
     }
 
@@ -206,7 +208,7 @@ class BookMarkerApi {
      * Returns: {book}
     */
     static async getGoogleBook(volumeId) {
-        const res = await this.request(`/books/details/${volumeId}`);
+        const res = await this.request(`books/details/${volumeId}`);
         return res;
     }
 
@@ -214,7 +216,7 @@ class BookMarkerApi {
      * Returns: [{book1}, {book2}, ...]
     */
     static async getNYTBestsellerList() {
-        const res = await this.request(`/books/bestsellers`);
+        const res = await this.request(`books/bestsellers`);
         return res;
     }
 
@@ -222,7 +224,7 @@ class BookMarkerApi {
      * Returns: {book}
     */
     static async getGoogleBookFromNYT(isbn) {
-        const res = await this.request(`/books/bestsellers/details/${isbn}`);
+        const res = await this.request(`books/bestsellers/details/${isbn}`);
         return res;
     }
 }
