@@ -4,6 +4,7 @@ import Homepage from '../homepage/Homepage';
 import LoginForm from '../auth/LoginForm';
 import SignupForm from '../auth/SignupForm';
 import ProtectedRoute from './ProtectedRoute';
+import ProfileForm from '../profile/ProfileForm';
 
 
 /**Site-wide routes
@@ -22,7 +23,7 @@ function RouteList({ signup, login }) {
             <Route path='/login' element={<LoginForm login={login} />} />
             <Route path='/signup' element={<SignupForm signup={signup} />} />
 
-            <Route path='/users/:username' element={
+            <Route path='/profile' element={
                 <ProtectedRoute>
                     <ProfileForm />
                 </ProtectedRoute>

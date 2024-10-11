@@ -19,7 +19,8 @@ function NavBar({ logout }) {
         return (
             <div>
                 <Link to='/'>BookMarker</Link>
-                <Link to='/' onClick={logout} >Log Out</Link>
+                <Link to='/profile'>Profile</Link>
+                <Link to='/' onClick={logout} >Log Out {currentUser.username}</Link>
             </div>
         )
     }
