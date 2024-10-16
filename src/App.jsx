@@ -1,5 +1,4 @@
 import './App.css'
-
 import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
@@ -12,16 +11,17 @@ import NavBar from './routes-nav/NavBar';
 import RouteList from './routes-nav/RouteList';
 
 
-// key-name for storing token in localStorage 
-const TOKEN_STORAGE_ID = 'bookMarker-token'
+const TOKEN_STORAGE_ID = 'bookMarker-token';
 
 function App() {
-  const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID)
+  const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
   const [currentUser, setCurrentUser] = useState(null);
   const [infoLoaded, setInfoLoaded] = useState(false);
+  const [savedBooks, setSavedBooks] = useState(new Set([]));
+  console.log('savedBooks=', savedBooks)
 
   useEffect(() => {
-    console.debug("App: useEffect to load current user info", "token=", token);
+    console.debug('App: useEffect to load current user info', 'token=', token);
 
     async function getCurrentUserInfo() {
       if (token) {
@@ -33,9 +33,12 @@ function App() {
           BookMarkerApi.token = token
           //get data on the current user
           let currentUser = await BookMarkerApi.getCurrentUser(username);
+          console.log('currentUser =', currentUser)
           setCurrentUser(currentUser);
+
+          setSavedBooks(new Set(currentUser.volume_ids));
         } catch (err) {
-          console.error('App: problem loading currentUser', err)
+          console.error('App: problem loading currentUser', 'err:', err)
           setCurrentUser(null);
         }
       }
@@ -82,13 +85,31 @@ function App() {
     setToken(null);
   }
 
+  /**Check state, savedBooks, to see if volume id is already in the Set */
+  function hasAlreadySavedBook(id) {
+    return savedBooks.has(id);
+  }
+
+  async function saveBook(volumeId, data) {
+
+    if (hasAlreadySavedBook(volumeId)) return;
+
+    try {
+      await BookMarkerApi.addSavedBooks(currentUser.username, volumeId, data)
+
+      setSavedBooks(new Set([...savedBooks, volumeId]));
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   if (!infoLoaded) {
     return <LoadSpinner />;
   }
 
   return (
     <BrowserRouter>
-      <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+      <UserContext.Provider value={{ currentUser, setCurrentUser, hasAlreadySavedBook, saveBook }}>
         <div>
           <NavBar logout={logout} />
           <RouteList signup={signup} login={login} />
