@@ -33,7 +33,6 @@ class BookMarkerApi {
 
     /**Sign up and get token from username, password and email*/
     static async signup(data) {
-        console.log('api.signup data', data)
         const res = await this.request(`users/register`, data, "post");
         return res.token;
     }
@@ -45,7 +44,7 @@ class BookMarkerApi {
     }
 
     /**Get the current user 
-     * Returns: { id, username, email, saved_booksId: [id, ...]}}
+     * Returns: { id, username, email, volume_ids: [id, ...]}}
     */
     static async getCurrentUser(username) {
         const res = await this.request(`users/${username}`);
@@ -66,7 +65,7 @@ class BookMarkerApi {
      * Returns: username
      */
     static async deleteUser(username) {
-        const res = await this.request(`users/${username}`, "delete");
+        const res = await this.request(`users/${username}`, {}, "delete");
         return res.deleted;
     }
 
@@ -77,17 +76,17 @@ class BookMarkerApi {
      * Data: {volume_id, title, author, publisher, category, description, image, has_read}
      * Returns: {id, user_id, volume_id, title, author, publisher, category, description, image, has_read}
      */
-    static async addSavedBooks(username, volumeId, data) {
+    static async addSavedBooks(volumeId, username, data) {
         const res = await this.request(`savedbooks/${volumeId}/user/${username}`, data, "post");
         return res.savedBook;
     }
 
     /**Update a saved book status to Read or Wish To Read 
-     * Data: {id, username, and data}
+     * Data: {has_read = true/false}
      * Returns: {id, user_id, volume_id, title, author, publisher, category, description, image, has_read}
      */
-    static async changeBookStatus(savedBookId, username, data) {
-        const res = await this.request(`savedbooks/${savedBookId}/user/${username}`, data, "patch");
+    static async changeBookStatus(volumeId, username, data) {
+        const res = await this.request(`savedbooks/${volumeId}/user/${username}`, data, "patch");
         return res.updatedBook;
     }
 
@@ -111,37 +110,39 @@ class BookMarkerApi {
 
     /**Get a saved book with review and rating.
      * Returns: {id, user_id, volume_id, title, author, publisher, category, description image, has_read, 
-     *           review: {id, saved_book_id, user_id, comment, created_at, volume_id} or 'None',
-     *           rating: {id, saved_book_id, user_id, rating, volume_id} or 'None'} 
+     *           review: {id, user_id, comment, created_at, volume_id} or 'None',
+     *           rating: {id, user_id, rating, volume_id} or 'None'} 
      */
-    static async getSavedBook(savedBookId, username) {
-        const res = await this.request(`savedbooks/${savedBookId}/user/${username}`);
+    static async getSavedBook(volumeId, username) {
+        const res = await this.request(`savedbooks/${volumeId}/user/${username}`);
+        console.log('res=', res)
         return res.savedBook;
     }
 
     /**Delete saved book 
-     * Returns: id
+     * Returns: volumeId
      */
-    static async deleteSavedBook(savedBookId, username) {
-        const res = await this.request(`savedbooks/${savedBookId}/user/${username}`, "delete");
-        return res.deletedBook;
+    static async deleteSavedBook(volumeId, username) {
+        const res = await this.request(`savedbooks/${volumeId}/user/${username}`, {}, "delete");
+        console.log('deletedBook:', res.deletedBookId)
+        return res.deletedBookId;
     }
 
 
     /**For User's Reviews */
 
     /**Add book review
-     * Data: {comment, volume_id}
-     * Returns: {id, comment, saved_book_id, user_id, volume_id, created_at}
+     * Data: {comment}
+     * Returns: {id, comment, user_id, volume_id, created_at}
      */
-    static async addReview(savedBookId, username, data) {
-        const res = await this.request(`reviews/savedbook/${savedBookId}/user/${username}`, data, "post");
+    static async addReview(volumeId, username, data) {
+        const res = await this.request(`reviews/${volumeId}/user/${username}`, data, "post");
         return res.review;
     }
 
     /**Update book review 
      * Data: {comment}
-     * Returns: {id, comment, saved_book_id, user_id, volume_id, created_at}
+     * Returns: {id, comment, user_id, volume_id, created_at}
      */
     static async updateReview(reviewId, username, data) {
         const res = await this.request(`reviews/${reviewId}/user/${username}`, data, "patch");
@@ -149,7 +150,7 @@ class BookMarkerApi {
     }
 
     /**Get all book reviews 
-     * Returns: [{id, comment, created_at, volume_id, saved_book_id, user_id, username}, ...]
+     * Returns: [{id, comment, created_at, volume_id, user_id, username}, ...]
      */
     static async getAllReviews(volumeId) {
         const res = await this.request(`reviews/${volumeId}`);
@@ -160,7 +161,7 @@ class BookMarkerApi {
      * Returns: id
      */
     static async deleteReview(reviewId, username) {
-        const res = await this.request(`reviews/${reviewId}/user/${username}`, "delete");
+        const res = await this.request(`reviews/${reviewId}/user/${username}`, {}, "delete");
         return res.deletedReview;
     }
 
@@ -168,17 +169,17 @@ class BookMarkerApi {
     /**For User's Book Rating */
 
     /**Add a book rating
-     * Data: {rating, volume_id}
-     * Returns: {id, rating, saved_book_id, user_id, volume_id}
+     * Data: {rating}
+     * Returns: {id, rating, user_id, volume_id}
      */
-    static async addRating(savedBookId, username, data) {
-        const res = await this.request(`ratings/savedbook/${savedBookId}/user/${username}`, data, "post");
+    static async addRating(volumeId, username, data) {
+        const res = await this.request(`ratings/${volumeId}/user/${username}`, data, "post");
         return res.rating;
     }
 
     /**Update a book rating
      * Data: {rating}
-     * Returns: {id, rating, saved_book_id, user_id, volume_id}
+     * Returns: {id, rating, user_id, volume_id}
      */
     static async updateRating(ratingId, username, data) {
         const res = await this.request(`ratings/${ratingId}/user/${username}`, data, "patch");
@@ -186,11 +187,19 @@ class BookMarkerApi {
     }
 
     /**Get a book rating
-     * Returns: {id, rating, saved_book_id, user_id, volume_id}
+     * Returns: {id, rating, user_id, volume_id}
      */
-    static async getRating(savedBookId, username) {
-        const res = await this.request(`ratings/${savedBookId}/user/${username}`);
+    static async getRating(volumeId, username) {
+        const res = await this.request(`ratings/${volumeId}/user/${username}`);
         return res.rating;
+    }
+
+    /**Delete book rating
+         * Returns: id
+         */
+    static async deleteRating(ratingId, username) {
+        const res = await this.request(`reviews/${ratingId}/user/${username}`, {}, "delete");
+        return res.deletedRating;
     }
 
 
@@ -225,6 +234,7 @@ class BookMarkerApi {
     */
     static async getGoogleBookFromNYT(isbn) {
         const res = await this.request(`books/bestsellers/details/${isbn}`);
+        console.log('res***', res)
         return res;
     }
 }
