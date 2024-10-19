@@ -22,18 +22,18 @@ function RouteList({ signup, login }) {
     return (
         <Routes>
             <Route path='/' element={<Homepage />} />
-            <Route path='/login' element={<LoginForm login={login} />} />
-            <Route path='/signup' element={<SignupForm signup={signup} />} />
-            <Route path='/books/:bookIdType/:bookId' element={<BookDetail />} />
-            <Route path='/books/search/:term' element={<BookList />} />
+            <Route path='login' element={<LoginForm login={login} />} />
+            <Route path='signup' element={<SignupForm signup={signup} />} />
+            <Route path='books/search/:term' element={<BookList />} />
+            <Route path='books/:bookIdType/:bookId' element={<BookDetail />} />
 
-            <Route path='/profile' element={
+            <Route path='profile' element={
                 <ProtectedRoute>
                     <ProfileForm />
                 </ProtectedRoute>
             } />
 
-
+            <Route path='*' element={<Homepage />} />
         </Routes>
     )
 };
