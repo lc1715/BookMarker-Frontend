@@ -61,7 +61,7 @@ function App() {
 
       return { success: true };
     } catch (err) {
-      console.error('sign up failed. errors:', err);
+      console.error('sign up failed:', err);
       return { success: false, err }
     }
   }
@@ -85,19 +85,42 @@ function App() {
     setToken(null);
   }
 
-  /**Check state, savedBooks, to see if volume id is already in the Set */
-  function hasAlreadySavedBook(id) {
-    return savedBooks.has(id);
+  /**Check state, savedBooks, to see if volume id is already in the Set of saved books */
+  function hasSavedBook(volumeId) {
+    return savedBooks.has(volumeId);
   }
 
+  //add a book to saved books and update state
   async function saveBook(volumeId, data) {
+    console.log('data=', data, 'volumeId=', volumeId)
 
-    if (hasAlreadySavedBook(volumeId)) return;
-
+    if (hasSavedBook(volumeId)) return;
     try {
-      await BookMarkerApi.addSavedBooks(currentUser.username, volumeId, data)
+      let savedBook = await BookMarkerApi.addSavedBooks(
+        volumeId,
+        currentUser.username,
+        data);
 
       setSavedBooks(new Set([...savedBooks, volumeId]));
+
+      return savedBook;
+    } catch (err) {
+      console.log(err);
+    };
+  };
+
+  //delete saved book in db:
+  async function deleteSavedBook(volumeId, username) {
+    try {
+      let res = await BookMarkerApi.deleteSavedBook(volumeId, username);
+
+      //remove volumeId in savedBooks
+      setSavedBooks((set) => {
+        set.delete(res.volume_id);
+        return new Set([...set]);
+      });
+
+      return res;
     } catch (err) {
       console.log(err);
     }
@@ -109,7 +132,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <UserContext.Provider value={{ currentUser, setCurrentUser, hasAlreadySavedBook, saveBook }}>
+      <UserContext.Provider value={{ currentUser, setCurrentUser, hasSavedBook, saveBook, deleteSavedBook }}>
         <div>
           <NavBar logout={logout} />
           <RouteList signup={signup} login={login} />
