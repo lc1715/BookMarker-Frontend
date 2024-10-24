@@ -1,12 +1,10 @@
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import BookMarkerApi from "../api/api";
 import UserContext from "../auth/UserContext";
 import ShowAlert from "../common/ShowAlert";
 
 
-//edit user's review
-function EditReviewForm({ book, userReview, setReviewChange, setShowEditReviewForm }) {
+function EditReviewForm({ userReview, setReviewChange, setShowEditReviewForm }) {
     const [formData, setFormData] = useState({
         comment: userReview.comment
     });
@@ -15,7 +13,7 @@ function EditReviewForm({ book, userReview, setReviewChange, setShowEditReviewFo
 
     const { currentUser } = useContext(UserContext);
 
-    //update review in db
+    //update review
     async function handleSubmit(evt) {
         evt.preventDefault();
         try {
@@ -26,7 +24,8 @@ function EditReviewForm({ book, userReview, setReviewChange, setShowEditReviewFo
 
             setShowEditReviewForm(false);
         } catch (err) {
-            console.log(err);
+            setFormErrors(err);
+            return;
         }
     }
 
@@ -39,7 +38,7 @@ function EditReviewForm({ book, userReview, setReviewChange, setShowEditReviewFo
     return (
         <form onSubmit={handleSubmit}>
 
-            <input
+            <textArea
                 name='comment'
                 value={formData.comment}
                 onChange={handleChange}

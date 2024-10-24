@@ -3,16 +3,17 @@ import UserContext from '../auth/UserContext';
 import BookMarkerApi from "../api/api";
 import EditReviewForm from './EditReviewForm';
 
+
 //shows review. has option to edit or delete review
-function Review({ book, userReview, setReviewChange }) {
+function Review({ userReview, setReviewChange }) {
     const [showEditReviewForm, setShowEditReviewForm] = useState(false);
 
     const { currentUser } = useContext(UserContext);
 
+
     async function editReview() {
         setShowEditReviewForm(true);
     };
-
 
     async function deleteReview() {
         try {

@@ -4,28 +4,26 @@ import BookMarkerApi from "../api/api";
 import UserContext from "../auth/UserContext";
 
 
-function ReviewForm({ book, addBook, setReviewChange, setShowReviewForm }) {
+function ReviewForm({ book, addBook, setReviewChange, setReviewForm, setBookStatus }) {
     const [formData, setFormData] = useState({
         comment: ''
     });
 
     const [formErrors, setFormErrors] = useState([]);
 
-    const { currentUser, hasSavedBook, saveBooks } = useContext(UserContext);
+    const { currentUser, hasSavedBook } = useContext(UserContext);
 
 
-    //handleSubmit: adds review to db. check if book has already been saved in saved books.
+    //adds review to db. check if book has already been saved in saved books.
     //if not, then add review and add book to read books
     async function handleSubmit(evt) {
         evt.preventDefault();
         //if book has not been saved and user tries to write a review,
         //then automatically add book to Read status 
         if (!hasSavedBook(book.volumeId)) {
-            try {
-                await addBook(true);
-            } catch (err) {
-                console.log(err);
-            }
+            await addBook(true);
+
+            setBookStatus(true);
         }
 
         //add the review to db
@@ -34,9 +32,10 @@ function ReviewForm({ book, addBook, setReviewChange, setShowReviewForm }) {
 
             setReviewChange(true);
 
-            setShowReviewForm(false);
+            setReviewForm(false);
         } catch (err) {
-            console.log(err);
+            setFormErrors(err);
+            return;
         }
     };
 
@@ -54,7 +53,7 @@ function ReviewForm({ book, addBook, setReviewChange, setShowReviewForm }) {
         <form onSubmit={handleSubmit}>
 
             <label htmlFor="comment">Review</label>
-            <input
+            <textArea
                 id='comment'
                 name='comment'
                 value={formData.comment}
@@ -65,7 +64,7 @@ function ReviewForm({ book, addBook, setReviewChange, setShowReviewForm }) {
 
             <button>Add Review</button>
 
-            <button type='button' onClick={() => (setShowReviewForm(false))}>Cancel</button>
+            <button type='button' onClick={() => (setReviewForm(false))}>Cancel</button>
         </form>
     )
 };
