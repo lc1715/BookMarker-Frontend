@@ -7,6 +7,8 @@ import ProtectedRoute from './ProtectedRoute';
 import ProfileForm from '../profile/ProfileForm';
 import BookDetail from '../books/BookDetail';
 import BookList from '../books/BookList';
+import ReadBooks from '../books/ReadBooks';
+import WishToReadBook from '../books/WishToReadBook';
 
 /**Site-wide routes
  * 
@@ -17,7 +19,6 @@ import BookList from '../books/BookList';
  * 
  */
 
-//Need to add non-existent route path
 function RouteList({ signup, login }) {
     return (
         <Routes>
@@ -33,10 +34,21 @@ function RouteList({ signup, login }) {
                 </ProtectedRoute>
             } />
 
+            <Route path='books/read' element={
+                <ProtectedRoute>
+                    <ReadBooks />
+                </ProtectedRoute>
+            } />
+
+            <Route path='books/wish' element={
+                <ProtectedRoute>
+                    <WishToReadBook />
+                </ProtectedRoute>
+            } />
+
             <Route path='*' element={<Homepage />} />
         </Routes>
     )
 };
 
 export default RouteList;
-

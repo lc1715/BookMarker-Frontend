@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 /** BookCard 
  * 
  * - receives book as prop
- * - check if book contains isbn or volumeId property
+ * - check if book contains isbn or volumeId property 
  * - {book} = {isbn or volumeId, title, author, description, image}
- * - show a book info 
+ * - show the book info 
  * - component using BookCard: BookList
  * 
  */
@@ -25,14 +25,20 @@ function BookCard({ book }) {
     }
 
     return (
-        <Link to={`/books/${bookIdType}/${bookId}`}>
-            <img src={book.image} />
-            <p>Title: {book.title}</p>
-            <p>Author: {book.author}</p>
-            <p>Description: {book.description}</p>
-        </Link>
+        <div>
+            <Link to={`/books/${bookIdType}/${bookId}`}>
+                <img src={book.image} />
+                <p>Title: {book.title}</p>
+                <p>Author: {book.author}</p>
+                <p>Description: {removeHtmlTags(book.description)}</p>
+            </Link>
+        </div>
     )
 };
 
 export default BookCard;
 
+function removeHtmlTags(string) {
+    let doc = new DOMParser().parseFromString(string, 'text/html');
+    return doc.body.textContent || "";
+};

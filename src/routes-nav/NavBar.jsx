@@ -19,6 +19,8 @@ function NavBar({ logout }) {
         return (
             <div>
                 <Link to='/'>BookMarker</Link>
+                <Link to='/books/read'>Read</Link>
+                <Link to='/books/wish'>Wish To Read</Link>
                 <Link to='/profile'>Profile</Link>
                 <Link to='/' onClick={logout} >Log Out {currentUser.username}</Link>
             </div>
@@ -35,5 +37,3 @@ function NavBar({ logout }) {
 };
 
 export default NavBar;
-// <Link to={`/savedbooks/read/user/${currentUser.username}`}>Read</Link>
-// <Link to={`/savedbooks/wish/user/${currentUser.username}`}>Wish To Read</Link>

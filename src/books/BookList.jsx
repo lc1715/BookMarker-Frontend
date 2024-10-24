@@ -6,67 +6,72 @@ import BookSearchForm from "./BookSearchForm";
 import BookMarkerApi from "../api/api";
 import ShowAlert from "../common/ShowAlert";
 
-/** BookList - shows a list of nyt books or google books
+/** BookList 
  * 
- * - prop: nyt books
- * - state: google books
+ * - prop: nyt bestseller books, user's read books, or user's wish to read books
+ * - state: google searched books
  * - only set google books as state if term received from search form submission
  * - if term received, fetch the google books from Google Books API and update state 
- * - render google books if state exists otherwise render nyt books
- * - components using BooksList: Homepage, BookSearchForm
+ * - render google books if state exists otherwise render prop
+ * - components using BooksList: Homepage, BookSearchForm, ReadBooks, WishToReadBooks
  * 
  * Route: '/books/search/:term'
  */
 
-function BookList({ nytBooks }) {
-    const [googleBooks, setGoogleBooks] = useState(null);
+function BookList({ bestsellerBooks, readBooks, wishToReadBooks }) {
+    const [searchedBooks, setSearchedBooks] = useState(null);
+
     const { term } = useParams();   //gets search term from book search form
 
-    // if term exists, fetches the google books from the Google Books API
+    // if search term exists, fetches the google books from the Google Books API and
     // sets the state
     useEffect(function getGoogleBooks() {
         if (term != undefined) {
             try {
                 async function getBooks() {
                     const result = await BookMarkerApi.getGoogleBooksList(term);
-                    setGoogleBooks(result)
+                    setSearchedBooks(result);
                 }
+
                 getBooks();
             } catch (err) {
                 console.log(err);
             }
         }
     }, [term]);
-    console.log('googleBooks=', googleBooks, 'nytBooks=', nytBooks)
+    console.log('searchedBooks=', searchedBooks, 'bestsellerBooks=', bestsellerBooks, 'readBooks=', readBooks, 'wishToReadBooks=', wishToReadBooks)
+
+    let bookList = bestsellerBooks || searchedBooks || readBooks || wishToReadBooks || undefined;
 
 
-    if (!googleBooks && !nytBooks) {
+    if (!bookList) {
         return (
             <div>
                 <BookSearchForm />
+
                 <LoadSpinner />
             </div>
         )
     }
 
-    if (nytBooks) {
-        return (
-            <div>
-                <BookSearchForm />
-                {nytBooks.map((book) => (
-                    <BookCard book={book} />
-                ))
-                }
-            </div>
-        )
-    }
+    let bookStatus = null;
 
-    if (googleBooks.length) {
+    if (bookList === readBooks) {
+        bookStatus = 'My Read Books:'
+    } else if (bookList === wishToReadBooks) {
+        bookStatus = 'My Wish To Read Books:'
+    };
+
+
+    if (bookList.length) {
         return (
             <div>
                 <BookSearchForm />
-                {googleBooks.map((book) => (
-                    <BookCard book={book} />
+
+                <h3> {bookStatus ? bookStatus : ''}</h3>
+
+                {bookList.map((book, index) => (
+                    <BookCard book={book} key={index} />
                 ))
                 }
             </div>
@@ -75,8 +80,10 @@ function BookList({ nytBooks }) {
         return (
             <div>
                 <BookSearchForm />
-                <ShowAlert messages={['Sorry, no results were found!']} />
-                {/* <p style={{ color: 'red' }}>Sorry, no results were found!</p> */}
+
+                {bookList != readBooks && bookList !== wishToReadBooks ? <ShowAlert messages={['Sorry, no results were found!']} /> : null}
+                {bookList === readBooks ? <ShowAlert messages={['No Read Books']} /> : null}
+                {bookList === wishToReadBooks ? <ShowAlert messages={['No Wish To Read Books']} /> : null}
             </div>
         )
     }
