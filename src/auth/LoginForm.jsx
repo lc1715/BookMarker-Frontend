@@ -20,14 +20,14 @@ function LoginForm({ login }) {
         username: '',
         password: ''
     });
-
     const [formErrors, setFormErrors] = useState([]);
+
     const navigate = useNavigate();
 
     /** Handles login form submission:
-     * Calls the login function in App.jsx which will get token
-     * If login successful and token received, returns { success: true }, and navigates to homepage
-     * Otherwise returns { success: false, err }
+     * -Calls the login function in App.jsx which will get token
+     * -If login successful and token received, returns { success: true }, and navigates to homepage
+     * -Otherwise returns { success: false, err }
      */
     async function handleSubmit(evt) {
         evt.preventDefault();
@@ -52,7 +52,7 @@ function LoginForm({ login }) {
             <input
                 id='username'
                 name='username'
-                value={formData.value}
+                value={formData.username}
                 onChange={handleChange}
             />
 
@@ -61,7 +61,7 @@ function LoginForm({ login }) {
                 id='password'
                 type='password'
                 name='password'
-                value={formData.value}
+                value={formData.password}
                 onChange={handleChange}
             />
 
