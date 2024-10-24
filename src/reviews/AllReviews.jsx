@@ -15,7 +15,7 @@ function AllReviews({ allReviews, setShowAllReviews }) {
             {allReviews.map((review) => (
                 <div key={review.id}>
                     <p>All Reviews:</p>
-                    <p>{review.username} {review.comment} {review.created_at}</p>
+                    <p>{review.username} {review.comment} {review.created_at.slice(0, 10)}</p>
                 </div>
             ))}
 
