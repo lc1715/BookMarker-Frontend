@@ -1,4 +1,13 @@
 import { Link } from "react-router-dom";
+import removeHtmlTags from '../common/removeTags';
+import defaultBookImage from '../assets/bookImage.jpg'
+//Material UI
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+
 
 /** BookCard 
  * 
@@ -6,8 +15,8 @@ import { Link } from "react-router-dom";
  * - check if book contains isbn or volumeId property 
  * - {book} = {isbn or volumeId, title, author, description, image}
  * - show the book info 
- * - component using BookCard: BookList
  * 
+ * - component using BookCard: BookList
  */
 
 function BookCard({ book }) {
@@ -23,22 +32,40 @@ function BookCard({ book }) {
         bookId = book.volumeId;
         bookIdType = 'volumeId'
     }
+    console.log('book.descriptiopn', book.description)
+    console.log('book.image', book.image)
 
     return (
-        <div>
-            <Link to={`/books/${bookIdType}/${bookId}`}>
-                <img src={book.image} />
-                <p>Title: {book.title}</p>
-                <p>Author: {book.author}</p>
-                <p>Description: {removeHtmlTags(book.description)}</p>
+        <Card sx={{ minWidth: 275, maxWidth: 150, minHeight: 500, mx: 5.5, mb: 5, backgroundColor: '#FCFBF4' }}>
+            <Link to={`/books/${bookIdType}/${bookId}`} style={{ textDecoration: 'none' }}>
+                <Box component="section" sx={{ p: 9, pt: 2, pb: 3 }}>
+
+                    <CardMedia
+                        component="img"
+                        alt="book image"
+                        height="auto"
+                        width="100%"
+                        image={book.image ? book.image : defaultBookImage}
+                        sx={{ borderRadius: 2 }}
+                    />
+                </Box>
+
+                <CardContent>
+                    <Typography sx={{ color: 'text.primary', fontSize: 19, fontWeight: 'bold', textAlign: 'center' }}>
+                        {book.title}
+                    </Typography>
+
+                    <Typography sx={{ color: 'text.primary', fontSize: 16, mb: 1.5, mt: 1.5, textAlign: 'center' }}>
+                        By {book.author}
+                    </Typography>
+
+                    <Typography sx={{ color: 'text.primary', fontSize: 16, mb: 3, mt: 1.5, mx: 2, textAlign: 'center' }}>
+                        {!book.description ? '' : removeHtmlTags(book.description).length > 200 ? removeHtmlTags(book.description).slice(0, 200) + '...' : removeHtmlTags(book.description)}
+                    </Typography>
+                </CardContent>
             </Link>
-        </div>
+        </Card >
     )
 };
 
 export default BookCard;
-
-function removeHtmlTags(string) {
-    let doc = new DOMParser().parseFromString(string, 'text/html');
-    return doc.body.textContent || "";
-};

@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import BookCard from "./BookCard";
-import LoadSpinner from "../common/LoadSpinner";
 import BookSearchForm from "./BookSearchForm";
 import BookMarkerApi from "../api/api";
 import ShowAlert from "../common/ShowAlert";
+import LoadSpinner from "../common/LoadSpinner";
+//Material UI
+import Grid from '@mui/material/Grid2';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
 
 /** BookList 
  * 
- * - prop: nyt bestseller books, user's read books, or user's wish to read books
+ * - prop: nyt bestseller books, user's Read books, or user's Wish To Read books
  * - state: google searched books
  * - only set google books as state if term received from search form submission
  * - if term received, fetch the google books from Google Books API and update state 
@@ -18,13 +23,20 @@ import ShowAlert from "../common/ShowAlert";
  * Route: '/books/search/:term'
  */
 
-function BookList({ bestsellerBooks, readBooks, wishToReadBooks }) {
+function BookList({ books, bookCategories }) {     // nytBooks, readBooks, wishToReadBooks
+    console.debug('books:', books, 'bookCategories:', bookCategories)
+
+    //stores google books
     const [searchedBooks, setSearchedBooks] = useState(null);
+    console.log('searchedBooks=', searchedBooks)
 
-    const { term } = useParams();   //gets search term from book search form
+    //gets search term from book search form
+    const { term } = useParams();
 
-    // if search term exists, fetches the google books from the Google Books API and
-    // sets the state
+
+    /** If search term exists, fetches the google books from the Google Books API 
+     * and sets the state
+    */
     useEffect(function getGoogleBooks() {
         if (term != undefined) {
             try {
@@ -39,12 +51,8 @@ function BookList({ bestsellerBooks, readBooks, wishToReadBooks }) {
             }
         }
     }, [term]);
-    console.log('searchedBooks=', searchedBooks, 'bestsellerBooks=', bestsellerBooks, 'readBooks=', readBooks, 'wishToReadBooks=', wishToReadBooks)
 
-    let bookList = bestsellerBooks || searchedBooks || readBooks || wishToReadBooks || undefined;
-
-
-    if (!bookList) {
+    if (!books && !searchedBooks) {
         return (
             <div>
                 <BookSearchForm />
@@ -54,26 +62,33 @@ function BookList({ bestsellerBooks, readBooks, wishToReadBooks }) {
         )
     }
 
-    let bookStatus = null;
+    let bookLabel = null;
 
-    if (bookList === readBooks) {
-        bookStatus = 'My Read Books:'
-    } else if (bookList === wishToReadBooks) {
-        bookStatus = 'My Wish To Read Books:'
+    if (bookCategories === 'readBooks') {
+        bookLabel = 'My Read Books:'
+    } else if (bookCategories === 'wishToReadBooks') {
+        bookLabel = 'My Wish To Read Books:'
+    } else if (bookCategories === 'nytBooks') {
+        bookLabel = 'NYT Bestsellers'
     };
 
+    let bookList = books || searchedBooks || undefined;
 
     if (bookList.length) {
         return (
             <div>
                 <BookSearchForm />
 
-                <h3> {bookStatus ? bookStatus : ''}</h3>
+                <Typography sx={{ mt: 6, mb: 4, color: 'text.secondary', fontWeight: '200', fontSize: { xs: 30, lg: 35 }, textAlign: 'center' }}>
+                    {bookLabel ? bookLabel : ''}
+                </Typography>
 
-                {bookList.map((book, index) => (
-                    <BookCard book={book} key={index} />
-                ))
-                }
+                <Grid container sx={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
+                    {bookList.map((book, index) => (
+                        <BookCard book={book} bookCategories={bookCategories} key={index} bookLabel={bookLabel} />
+                    ))
+                    }
+                </Grid>
             </div>
         )
     } else {
@@ -81,14 +96,14 @@ function BookList({ bestsellerBooks, readBooks, wishToReadBooks }) {
             <div>
                 <BookSearchForm />
 
-                {bookList != readBooks && bookList !== wishToReadBooks ? <ShowAlert messages={['Sorry, no results were found!']} /> : null}
-                {bookList === readBooks ? <ShowAlert messages={['No Read Books']} /> : null}
-                {bookList === wishToReadBooks ? <ShowAlert messages={['No Wish To Read Books']} /> : null}
+                <Box sx={{ mt: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    {bookCategories === 'readBooks' ? <ShowAlert type={'info'} messages={['You have no Read Books']} /> : null}
+                    {bookCategories === 'wishToReadBooks' ? <ShowAlert type={'info'} messages={['You have no Wish To Read Books']} /> : null}
+                    {bookCategories != 'readBooks' && bookCategories != 'wishToReadBooks' ? <ShowAlert type={'info'} messages={['Sorry, no results were found!']} /> : null}
+                </Box>
             </div>
         )
     }
 };
 
 export default BookList;
-
-

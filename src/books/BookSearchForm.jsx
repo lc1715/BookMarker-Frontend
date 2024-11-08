@@ -1,5 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+//Material UI
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import SearchIcon from '@mui/icons-material/Search';
 
 
 function BookSearchForm() {
@@ -13,7 +21,6 @@ function BookSearchForm() {
 
     const [formData, setFormData] = useState(initialState);
     const [openAdvancedSearch, setOpenAdvancedSearch] = useState(false);
-    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     //create advanced search term
@@ -37,19 +44,12 @@ function BookSearchForm() {
     //on form submit, check that search terms exist and navigate to BookList component
     async function handleSubmit(evt) {
         evt.preventDefault();
-
         let advancedTerm = advancedSearchTerm();
+
         //check if term is an empty string because user did not fill in search fields
         if (formData.term === '' && advancedTerm === '') {
-            setError('Please enter a search term');
-
-            setTimeout(() => {
-                setError('')
-            }, 10000)
             return;
         };
-
-        setError('');
 
         //navigate to BookList component 
         if (formData.term) {
@@ -69,65 +69,113 @@ function BookSearchForm() {
 
     if (openAdvancedSearch) {
         return (
-            <div>
+            <Box sx={{ my: 3, display: 'flex', justifyContent: 'center' }}>
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor='title'>Title:</label>
-                    <input
-                        id='title'
-                        name='title'
-                        value={formData.title}
-                        onChange={handleChange}
-                    />
+                    <Box sx={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
+                        <FormControl sx={{ m: 1 }} variant="outlined">
+                            <OutlinedInput
+                                id="AdvancedSearchBar-Title"
+                                placeholder='Title'
+                                name="title"
+                                value={formData.title}
+                                onChange={handleChange}
+                                sx={{ width: { xs: 235, sm: '100%' } }}
+                            />
+                        </FormControl>
 
-                    <label htmlFor='author'>Author:</label>
-                    <input
-                        id='author'
-                        name='author'
-                        value={formData.author}
-                        onChange={handleChange}
-                    />
+                        <FormControl sx={{ m: 1 }} variant="outlined">
+                            <OutlinedInput
+                                id="AdvancedSearchBar-Author"
+                                placeholder='Author'
+                                name="author"
+                                value={formData.author}
+                                onChange={handleChange}
+                                sx={{ width: { xs: 235, sm: '100%' } }}
+                            />
+                        </FormControl>
 
-                    <label htmlFor='isbn'>ISBN:</label>
-                    <input
-                        id='isbn'
-                        name='isbn'
-                        value={formData.isbn}
-                        onChange={handleChange}
-                    />
+                        <FormControl sx={{ m: 1 }} variant="outlined">
+                            <OutlinedInput
+                                id="AdvancedSearchBar-Keyword"
+                                placeholder='Keyword'
+                                name="keyword"
+                                value={formData.keyword}
+                                onChange={handleChange}
+                                sx={{ width: { xs: 235, sm: '100%' } }}
+                            />
+                        </FormControl>
 
-                    <label htmlFor='keyword'>Keyword:</label>
-                    <input
-                        id='keyword'
-                        name='keyword'
-                        value={formData.keyword}
-                        onChange={handleChange}
-                    />
+                        <FormControl sx={{ m: 1 }} variant="outlined">
+                            <OutlinedInput
+                                id="AdvancedSearchBar-ISBN"
+                                placeholder='ISBN'
+                                name="isbn"
+                                value={formData.isbn}
+                                onChange={handleChange}
+                                sx={{ width: { xs: 235, sm: '100%' } }}
+                            />
+                        </FormControl>
 
-                    {error && <p style={{ color: 'red' }}>{error}</p>}
-                    {/* can also use ShowAlert Comp */}
+                        <Box sx={{ mt: { xs: 1, md: 0 }, width: { xs: '100%', md: 'auto' }, display: 'flex', justifyContent: 'center' }}>
+                            <Button
+                                variant="contained"
+                                size="medium"
+                                sx={{ mt: 1, ml: .5, height: '54px', minWidth: 'unset', width: '59px', backgroundColor: '#748cab' }}
+                                onClick={handleSubmit}
+                                type='submit'
+                            >
+                                <SearchIcon sx={{ fontSize: '31px' }} />
+                            </Button>
 
-                    <button>Submit</button>
-                    <button type='button' onClick={() => (setOpenAdvancedSearch(false))}>Close</button>
-                </form>
-            </div>
+                            <Button
+                                variant="contained"
+                                size="medium"
+                                sx={{ mt: 1, ml: 1.5, height: '54px', minWidth: 'unset', width: '59px', backgroundColor: '#748cab' }}
+                                onClick={() => (setOpenAdvancedSearch(false))}
+                            >
+                                <i class="fa-solid fa-up-down-left-right fa-2xl"></i>
+                            </Button>
+                        </Box>
+                    </Box>
+                </form >
+            </Box >
         )
     }
 
     return (
         <form onSubmit={handleSubmit}>
-            <input
-                id='term'
-                placeholder='Search'
-                name='term'
-                value={formData.term}
-                onChange={handleChange}
-            />
+            <Box sx={{ my: 3, width: '100%', display: 'flex', justifyContent: 'center' }}>
+                <FormControl sx={{ m: 1, ml: 2, width: '950px' }} variant="outlined">
+                    <OutlinedInput
+                        id="SearchBar"
+                        placeholder='Search'
+                        name="term"
+                        value={formData.term}
+                        onChange={handleChange}
+                        endAdornment={
+                            <InputAdornment position="end">
+                                <IconButton
+                                    aria-label="search"
+                                    size="large"
+                                    onClick={handleSubmit}
+                                    type='submit'
+                                >
+                                    <SearchIcon />
+                                </IconButton>
+                            </InputAdornment>
+                        }
+                    />
+                </FormControl>
 
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-
-            <button>Submit</button>
-            <button type='button' onClick={() => (setOpenAdvancedSearch(true))}>Advanced Search</button>
-        </form>
+                <Button
+                    variant="contained"
+                    sx={{ mt: 1, mr: 2, ml: .5, height: '54px', minWidth: 'unset', width: '59px', backgroundColor: '#748cab' }}
+                    onClick={() => (setOpenAdvancedSearch(true))}
+                >
+                    <i class="fa-solid fa-up-down-left-right fa-2xl"></i>
+                </Button>
+            </Box >
+        </form >
     )
 };
 

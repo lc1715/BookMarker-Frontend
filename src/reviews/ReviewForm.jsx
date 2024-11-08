@@ -2,9 +2,15 @@ import { useState, useContext } from 'react';
 import ShowAlert from "../common/ShowAlert";
 import BookMarkerApi from "../api/api";
 import UserContext from "../auth/UserContext";
+//Material UI
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField';
 
 
-function ReviewForm({ book, addBook, setReviewChange, setReviewForm, setBookStatus }) {
+function ReviewForm({ book, addBook, setReviewChange, setOpenReviewForm, setBookStatus, setScrollToReview }) {
     const [formData, setFormData] = useState({
         comment: ''
     });
@@ -12,7 +18,6 @@ function ReviewForm({ book, addBook, setReviewChange, setReviewForm, setBookStat
     const [formErrors, setFormErrors] = useState([]);
 
     const { currentUser, hasSavedBook } = useContext(UserContext);
-
 
     //adds review to db. check if book has already been saved in saved books.
     //if not, then add review and add book to read books
@@ -31,8 +36,8 @@ function ReviewForm({ book, addBook, setReviewChange, setReviewForm, setBookStat
             await BookMarkerApi.addReview(book.volumeId, currentUser.username, { ...formData });
 
             setReviewChange(true);
-
-            setReviewForm(false);
+            setOpenReviewForm(false);
+            setScrollToReview(true);
         } catch (err) {
             setFormErrors(err);
             return;
@@ -48,24 +53,48 @@ function ReviewForm({ book, addBook, setReviewChange, setReviewForm, setBookStat
         }));
     };
 
-
     return (
-        <form onSubmit={handleSubmit}>
+        <Container maxWidth="xl" sx={{ display: 'flex' }}>
+            <form onSubmit={handleSubmit}>
+                <FormControl
+                    variant="outlined"
+                    sx={{
+                        width: { xs: 320, sm: 400, md: 555, lg: 575 },
+                        height: 200,
+                        mb: 2
+                    }}
+                >
+                    <TextField
+                        name='comment'
+                        value={formData.comment}
+                        label="Add Review"
+                        onChange={handleChange}
+                        rows={7}
+                        multiline
+                    />
 
-            <label htmlFor="comment">Review</label>
-            <textArea
-                id='comment'
-                name='comment'
-                value={formData.comment}
-                onChange={handleChange}
-            />
+                </FormControl>
+                <Button variant="contained"
+                    size="medium"
+                    type='submit'
+                >
+                    Add Review
+                </Button>
 
-            {formErrors.length ? <ShowAlert type='danger' messages={formErrors} /> : null}
+                <Button variant="contained"
+                    size="medium"
+                    sx={{ ml: 1 }}
+                    type='button'
+                    onClick={() => (setOpenReviewForm(false))}
+                >
+                    Cancel
+                </Button>
 
-            <button>Add Review</button>
-
-            <button type='button' onClick={() => (setReviewForm(false))}>Cancel</button>
-        </form>
+                <Box sx={{ mt: 2, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    {formErrors.length ? <ShowAlert type='error' messages={formErrors} /> : null}
+                </Box>
+            </form >
+        </Container >
     )
 };
 

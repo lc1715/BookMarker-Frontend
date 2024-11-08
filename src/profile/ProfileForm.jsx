@@ -1,16 +1,24 @@
 import { useState, useContext } from 'react';
-import ShowAlert from '../common/ShowAlert';
 import BookMarkerApi from '../api/api';
 import UserContext from '../auth/UserContext';
+import ShowAlert from '../common/ShowAlert';
+//Material UI
+import Container from '@mui/material/Container';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 
 /** Edit profile form.
+ *
+ * - Displays profile form
+ * - Submitting the form calls the BookMarkerApi to update user profile
+ * - If successful, triggers current user to be reloaded throughout the site and
+ * shows successful alert message
  * 
  * Route: /profile
- * Displays profile form
- * Submitting the form calls the BookMarkerApi to update user profile
- * If successful, triggers current user to be reloaded throughout the site and
- * shows successful alert message
  */
 function ProfileForm() {
     const { currentUser, setCurrentUser } = useContext(UserContext);
@@ -19,7 +27,6 @@ function ProfileForm() {
         username: currentUser.username,
         email: currentUser.email
     });
-
     const [formErrors, setFormErrors] = useState([]);
     const [isSaved, setIsSaved] = useState(false);
 
@@ -51,10 +58,10 @@ function ProfileForm() {
 
         setTimeout(() => {
             setIsSaved(false)
-        }, 3000)
+        }, 4000)
     };
 
-    /** Handle form info changing*/
+    /** Handle form data changing*/
     function handleChange(evt) {
         const { name, value } = evt.target;
         setFormData(data => ({ ...data, [name]: value }));
@@ -63,30 +70,81 @@ function ProfileForm() {
 
     return (
         <form onSubmit={handleSubmit}>
-            <label htmlFor='username'>Username</label>
-            <input
-                id='username'
-                name='username'
-                value={formData.username}
-                disabled={true}
-            />
+            <Container maxWidth="sm" sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                mt: { xs: 7, md: 10 },
+                mb: 4
+            }}>
+                <Paper elevation={4}
+                    sx={{
+                        width: '90%',
+                        backgroundColor: '#FCFBF4'
+                    }}
+                >
+                    <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                        <Typography sx={{
+                            fontSize: { xs: '35px', md: '46px' },
+                            textAlign: 'center',
+                            mt: 4
+                        }}>
+                            User Profile
+                        </Typography>
+                    </Box>
 
-            <label htmlFor='email'>Email</label>
-            <input
-                id='email'
-                name='email'
-                type='email'
-                value={formData.email}
-                onChange={handleChange}
-            />
+                    <Box sx={{ mt: 4, width: '100%', display: 'flex', justifyContent: 'center' }}>
+                        <TextField
+                            name="username"
+                            value={formData.username}
+                            onChange={handleChange}
+                            label="Username"
+                            disabled={true}
+                            sx={{ width: '75%' }}
+                        />
+                    </Box>
 
-            {formErrors.length ? <ShowAlert type='danger' messages={formErrors} /> : null}
+                    <Box sx={{ mt: 4, width: '100%', display: 'flex', justifyContent: 'center' }}>
+                        <TextField
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            label="Email"
+                            sx={{ width: '75%' }}
+                            type='email'
+                        />
+                    </Box>
 
-            {isSaved ? <ShowAlert type='success' messages={['Updated successfully']} /> : null}
+                    {formErrors.length ?
+                        <Box sx={{ mt: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <ShowAlert type='error' messages={formErrors} />
+                        </Box>
+                        :
+                        null
+                    }
 
-            <button>Submit</button>
-        </form>
+                    {isSaved ?
+                        <Box sx={{ mt: 2, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <ShowAlert type='success' messages={['Updated successfully']} />
+                        </Box>
+                        :
+                        null
+                    }
 
+                    <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                        <Button
+                            variant="contained"
+                            size="medium"
+                            sx={{ mt: 4, mb: 8, width: '75%', height: 54, backgroundColor: '#cf8d86' }}
+                            onClick={handleSubmit}
+                            type='submit'
+                        >
+                            Submit
+                        </Button>
+                    </Box>
+                </Paper>
+            </Container >
+        </form >
     )
 };
 

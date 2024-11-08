@@ -2,9 +2,15 @@ import { useState, useContext } from "react";
 import BookMarkerApi from "../api/api";
 import UserContext from "../auth/UserContext";
 import ShowAlert from "../common/ShowAlert";
+//Material UI
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 
-function EditReviewForm({ userReview, setReviewChange, setShowEditReviewForm }) {
+function EditReviewForm({ userReview, setReviewChange, setEditReviewForm }) {
     const [formData, setFormData] = useState({
         comment: userReview.comment
     });
@@ -22,7 +28,7 @@ function EditReviewForm({ userReview, setReviewChange, setShowEditReviewForm }) 
 
             setReviewChange(true);
 
-            setShowEditReviewForm(false);
+            setEditReviewForm(false);
         } catch (err) {
             setFormErrors(err);
             return;
@@ -36,20 +42,48 @@ function EditReviewForm({ userReview, setReviewChange, setShowEditReviewForm }) 
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <Container maxWidth="xl" sx={{ display: 'flex' }}>
+            <form onSubmit={handleSubmit}>
+                <FormControl
+                    variant="outlined"
+                    sx={{
+                        width: { xs: 320, sm: 400, md: 555, lg: 575 },
+                        height: 200,
+                        mb: 2
+                    }}
+                >
+                    <TextField
+                        name='comment'
+                        value={formData.comment}
+                        label="Edit Review"
+                        onChange={handleChange}
+                        rows={7}
+                        multiline
+                    />
+                </FormControl>
+                <Button
+                    variant="contained"
+                    size="medium"
+                    type="submit"
+                >
+                    Change Review
+                </Button>
 
-            <textArea
-                name='comment'
-                value={formData.comment}
-                onChange={handleChange}
-            />
+                <Button
+                    variant="contained"
+                    size="medium"
+                    sx={{ ml: 1 }}
+                    type='button'
+                    onClick={() => (setEditReviewForm(false))}
+                >
+                    Cancel
+                </Button>
 
-            <button>Change Review</button>
-            <button type='button' onClick={() => (setShowEditReviewForm(false))}>Cancel</button>
-            {/* close modal/close the edit review form comp */}
-
-            {formErrors.length ? <ShowAlert type='danger' messages={formErrors} /> : null}
-        </form>
+                <Box sx={{ mt: 2, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    {formErrors.length ? <ShowAlert type='error' messages={formErrors} /> : null}
+                </Box>
+            </form >
+        </Container>
     )
 };
 
