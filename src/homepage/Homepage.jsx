@@ -14,9 +14,12 @@ function Homepage() {
     //runs at first render to get nyt book list and timestamp
     useEffect(() => {
         async function loadNYTBooks() {
+            //gets stored nytbooks or new nytbooks and timestamp
             let bookList = await getNYTBooks();
+            console.log('bookList=', bookList)
 
-            //check if new nyt book list and current timestamp exists
+            //check if new nyt book list and current timestamp exists 
+            //if they do, add to local storage
             if (bookList.newBooks && bookList.currentTimeStamp) {
                 let newBooks = bookList.newBooks;
                 let currentTimeStamp = bookList.currentTimeStamp;
@@ -28,6 +31,7 @@ function Homepage() {
                 //add new nyt books and current time stamp into local storage
                 setNytBookList(JSON.stringify(newBooks));
                 setNytTimestamp(currentTimeStamp);
+
                 //set new nyt books to state
                 setNytBooks(newBooks);
             } else {
@@ -43,14 +47,9 @@ function Homepage() {
 
     return (
         <div>
-            {nytBooks.length ?
-                <BookList nytBooks={nytBooks} />
-                :
-                <p>Sorry, no results were found!</p>
-            }
+            <BookList books={nytBooks} booksLabel={'NYT Bestsellers'} />
         </div>
     )
 };
 
 export default Homepage;
-

@@ -21,7 +21,6 @@ function Rating({ rating, setRating, addRating, updateRating, hover, setHover })
         setRating(star);
     };
 
-
     function loggedInRating() {
         return (
             <div>
@@ -30,9 +29,9 @@ function Rating({ rating, setRating, addRating, updateRating, hover, setHover })
                         return (
                             <span
                                 style={{
-                                    color: star <= (hover || rating) ? 'gold' : 'gray',
+                                    color: star <= (hover || rating) ? '#e87400' : 'gray',
                                     cursor: 'pointer',
-                                    fontSize: '35px'
+                                    fontSize: '39px'
                                 }}
                                 onClick={() => (submitRating(star))}
                                 onMouseEnter={() => setHover(star)}
@@ -58,7 +57,7 @@ function Rating({ rating, setRating, addRating, updateRating, hover, setHover })
                                 style={{
                                     color: 'gray',
                                     cursor: 'pointer',
-                                    fontSize: '35px'
+                                    fontSize: '39px'
                                 }}
                                 onClick={() => (submitRating(star))}
                                 key={star}

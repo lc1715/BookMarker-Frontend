@@ -8,7 +8,7 @@ import ProfileForm from '../profile/ProfileForm';
 import BookDetail from '../books/BookDetail';
 import BookList from '../books/BookList';
 import ReadBooks from '../books/ReadBooks';
-import WishToReadBook from '../books/WishToReadBook';
+import WishToReadBooks from '../books/WishToReadBooks';
 
 /**Site-wide routes
  * 
@@ -42,7 +42,7 @@ function RouteList({ signup, login }) {
 
             <Route path='books/wish' element={
                 <ProtectedRoute>
-                    <WishToReadBook />
+                    <WishToReadBooks />
                 </ProtectedRoute>
             } />
 

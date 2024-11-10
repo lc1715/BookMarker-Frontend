@@ -3,13 +3,13 @@ import UserContext from "../auth/UserContext";
 import BookMarkerApi from '../api/api'
 import BookList from "./BookList";
 
-//get all read books for user
+
 function ReadBooks() {
     const [readBooks, setReadBooks] = useState(null);
 
     const { currentUser } = useContext(UserContext);
 
-
+    //get all read books for user
     useEffect(() => {
         try {
             async function getReadBooks() {
@@ -26,9 +26,10 @@ function ReadBooks() {
 
 
     return (
-        <BookList readBooks={readBooks} />
+        <BookList books={readBooks} booksLabel={'My Read Books:'} />
     )
 };
 
 export default ReadBooks;
+
 

@@ -23,16 +23,14 @@ import Typography from '@mui/material/Typography';
  * Route: '/books/search/:term'
  */
 
-function BookList({ books, bookCategories }) {     // nytBooks, readBooks, wishToReadBooks
-    console.debug('books:', books, 'bookCategories:', bookCategories)
+function BookList({ books, booksLabel }) {
+    console.debug('books:', books, 'booksLabel:', booksLabel)
 
-    //stores google books
     const [searchedBooks, setSearchedBooks] = useState(null);
-    console.log('searchedBooks=', searchedBooks)
-
-    //gets search term from book search form
+    //search term from book search form
     const { term } = useParams();
 
+    const bookList = searchedBooks || books;
 
     /** If search term exists, fetches the google books from the Google Books API 
      * and sets the state
@@ -44,7 +42,6 @@ function BookList({ books, bookCategories }) {     // nytBooks, readBooks, wishT
                     const result = await BookMarkerApi.getGoogleBooksList(term);
                     setSearchedBooks(result);
                 }
-
                 getBooks();
             } catch (err) {
                 console.log(err);
@@ -52,27 +49,14 @@ function BookList({ books, bookCategories }) {     // nytBooks, readBooks, wishT
         }
     }, [term]);
 
-    if (!books && !searchedBooks) {
+    if (!bookList) {
         return (
             <div>
                 <BookSearchForm />
-
                 <LoadSpinner />
             </div>
         )
     }
-
-    let bookLabel = null;
-
-    if (bookCategories === 'readBooks') {
-        bookLabel = 'My Read Books:'
-    } else if (bookCategories === 'wishToReadBooks') {
-        bookLabel = 'My Wish To Read Books:'
-    } else if (bookCategories === 'nytBooks') {
-        bookLabel = 'NYT Bestsellers'
-    };
-
-    let bookList = books || searchedBooks || undefined;
 
     if (bookList.length) {
         return (
@@ -80,12 +64,12 @@ function BookList({ books, bookCategories }) {     // nytBooks, readBooks, wishT
                 <BookSearchForm />
 
                 <Typography sx={{ mt: 6, mb: 4, color: 'text.secondary', fontWeight: '200', fontSize: { xs: 30, lg: 35 }, textAlign: 'center' }}>
-                    {bookLabel ? bookLabel : ''}
+                    {booksLabel}
                 </Typography>
 
                 <Grid container sx={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
                     {bookList.map((book, index) => (
-                        <BookCard book={book} bookCategories={bookCategories} key={index} bookLabel={bookLabel} />
+                        <BookCard book={book} key={index} />
                     ))
                     }
                 </Grid>
@@ -97,9 +81,9 @@ function BookList({ books, bookCategories }) {     // nytBooks, readBooks, wishT
                 <BookSearchForm />
 
                 <Box sx={{ mt: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    {bookCategories === 'readBooks' ? <ShowAlert type={'info'} messages={['You have no Read Books']} /> : null}
-                    {bookCategories === 'wishToReadBooks' ? <ShowAlert type={'info'} messages={['You have no Wish To Read Books']} /> : null}
-                    {bookCategories != 'readBooks' && bookCategories != 'wishToReadBooks' ? <ShowAlert type={'info'} messages={['Sorry, no results were found!']} /> : null}
+                    {booksLabel === 'My Read Books:' ? <ShowAlert type={'info'} messages={['You have no Read Books']} /> : null}
+                    {booksLabel === 'My Wish To Read Books:' ? <ShowAlert type={'info'} messages={['You have no Wish To Read Books']} /> : null}
+                    {booksLabel === 'NYT Bestsellers' || !booksLabel ? <ShowAlert type={'info'} messages={['Sorry, no results were found!']} /> : null}
                 </Box>
             </div>
         )
