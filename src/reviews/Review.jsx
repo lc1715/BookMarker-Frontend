@@ -8,12 +8,15 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import IconButton from '@mui/material/IconButton';
 import Divider from '@mui/material/Divider';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 // import { useTheme } from '@mui/material/styles';
 // import useMediaQuery from '@mui/material/useMediaQuery';
 
 
 //shows review. has option to edit or delete review
 function Review({ userReview, setReviewChange, setRanFirstScroll, setScrollToReview }) {
+    console.log('userReview=', userReview)
     const [editReviewForm, setEditReviewForm] = useState(false);
     const { currentUser } = useContext(UserContext);
 
@@ -45,13 +48,10 @@ function Review({ userReview, setReviewChange, setRanFirstScroll, setScrollToRev
         left: '50%',
         transform: 'translate(-50%, -50%)',
         width: 620,
-        bgcolor: 'background.paper',
+        backgroundColor: '#fff',
         border: '1px solid #000',
         boxShadow: 24,
-        py: 3,
-        width: {
-            xs: 348, sm: 446, md: 600, lg: 620
-        }
+        py: 3
     };
 
     return (
@@ -64,16 +64,16 @@ function Review({ userReview, setReviewChange, setRanFirstScroll, setScrollToRev
                 <Typography sx={{ fontSize: 19, wordBreak: "break-word" }}>{userReview.comment}</Typography>
 
                 <Box sx={{ mb: 1, mt: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <p style={{ fontSize: '17px', color: '#5A5A5A' }}>
+                    <p style={{ fontSize: '18px', color: '#5A5A5A' }}>
                         {userReview.username} - {new Date(userReview.created_at).toLocaleDateString()}
                     </p>
 
-                    <Box sx={{ display: 'flex', gap: 1 }}>
+                    <Box sx={{ display: 'flex' }}>
                         <IconButton onClick={openEditReviewForm} color='success' aria-label="edit review"  >
-                            <i class="fa-solid fa-pen-to-square"></i>
+                            <EditIcon sx={{ fontSize: { xs: 28, md: 30 } }} />
                         </IconButton>
-                        <IconButton onClick={deleteReview} color='secondary' aria-label="delete review">
-                            <i class="fa-solid fa-trash"></i>
+                        <IconButton onClick={deleteReview} sx={{ pr: .4 }} color='secondary' aria-label="delete review">
+                            <DeleteIcon sx={{ fontSize: { xs: 28, md: 30 } }} />
                         </IconButton>
                     </Box>
                 </Box>
@@ -84,7 +84,7 @@ function Review({ userReview, setReviewChange, setRanFirstScroll, setScrollToRev
                     aria-labelledby="modal-modal-reviewForm"
                     aria-describedby="modal-modal-reviewForm"
                 >
-                    <Box sx={style}>
+                    <Box sx={{ ...style, width: { xs: 348, sm: 446, md: 600, lg: 620 } }}>
                         <EditReviewForm userReview={userReview} setReviewChange={setReviewChange} setEditReviewForm={setEditReviewForm} />
                     </Box>
                 </Modal>
