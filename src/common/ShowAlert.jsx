@@ -1,19 +1,22 @@
+import Alert from '@mui/material/Alert';
+
 /** Component for showing alert messages.
  *
- * LoginForm, SignupForm, ProfileForm are components using this.
+ * Components using this: LoginForm, SignupForm, ProfileForm, BookList, AllReviews, EditReview, ReviewForm.
  **/
 
-function ShowAlert({ type = 'danger', messages = [] }) {
-    console.debug('ShowAlert:', 'type=', type, 'messages=', messages);
+function ShowAlert({ type = 'error', messages = [] }) {
+    console.debug('ShowAlert:', 'type:', type, 'messages:', messages);
 
     return (
-        <div className={`alert alert-${type}`} role="alert">
-
-            {messages.map(error => (
-                <p key={error}>{error}</p>
-            ))}
-
-        </div>
+        <div>
+            {messages.map((message) => (
+                <Alert severity={type} sx={{ mx: 'auto', fontSize: '17px' }} key={message}>
+                    {message}
+                </Alert>
+            ))
+            }
+        </div >
     )
 };
 
