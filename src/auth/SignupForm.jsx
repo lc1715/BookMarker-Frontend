@@ -59,7 +59,7 @@ function SignupForm({ signup }) {
     }
 
     if (loadingInfo) {
-        <LoadSpinner />
+        return <LoadSpinner />
     }
 
     return (

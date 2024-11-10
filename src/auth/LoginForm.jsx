@@ -58,11 +58,11 @@ function LoginForm({ login }) {
     }
 
     if (loadingInfo) {
-        <LoadSpinner />
+        return <LoadSpinner />
     }
 
     return (
-        <form className='LoginForm' onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <Container maxWidth="sm" sx={{
                 display: 'flex',
                 alignItems: 'center',
