@@ -100,10 +100,10 @@ function BookDetail() {
         if (currentUser && book) {
             try {
                 async function getBookStatus() {
-                    let status = await BookMarkerApi.getSavedBook(book.volumeId, currentUser.username);
-                    console.log('book status=', status);
+                    let res = await BookMarkerApi.getSavedBook(book.volumeId, currentUser.username);
+                    console.log('book status=', res);
 
-                    if (status) setBookStatus(status.has_read);
+                    if (res) setBookStatus(res.has_read);
                 }
                 getBookStatus();
             } catch (err) {
@@ -178,7 +178,7 @@ function BookDetail() {
             try {
                 async function showRating() {
                     let res = await BookMarkerApi.getRating(book.volumeId, currentUser.username);
-
+                    console.log('rating**', res)
                     if (res) {
                         setRating(res.rating)
                         setRatingId(res.id)
@@ -328,13 +328,10 @@ function BookDetail() {
         left: '50%',
         transform: 'translate(-50%, -50%)',
         width: 620,
-        bgcolor: 'background.paper',
+        backgroundColor: '#fff',
         border: '1px solid #000',
         boxShadow: 24,
-        py: 3,
-        width: {
-            xs: 348, sm: 446, md: 600, lg: 620
-        }
+        py: 3
     };
 
     if (!book) return <LoadSpinner />
@@ -349,14 +346,13 @@ function BookDetail() {
                     </Box>
 
                     {/* Card to display book image */}
-                    {/* If I add margins to the grid, they will not honor the breakpoints*/}
-                    <Grid size={{ xs: 12, md: 12, lg: 6 }} sx={{ display: "flex", justifyContent: "center", alignItems: 'stretch' }}>
+                    {/* If I add margins to the grid, it will not honor the breakpoints*/}
+                    <Grid size={{ xs: 12, lg: 6 }} sx={{ display: "flex", justifyContent: "center", alignItems: 'stretch' }}>
                         <Card sx={{ width: '100%', p: 4, display: "flex", justifyContent: "center", alignItems: 'center' }}>
                             <Box component="section">
                                 <Box sx={{ display: "flex", justifyContent: "center" }}>
                                     <Box component="img" src={book.image ? book.image : defaultBookImage}
                                         sx={{ width: { xs: 215, md: 320 } }}>
-                                        {/* sx={{ width: { xs: '100%', md: 320 } }}> */}
                                     </Box>
                                 </Box>
 
@@ -371,7 +367,7 @@ function BookDetail() {
                                 </Box>
 
                                 {bookError ?
-                                    <TimedMessage setTimedMessage={setBookError} />
+                                    <TimedMessage setState={setBookError} />
                                     :
                                     null
                                 }
@@ -380,7 +376,7 @@ function BookDetail() {
                     </Grid>
 
                     {/* Card to display book details */}
-                    <Grid size={{ xs: 12, md: 12, lg: 6 }} sx={{ display: "flex", justifyContent: "center", }}>
+                    <Grid size={{ xs: 12, lg: 6 }} sx={{ display: "flex", justifyContent: "center", }}>
                         <Card sx={{ width: '100%', minHeight: '500px', display: "flex", flexDirection: 'column', position: 'relative', textAlign: 'center' }}>
                             <Box component="section" sx={{ px: 4, pt: 2, pb: 3, flexGrow: 1 }}>
                                 <Typography sx={{ mt: 1, fontSize: '33px', }}>{book.title}</Typography>
@@ -409,10 +405,8 @@ function BookDetail() {
                             <Modal
                                 open={openBookDeleteMessage}
                                 onClose={closeBookDeleteMessage}
-                                aria-labelledby="modal-modal-delete-book-message"
-                                aria-describedby="modal-modal-delete-book-message"
                             >
-                                <Box sx={{ ...style, border: 2, borderRadius: 2 }}>
+                                <Box sx={{ ...style, border: 2, borderRadius: 2, width: { xs: 348, sm: 446, md: 600, lg: 620 } }}>
                                     <Box sx={{ m: 2 }}>
                                         <Typography style={{ fontSize: '19px', textAlign: 'center' }}>
                                             Are you sure you want to delete this book?
@@ -432,12 +426,12 @@ function BookDetail() {
                 }
             </Box>
 
-            <Box component="section" sx={{ pb: 9, mt: 1.5, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Box component="section" sx={{ pb: 9, mt: 2, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <Rating rating={rating} setRating={setRating} addRating={addRating} updateRating={updateRating} hover={hover} setHover={setHover} />
             </Box>
 
-            {/* Buttons to show user's review and all reviews */}
-            <Box component="section" sx={{ pb: 3, mr: { lg: 4 }, display: 'flex', gap: 2, display: 'flex', justifyContent: { xs: 'center', lg: 'end' }, alignItems: 'center' }}>
+            {/* Buttons to show review form and all reviews */}
+            <Box component="section" sx={{ pb: 3, mr: { lg: 4 }, display: 'flex', gap: 2, justifyContent: { xs: 'center', lg: 'end' }, alignItems: 'center' }}>
                 {!review && (
                     <>
                         <Button variant="outlined" onClick={showReviewForm} >Write A Review</Button>
@@ -447,7 +441,7 @@ function BookDetail() {
                 <Button variant="outlined" onClick={showReviews}>All Reviews</Button>
             </Box>
 
-            {/* Shows user's review and all reviews */}
+            {/* User's review and all reviews */}
             <Divider sx={{ borderWidth: 1 }} />
             <div ref={scrollRef}>
                 {review && <Review userReview={review} setReviewChange={setReviewChange} setRanFirstScroll={setRanFirstScroll} setScrollToReview={setScrollToReview} />}
@@ -457,15 +451,6 @@ function BookDetail() {
                 {showAllReviews && <AllReviews allReviews={allReviews} setShowAllReviews={setShowAllReviews} />}
             </div>
 
-            {/* Message to login in if user is not logged in */}
-            <div ref={scrollRef}>
-                {error &&
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 3 }}>
-                        <TimedMessage setTimedMessage={setError} />
-                    </Box>
-                }
-            </div>
-
             {/* Opens the review form */}
             <Modal
                 open={openReviewForm}
@@ -473,10 +458,19 @@ function BookDetail() {
                 aria-labelledby="modal-modal-reviewForm"
                 aria-describedby="modal-modal-reviewForm"
             >
-                <Box sx={style}>
+                <Box sx={{ ...style, width: { xs: 348, sm: 446, md: 600, lg: 620 } }}>
                     <ReviewForm setScrollToReview={setScrollToReview} book={book} addBook={addBook} setReviewChange={setReviewChange} setOpenReviewForm={setOpenReviewForm} setBookStatus={setBookStatus} />
                 </Box>
             </Modal>
+
+            {/* Message to login in if user is not logged in */}
+            <div ref={scrollRef}>
+                {error &&
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 3 }}>
+                        <TimedMessage setState={setError} />
+                    </Box>
+                }
+            </div>
 
         </div >
     )

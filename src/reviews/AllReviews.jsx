@@ -9,11 +9,12 @@ import CloseIcon from '@mui/icons-material/Close';
 
 //show all reviews on a book
 function AllReviews({ allReviews, setShowAllReviews }) {
+    console.log('allReviews=', allReviews)
     if (!allReviews.length) {
         return (
             <div>
                 <Box sx={{ mt: 1, mb: 2, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <TimedMessage setTimedMessage={setShowAllReviews} type={'info'} message={'There are no reviews on this book'} />
+                    <TimedMessage setState={setShowAllReviews} type={'info'} message={'There are no reviews on this book'} />
                 </Box>
             </div >
         )
