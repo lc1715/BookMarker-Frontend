@@ -1,8 +1,6 @@
-import './App.css'
 import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
-
 import useLocalStorage from './hooks/useLocalStorage';
 import BookMarkerApi from './api/api';
 import UserContext from './auth/UserContext';
@@ -10,7 +8,7 @@ import LoadSpinner from './common/LoadSpinner';
 import NavBar from './routes-nav/NavBar';
 import RouteList from './routes-nav/RouteList';
 
-
+//key name for storing token in localStorage
 const TOKEN_STORAGE_ID = 'bookMarker-token';
 
 function App() {
@@ -26,7 +24,6 @@ function App() {
     async function getCurrentUserInfo() {
       if (token) {
         try {
-          //get user's username from JWT token
           const payload = jwtDecode(token);
           const username = payload.username;
           //set token to BookMarkerApi for API call authorization
@@ -42,6 +39,7 @@ function App() {
           setCurrentUser(null);
         }
       }
+
       setInfoLoaded(true);
     }
 
@@ -85,7 +83,7 @@ function App() {
     setToken(null);
   }
 
-  /**Check state, savedBooks, to see if volume id is already in the Set of saved books */
+  /**Check savedBooks state to see if volume id is already in the Set of saved books */
   function hasSavedBook(volumeId) {
     return savedBooks.has(volumeId);
   }

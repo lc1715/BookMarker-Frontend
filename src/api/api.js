@@ -19,7 +19,6 @@ class BookMarkerApi {
         const url = `${BASE_URL}/${endpoint}`;
         const headers = { Authorization: `Bearer ${BookMarkerApi.token}` };
         const params = (method === "get") ? data : {};
-
         try {
             return (await axios({ url, method, data, params, headers })).data;
         }
@@ -92,7 +91,7 @@ class BookMarkerApi {
 
     /**Get all books in Read status
      * Data: {has_read = true} 
-     * Returns: {id, user_id, volume_id, title, author, publisher, category, description, image, has_read}
+     * Returns: [{id, user_id, volume_id, title, author, publisher, category, description, image, has_read}...]
      */
     static async getReadBooks(username, data) {
         const res = await this.request(`savedbooks/read/user/${username}`, data);
@@ -101,7 +100,7 @@ class BookMarkerApi {
 
     /**Gets all books in Wish To Read status
      * Data: {has_read = false} 
-     * Returns:{id, user_id, volume_id, title, author, publisher, category, description, image, has_read}
+     * Returns: [{id, user_id, volume_id, title, author, publisher, category, description, image, has_read}...]
      */
     static async getWishBooks(username, data) {
         const res = await this.request(`savedbooks/wish/user/${username}`, data);
@@ -195,10 +194,10 @@ class BookMarkerApi {
     }
 
     /**Delete book rating
-         * Returns: id
-         */
+     * Returns: id
+     */
     static async deleteRating(ratingId, username) {
-        const res = await this.request(`reviews/${ratingId}/user/${username}`, {}, "delete");
+        const res = await this.request(`ratings/${ratingId}/user/${username}`, {}, "delete");
         return res.deletedRating;
     }
 
@@ -207,7 +206,7 @@ class BookMarkerApi {
 
     /**Get list of books from Google Books API
      * Returns: [{book1}, {book2}, ...]
-    */
+     */
     static async getGoogleBooksList(term) {
         const res = await this.request(`books/?term=${term}`);
         return res;
@@ -215,7 +214,7 @@ class BookMarkerApi {
 
     /**Get a detailed book from Google Books API
      * Returns: {book}
-    */
+     */
     static async getGoogleBook(volumeId) {
         const res = await this.request(`books/details/${volumeId}`);
         return res;
@@ -223,7 +222,7 @@ class BookMarkerApi {
 
     /**Get list of NYT current bestseller books 
      * Returns: [{book1}, {book2}, ...]
-    */
+     */
     static async getNYTBestsellerList() {
         const res = await this.request(`books/bestsellers`);
         return res;
@@ -231,7 +230,7 @@ class BookMarkerApi {
 
     /**From NYT bestsellers list, use isbn to get detailed book from Google Books API 
      * Returns: {book}
-    */
+     */
     static async getGoogleBookFromNYT(isbn) {
         const res = await this.request(`books/bestsellers/details/${isbn}`);
         console.log('res***', res)
