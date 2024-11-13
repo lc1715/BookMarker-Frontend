@@ -1,0 +1,162 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`matches with snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    <form>
+      <div
+        class="MuiBox-root css-kvacq2"
+      >
+        <div
+          class="MuiFormControl-root css-18tsngr-MuiFormControl-root"
+        >
+          <div
+            class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd css-jupps9-MuiInputBase-root-MuiOutlinedInput-root"
+          >
+            <input
+              aria-invalid="false"
+              class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-1dune0f-MuiInputBase-input-MuiOutlinedInput-input"
+              id="SearchBar"
+              name="term"
+              placeholder="Search"
+              type="text"
+              value=""
+            />
+            <div
+              class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-sizeMedium css-elo8k2-MuiInputAdornment-root"
+            >
+              <button
+                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeLarge css-oh9jts-MuiButtonBase-root-MuiIconButton-root"
+                tabindex="0"
+                type="submit"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+                  data-testid="SearchIcon"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"
+                  />
+                </svg>
+              </button>
+            </div>
+            <fieldset
+              aria-hidden="true"
+              class="MuiOutlinedInput-notchedOutline css-1ll44ll-MuiOutlinedInput-notchedOutline"
+            >
+              <legend
+                class="css-w4cd9x"
+              >
+                <span
+                  class="notranslate"
+                >
+                  ​
+                </span>
+              </legend>
+            </fieldset>
+          </div>
+        </div>
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-ge03ab-MuiButtonBase-root-MuiButton-root"
+          tabindex="0"
+          type="button"
+        >
+          <i
+            class="fa-solid fa-up-down-left-right fa-2xl"
+          />
+        </button>
+      </div>
+    </form>
+    <p
+      class="MuiTypography-root MuiTypography-body1 css-fumpcn-MuiTypography-root"
+    >
+      testBooks
+    </p>
+    <div
+      class="MuiGrid2-root MuiGrid2-container MuiGrid2-direction-xs-row css-s09koq-MuiGrid2-root"
+    >
+      <div
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1ek9gvc-MuiPaper-root-MuiCard-root"
+        style="--Paper-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);"
+      >
+        <a
+          href="/books/volumeId/vol1"
+          style="text-decoration: none;"
+        >
+          <section
+            class="MuiBox-root css-pzumkx"
+          >
+            <img
+              alt="book image"
+              class="MuiCardMedia-root MuiCardMedia-media MuiCardMedia-img css-qb6ft1-MuiCardMedia-root"
+              height="auto"
+              src="img1"
+            />
+          </section>
+          <div
+            class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
+          >
+            <p
+              class="MuiTypography-root MuiTypography-body1 css-1oth169-MuiTypography-root"
+            >
+              title1
+            </p>
+            <p
+              class="MuiTypography-root MuiTypography-body1 css-l5k6vd-MuiTypography-root"
+            >
+              By auth1
+            </p>
+            <p
+              class="MuiTypography-root MuiTypography-body1 css-1a5af2-MuiTypography-root"
+            >
+              desc1
+            </p>
+          </div>
+        </a>
+      </div>
+      <div
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1ek9gvc-MuiPaper-root-MuiCard-root"
+        style="--Paper-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);"
+      >
+        <a
+          href="/books/volumeId/vol2"
+          style="text-decoration: none;"
+        >
+          <section
+            class="MuiBox-root css-pzumkx"
+          >
+            <img
+              alt="book image"
+              class="MuiCardMedia-root MuiCardMedia-media MuiCardMedia-img css-qb6ft1-MuiCardMedia-root"
+              height="auto"
+              src="img2"
+            />
+          </section>
+          <div
+            class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
+          >
+            <p
+              class="MuiTypography-root MuiTypography-body1 css-1oth169-MuiTypography-root"
+            >
+              title2
+            </p>
+            <p
+              class="MuiTypography-root MuiTypography-body1 css-l5k6vd-MuiTypography-root"
+            >
+              By auth2
+            </p>
+            <p
+              class="MuiTypography-root MuiTypography-body1 css-1a5af2-MuiTypography-root"
+            >
+              desc2
+            </p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

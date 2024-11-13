@@ -1,0 +1,181 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`matches with snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="MuiBox-root css-i9gxme"
+    >
+      <div
+        class="MuiGrid2-root MuiGrid2-container MuiGrid2-direction-xs-row MuiGrid2-spacing-xs-4 css-1sxk2hj-MuiGrid2-root"
+      >
+        <div
+          class="MuiBox-root css-1hnsab4"
+        />
+        <div
+          class="MuiGrid2-root MuiGrid2-direction-xs-row MuiGrid2-grid-xs-12 MuiGrid2-grid-lg-6 css-11wkjf7-MuiGrid2-root"
+        >
+          <div
+            class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-5nwwm7-MuiPaper-root-MuiCard-root"
+            style="--Paper-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);"
+          >
+            <section
+              class="MuiBox-root css-0"
+            >
+              <div
+                class="MuiBox-root css-1l4w6pd"
+              >
+                <img
+                  class="MuiBox-root css-1dmr1v"
+                  src="img1"
+                />
+              </div>
+              <div
+                class="MuiBox-root css-1l4w6pd"
+              >
+                <button
+                  class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-1ac7a5z-MuiButtonBase-root-MuiButton-root"
+                  tabindex="0"
+                  type="button"
+                >
+                  Read
+                </button>
+                <button
+                  class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-16qe4es-MuiButtonBase-root-MuiButton-root"
+                  tabindex="0"
+                  type="button"
+                >
+                  Wish To Read
+                </button>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div
+          class="MuiGrid2-root MuiGrid2-direction-xs-row MuiGrid2-grid-xs-12 MuiGrid2-grid-lg-6 css-1644vqb-MuiGrid2-root"
+        >
+          <div
+            class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-8f3tue-MuiPaper-root-MuiCard-root"
+            style="--Paper-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);"
+          >
+            <section
+              class="MuiBox-root css-13bjnlf"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body1 css-1n8x42m-MuiTypography-root"
+              >
+                title1
+              </p>
+              <p
+                class="MuiTypography-root MuiTypography-body1 css-1hpjpa3-MuiTypography-root"
+              >
+                By auth1
+              </p>
+              <p
+                class="MuiTypography-root MuiTypography-body1 css-1hpjpa3-MuiTypography-root"
+              >
+                Publisher: pub1
+              </p>
+              <p
+                class="MuiTypography-root MuiTypography-body1 css-1hpjpa3-MuiTypography-root"
+              >
+                Categories: cat1
+              </p>
+              <p
+                class="MuiTypography-root MuiTypography-body1 css-1hpjpa3-MuiTypography-root"
+              >
+                desc1
+              </p>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr
+      class="MuiDivider-root MuiDivider-fullWidth css-ecyuml-MuiDivider-root"
+    />
+    <div
+      class="MuiBox-root css-1g4x5kn"
+    >
+      <button
+        aria-label="delete review"
+        class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-aixiz9-MuiButtonBase-root-MuiIconButton-root"
+        tabindex="0"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+          data-testid="HighlightOffIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M14.59 8 12 10.59 9.41 8 8 9.41 10.59 12 8 14.59 9.41 16 12 13.41 14.59 16 16 14.59 13.41 12 16 9.41zM12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8"
+          />
+        </svg>
+      </button>
+    </div>
+    <h1
+      class="MuiBox-root css-1oearft"
+    >
+      My Rating:
+    </h1>
+    <section
+      class="MuiBox-root css-13ebq2h"
+    >
+      <div>
+        <span
+          class="MuiBox-root css-1yn93rs"
+        >
+           ★ 
+        </span>
+        <span
+          class="MuiBox-root css-1yn93rs"
+        >
+           ★ 
+        </span>
+        <span
+          class="MuiBox-root css-1yn93rs"
+        >
+           ★ 
+        </span>
+        <span
+          class="MuiBox-root css-1yn93rs"
+        >
+           ★ 
+        </span>
+        <span
+          class="MuiBox-root css-1yn93rs"
+        >
+           ★ 
+        </span>
+      </div>
+    </section>
+    <section
+      class="MuiBox-root css-1vh9hqw"
+    >
+      <button
+        class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorPrimary css-1gzvxnb-MuiButtonBase-root-MuiButton-root"
+        tabindex="0"
+        type="button"
+      >
+        Write A Review
+      </button>
+      <button
+        class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorPrimary css-1gzvxnb-MuiButtonBase-root-MuiButton-root"
+        tabindex="0"
+        type="button"
+      >
+        All Reviews
+      </button>
+    </section>
+    <hr
+      class="MuiDivider-root MuiDivider-fullWidth css-6l6iev-MuiDivider-root"
+    />
+    <div />
+    <div />
+    <div />
+  </div>
+</DocumentFragment>
+`;

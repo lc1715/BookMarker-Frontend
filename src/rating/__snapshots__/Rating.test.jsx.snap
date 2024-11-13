@@ -1,0 +1,33 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`matches with snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    <span
+      class="MuiBox-root css-1yn93rs"
+    >
+       ★ 
+    </span>
+    <span
+      class="MuiBox-root css-1yn93rs"
+    >
+       ★ 
+    </span>
+    <span
+      class="MuiBox-root css-1yn93rs"
+    >
+       ★ 
+    </span>
+    <span
+      class="MuiBox-root css-1yn93rs"
+    >
+       ★ 
+    </span>
+    <span
+      class="MuiBox-root css-1yn93rs"
+    >
+       ★ 
+    </span>
+  </div>
+</DocumentFragment>
+`;

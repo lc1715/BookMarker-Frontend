@@ -31,7 +31,6 @@ function SignupForm({ signup }) {
     });
     const [formErrors, setFormErrors] = useState([]);
     const [loadingInfo, setLoadingInfo] = useState(false);
-
     const navigate = useNavigate();
 
     /** Handles signup form submission:
@@ -44,11 +43,11 @@ function SignupForm({ signup }) {
         setLoadingInfo(true);
 
         let result = await signup(formData);
-
         if (result.success) {
             navigate('/');
         } else {
             setFormErrors(result.err);
+            setLoadingInfo(false);
         }
     }
 
@@ -68,18 +67,17 @@ function SignupForm({ signup }) {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                mt: { xs: 7, md: 10 },
+                mt: { xs: 7, lg: 10 },
                 mb: 4
             }}>
                 <Paper elevation={4}
                     sx={{
-                        width: '90%',
+                        width: { xs: '90%', lg: '85%' },
                         backgroundColor: '#FCFBF4'
-                    }}
-                >
+                    }}>
                     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                         <Typography sx={{
-                            fontSize: { xs: '35px', md: '46px' },
+                            fontSize: { xs: '35px', lg: '40px' },
                             textAlign: 'center',
                             mt: 5
                         }}>
@@ -87,34 +85,34 @@ function SignupForm({ signup }) {
                         </Typography>
                     </Box>
 
-                    <Box sx={{ mt: 4, width: '100%', display: 'flex', justifyContent: 'center' }}>
+                    <Box sx={{ width: '100%', mt: { xs: 4, lg: 2.5 }, display: 'flex', justifyContent: 'center' }}>
                         <TextField
                             name="username"
                             value={formData.username}
                             onChange={handleChange}
                             label="Username"
-                            sx={{ width: '75%' }}
+                            sx={{ width: { xs: '75%', lg: '73%' } }}
                         />
                     </Box>
 
-                    <Box sx={{ mt: 3, width: '100%', display: 'flex', justifyContent: 'center' }}>
+                    <Box sx={{ width: '100%', mt: { xs: 3, lg: 2.5 }, display: 'flex', justifyContent: 'center' }}>
                         <TextField
                             type="password"
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
                             label="Password"
-                            sx={{ width: '75%' }}
+                            sx={{ width: { xs: '75%', lg: '73%' } }}
                         />
                     </Box>
 
-                    <Box sx={{ mt: 3, width: '100%', display: 'flex', justifyContent: 'center' }}>
+                    <Box sx={{ width: '100%', mt: { xs: 3, lg: 2.5 }, display: 'flex', justifyContent: 'center' }}>
                         <TextField
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
                             label="Email"
-                            sx={{ width: '75%' }}
+                            sx={{ width: { xs: '75%', lg: '73%' } }}
                         />
                     </Box>
 
@@ -123,14 +121,13 @@ function SignupForm({ signup }) {
                             <ShowAlert type='error' messages={formErrors} />
                         </Box>
                         :
-                        null
-                    }
+                        null}
 
                     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                         <Button
                             variant="contained"
                             size="medium"
-                            sx={{ mt: 3, mb: 6.5, width: '75%', height: 54, backgroundColor: '#cf8d86' }}
+                            sx={{ mt: { xs: 3, lg: 2.5 }, mb: { xs: 6.5, lg: 8 }, width: { xs: '75%', lg: '73%' }, height: 54, backgroundColor: '#cf8d86' }}
                             onClick={handleSubmit}
                             type='submit'
                         >

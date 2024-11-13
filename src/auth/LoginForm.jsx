@@ -30,7 +30,6 @@ function LoginForm({ login }) {
     });
     const [formErrors, setFormErrors] = useState([]);
     const [loadingInfo, setLoadingInfo] = useState(false);
-
     const navigate = useNavigate();
 
     /** Handles login form submission:
@@ -41,13 +40,13 @@ function LoginForm({ login }) {
     async function handleSubmit(evt, data) {
         evt.preventDefault();
         setLoadingInfo(true);
-
         let result = await login(data);
 
         if (result.success) {
             navigate('/');
         } else {
             setFormErrors(result.err);
+            setLoadingInfo(false);
         }
     }
 
@@ -67,18 +66,17 @@ function LoginForm({ login }) {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                mt: { xs: 7, md: 10 },
+                mt: { xs: 7, lg: 10 },
                 mb: 4
             }}>
                 <Paper elevation={4}
                     sx={{
-                        width: '90%',
+                        width: { xs: '90%', lg: '85%' },
                         backgroundColor: '#FCFBF4'
-                    }}
-                >
+                    }}>
                     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                         <Typography sx={{
-                            fontSize: { xs: '35px', md: '47px' },
+                            fontSize: { xs: '35px', lg: '40px' },
                             textAlign: 'center',
                             mt: 5
                         }}>
@@ -86,24 +84,24 @@ function LoginForm({ login }) {
                         </Typography>
                     </Box>
 
-                    <Box sx={{ mt: 4, width: '100%', display: 'flex', justifyContent: 'center' }}>
+                    <Box sx={{ width: '100%', mt: { xs: 4, lg: 3 }, display: 'flex', justifyContent: 'center' }}>
                         <TextField
                             name="username"
                             value={formData.username}
                             onChange={handleChange}
                             label="Username"
-                            sx={{ width: '75%' }}
+                            sx={{ width: { xs: '75%', lg: '73%' } }}
                         />
                     </Box>
 
-                    <Box sx={{ mt: 4, width: '100%', display: 'flex', justifyContent: 'center' }}>
+                    <Box sx={{ width: '100%', mt: { xs: 4, lg: 3 }, display: 'flex', justifyContent: 'center' }}>
                         <TextField
                             type="password"
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
                             label="Password"
-                            sx={{ width: '75%' }}
+                            sx={{ width: { xs: '75%', lg: '73%' } }}
                         />
                     </Box>
 
@@ -112,14 +110,13 @@ function LoginForm({ login }) {
                             <ShowAlert type='error' messages={formErrors} />
                         </Box>
                         :
-                        null
-                    }
+                        null}
 
                     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                         <Button
                             variant="contained"
                             size="medium"
-                            sx={{ mt: 4, width: '75%', height: 54, backgroundColor: '#cf8d86' }}
+                            sx={{ width: { xs: '75%', lg: '73%' }, height: '54px', mt: { xs: 4, lg: 3 }, backgroundColor: '#cf8d86' }}
                             onClick={(evt) => (handleSubmit(evt, formData))}
                             type='submit'
                         >
@@ -131,7 +128,7 @@ function LoginForm({ login }) {
                         <Button
                             variant="text"
                             size="medium"
-                            sx={{ py: 1, mt: 4.5, mb: 4.5, color: 'text.secondary' }}
+                            sx={{ py: 1, mt: { xs: 4.5, lg: 3.5 }, mb: 4.5, color: 'text.secondary' }}
                             onClick={(evt) => (handleSubmit(evt, { username: 'TestUser', password: 'Password123' }))}
                             type='submit'
                         >

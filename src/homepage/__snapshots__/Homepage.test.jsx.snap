@@ -1,0 +1,37 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`matches snapshot when user is logged in 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiBox-root css-j3lysa"
+  >
+    <p
+      class="MuiTypography-root MuiTypography-body1 css-lr6t8-MuiTypography-root"
+    >
+      <i
+        class="fa-solid fa-spinner fa-spin-pulse fa-lg"
+      />
+      <br />
+      Loading
+    </p>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`matches snapshot when user is logged out 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiBox-root css-j3lysa"
+  >
+    <p
+      class="MuiTypography-root MuiTypography-body1 css-lr6t8-MuiTypography-root"
+    >
+      <i
+        class="fa-solid fa-spinner fa-spin-pulse fa-lg"
+      />
+      <br />
+      Loading
+    </p>
+  </div>
+</DocumentFragment>
+`;

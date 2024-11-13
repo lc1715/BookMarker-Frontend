@@ -25,7 +25,7 @@ function TimedMessage({ setState, type = 'error', message = 'Please login or sig
 
     if (active) {
         return (
-            <Alert severity={type} sx={{ mt: 2, fontSize: { xs: '17px', lg: '18px' } }}>
+            <Alert severity={type} sx={{ mt: 2, fontSize: '17px' }}>
                 {message}
             </Alert>
         )

@@ -24,7 +24,6 @@ function ReadBooks() {
         }
     }, [])
 
-
     return (
         <BookList books={readBooks} booksLabel={'My Read Books:'} />
     )

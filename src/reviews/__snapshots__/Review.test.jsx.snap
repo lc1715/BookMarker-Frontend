@@ -1,0 +1,74 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`matches with snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="MuiBox-root css-wj6yh5"
+    >
+      <h2
+        class="MuiBox-root css-2m1700"
+      >
+        My Review:
+      </h2>
+      <p
+        class="MuiTypography-root MuiTypography-body1 css-1xy95es-MuiTypography-root"
+      >
+        user review
+      </p>
+      <div
+        class="MuiBox-root css-144zmi7"
+      >
+        <p
+          class="MuiBox-root css-6n9v02"
+        >
+          user1 - Invalid Date
+        </p>
+        <div
+          class="MuiBox-root css-1i27l4i"
+        >
+          <button
+            aria-label="edit review"
+            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorSuccess MuiIconButton-sizeMedium css-jp4vw-MuiButtonBase-root-MuiIconButton-root"
+            tabindex="0"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1oyn1cm-MuiSvgIcon-root"
+              data-testid="EditIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75z"
+              />
+            </svg>
+          </button>
+          <button
+            aria-label="delete review"
+            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorSecondary MuiIconButton-sizeMedium css-1o4uo8s-MuiButtonBase-root-MuiIconButton-root"
+            tabindex="0"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1oyn1cm-MuiSvgIcon-root"
+              data-testid="DeleteIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <hr
+      class="MuiDivider-root MuiDivider-fullWidth css-1kjxvo5-MuiDivider-root"
+    />
+  </div>
+</DocumentFragment>
+`;

@@ -1,0 +1,96 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`matches with snapshot when logged in 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiBox-root css-i9gxme"
+  >
+    <header
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionStatic css-1fha3o-MuiPaper-root-MuiAppBar-root"
+      style="--Paper-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);"
+    >
+      <div
+        class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-mywmkt-MuiToolbar-root"
+      >
+        <a
+          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary css-c1pv86-MuiButtonBase-root-MuiButton-root"
+          href="/"
+          tabindex="0"
+        >
+          <i
+            class="fa-solid fa-feather"
+            style="margin-right: 6px;"
+          />
+          BookMarker
+        </a>
+        <div
+          class="MuiBox-root css-i9gxme"
+        />
+        <div
+          class="MuiBox-root css-5nwj3y"
+        >
+          <button
+            aria-label="open-menu"
+            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeLarge css-gdplcp-MuiButtonBase-root-MuiIconButton-root"
+            data-mui-internal-clone-element="true"
+            tabindex="0"
+            type="button"
+          >
+            <div
+              class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault css-bwsr6u-MuiAvatar-root"
+            >
+              T
+            </div>
+          </button>
+        </div>
+      </div>
+    </header>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`matches with snapshot when logged out 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiBox-root css-i9gxme"
+  >
+    <header
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionStatic css-1fha3o-MuiPaper-root-MuiAppBar-root"
+      style="--Paper-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);"
+    >
+      <div
+        class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-18r5587-MuiToolbar-root"
+      >
+        <a
+          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary css-1k5ggxq-MuiButtonBase-root-MuiButton-root"
+          href="/"
+          tabindex="0"
+        >
+          <i
+            class="fa-solid fa-feather"
+            style="margin-right: 6px;"
+          />
+          BookMarker
+        </a>
+        <div
+          class="MuiBox-root css-i9gxme"
+        />
+        <a
+          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary css-kuoyca-MuiButtonBase-root-MuiButton-root"
+          href="/login"
+          tabindex="0"
+        >
+          Login
+        </a>
+        <a
+          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary css-6zpu25-MuiButtonBase-root-MuiButton-root"
+          href="/signup"
+          tabindex="0"
+        >
+          Sign Up
+        </a>
+      </div>
+    </header>
+  </div>
+</DocumentFragment>
+`;
