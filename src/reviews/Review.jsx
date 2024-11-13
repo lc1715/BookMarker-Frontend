@@ -57,23 +57,27 @@ function Review({ userReview, setReviewChange, setRanFirstScroll, setScrollToRev
     return (
         <div>
             <Box sx={{ ml: 3, mr: { xs: 2, lg: 3 } }}>
-                <h2 style={{ marginTop: '30px', marginBottom: '30px', textDecoration: 'underline' }}>
+                <Box component='h2'
+                    sx={{ fontSize: { lg: '21.7px' }, marginTop: '30px', marginBottom: '30px', textDecoration: 'underline' }}>
                     My Review:
-                </h2>
+                </Box>
 
-                <Typography sx={{ fontSize: 19, wordBreak: "break-word" }}>{userReview.comment}</Typography>
+                <Typography sx={{ fontSize: { xs: 19, lg: 17 }, wordBreak: "break-word" }}>
+                    {userReview.comment}
+                </Typography>
 
                 <Box sx={{ mb: 1, mt: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <p style={{ fontSize: '18px', color: '#5A5A5A' }}>
+                    <Box component='p'
+                        sx={{ fontSize: { xs: 18, lg: 16.4 }, color: '#424242' }}>
                         {userReview.username} - {new Date(userReview.created_at).toLocaleDateString()}
-                    </p>
+                    </Box>
 
-                    <Box sx={{ display: 'flex' }}>
+                    <Box sx={{ display: 'flex', gap: 1 }}>
                         <IconButton onClick={openEditReviewForm} color='success' aria-label="edit review"  >
-                            <EditIcon sx={{ fontSize: { xs: 28, md: 30 } }} />
+                            <EditIcon sx={{ fontSize: { xs: 28, lg: 27.4 } }} />
                         </IconButton>
-                        <IconButton onClick={deleteReview} sx={{ pr: .4 }} color='secondary' aria-label="delete review">
-                            <DeleteIcon sx={{ fontSize: { xs: 28, md: 30 } }} />
+                        <IconButton onClick={deleteReview} sx={{ xs: { pr: .4 } }} color='secondary' aria-label="delete review">
+                            <DeleteIcon sx={{ fontSize: { xs: 28, lg: 27.4 } }} />
                         </IconButton>
                     </Box>
                 </Box>
@@ -81,15 +85,13 @@ function Review({ userReview, setReviewChange, setRanFirstScroll, setScrollToRev
                 <Modal
                     open={editReviewForm}
                     onClose={closeEditReviewForm}
-                    aria-labelledby="modal-modal-reviewForm"
-                    aria-describedby="modal-modal-reviewForm"
                 >
                     <Box sx={{ ...style, width: { xs: 348, sm: 446, md: 600, lg: 620 } }}>
                         <EditReviewForm userReview={userReview} setReviewChange={setReviewChange} setEditReviewForm={setEditReviewForm} />
                     </Box>
                 </Modal>
-            </Box>
 
+            </Box>
             <Divider sx={{ borderWidth: 1, mb: 1 }} />
         </div >
     );

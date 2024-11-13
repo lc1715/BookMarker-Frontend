@@ -79,7 +79,8 @@ function BookSearchForm() {
                                 name="title"
                                 value={formData.title}
                                 onChange={handleChange}
-                                sx={{ width: { xs: 235, sm: '100%' } }}
+                                sx={{ width: { xs: 235, sm: '100%' }, height: { lg: '55px' } }}
+                                inputProps={{ sx: { fontSize: { lg: '15.8px' } } }}
                             />
                         </FormControl>
 
@@ -90,7 +91,8 @@ function BookSearchForm() {
                                 name="author"
                                 value={formData.author}
                                 onChange={handleChange}
-                                sx={{ width: { xs: 235, sm: '100%' } }}
+                                sx={{ width: { xs: 235, sm: '100%' }, height: { lg: '54px' } }}
+                                inputProps={{ sx: { fontSize: { lg: '15.8px' } } }}
                             />
                         </FormControl>
 
@@ -101,7 +103,8 @@ function BookSearchForm() {
                                 name="keyword"
                                 value={formData.keyword}
                                 onChange={handleChange}
-                                sx={{ width: { xs: 235, sm: '100%' } }}
+                                sx={{ width: { xs: 235, sm: '100%' }, height: { lg: '54px' } }}
+                                inputProps={{ sx: { fontSize: { lg: '15.8px' } } }}
                             />
                         </FormControl>
 
@@ -112,15 +115,16 @@ function BookSearchForm() {
                                 name="isbn"
                                 value={formData.isbn}
                                 onChange={handleChange}
-                                sx={{ width: { xs: 235, sm: '100%' } }}
+                                sx={{ width: { xs: 235, sm: '100%' }, height: { lg: '54px' } }}
+                                inputProps={{ sx: { fontSize: { lg: '15.8px' } } }}
                             />
                         </FormControl>
 
-                        <Box sx={{ mt: { xs: 1, md: 0 }, width: { xs: '100%', md: 'auto' }, display: 'flex', justifyContent: 'center' }}>
+                        <Box sx={{ mt: { xs: 1, lg: 0 }, width: { xs: '100%', lg: 'auto' }, display: 'flex', justifyContent: 'center' }}>
                             <Button
                                 variant="contained"
                                 size="medium"
-                                sx={{ mt: 1, ml: .5, height: '54px', minWidth: 'unset', width: '59px', backgroundColor: '#748cab' }}
+                                sx={{ mt: 1, ml: .4, height: { xs: '54px', lg: '54px' }, minWidth: 'unset', width: { xs: '59px', lg: '56px' }, backgroundColor: '#748cab' }}
                                 onClick={handleSubmit}
                                 type='submit'
                             >
@@ -130,10 +134,10 @@ function BookSearchForm() {
                             <Button
                                 variant="contained"
                                 size="medium"
-                                sx={{ mt: 1, ml: 1.5, height: '54px', minWidth: 'unset', width: '59px', backgroundColor: '#748cab' }}
+                                sx={{ mt: 1, ml: 1.5, height: { xs: '54px', lg: '54px' }, minWidth: 'unset', width: { xs: '59px', lg: '56px' }, backgroundColor: '#748cab' }}
                                 onClick={() => (setOpenAdvancedSearch(false))}
                             >
-                                <i class="fa-solid fa-up-down-left-right fa-2xl"></i>
+                                <i className="fa-solid fa-up-down-left-right fa-2xl"></i>
                             </Button>
                         </Box>
                     </Box>
@@ -155,7 +159,6 @@ function BookSearchForm() {
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
-                                    aria-label="search"
                                     size="large"
                                     onClick={handleSubmit}
                                     type='submit'
@@ -172,7 +175,7 @@ function BookSearchForm() {
                     sx={{ mt: 1, mr: 2, ml: .5, height: '54px', minWidth: 'unset', width: '59px', backgroundColor: '#748cab' }}
                     onClick={() => (setOpenAdvancedSearch(true))}
                 >
-                    <i class="fa-solid fa-up-down-left-right fa-2xl"></i>
+                    <i className="fa-solid fa-up-down-left-right fa-2xl"></i>
                 </Button>
             </Box >
         </form >

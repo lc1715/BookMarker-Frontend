@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import UserContext from '../auth/UserContext';
+import Box from '@mui/material/Box';
 
 
 function Rating({ rating, setRating, addRating, updateRating, hover, setHover }) {
@@ -24,25 +25,21 @@ function Rating({ rating, setRating, addRating, updateRating, hover, setHover })
     function loggedInRating() {
         return (
             <div>
-                {
-                    [1, 2, 3, 4, 5].map((star) => {
-                        return (
-                            <span
-                                style={{
-                                    color: star <= (hover || rating) ? '#e87400' : 'gray',
-                                    cursor: 'pointer',
-                                    fontSize: '39px'
-                                }}
-                                onClick={() => (submitRating(star))}
-                                onMouseEnter={() => setHover(star)}
-                                onMouseLeave={() => setHover(null)}
-                                key={star}
-                            >
-                                {' '}★{' '}
-                            </span>
-                        )
-                    })
-                }
+                {[1, 2, 3, 4, 5].map((star) => (
+                    <Box component="span"
+                        sx={{
+                            color: star <= (hover || rating) ? '#e87400' : 'gray',
+                            cursor: 'pointer',
+                            fontSize: { xs: '39px', lg: '38px' }
+                        }}
+                        onClick={() => submitRating(star)}
+                        onMouseEnter={() => setHover(star)}
+                        onMouseLeave={() => setHover(null)}
+                        key={star}
+                    >
+                        {' '}★{' '}
+                    </Box>
+                ))}
             </div>
         )
     };
@@ -50,23 +47,19 @@ function Rating({ rating, setRating, addRating, updateRating, hover, setHover })
     function loggedOutRating() {
         return (
             <div>
-                {
-                    [1, 2, 3, 4, 5].map((star) => {
-                        return (
-                            <span
-                                style={{
-                                    color: 'gray',
-                                    cursor: 'pointer',
-                                    fontSize: '39px'
-                                }}
-                                onClick={() => (submitRating(star))}
-                                key={star}
-                            >
-                                {' '}★{' '}
-                            </span>
-                        )
-                    })
-                }
+                {[1, 2, 3, 4, 5].map((star) => (
+                    <Box component="span"
+                        sx={{
+                            color: 'gray',
+                            cursor: 'pointer',
+                            fontSize: { xs: '39px', lg: '38px' }
+                        }}
+                        onClick={() => submitRating(star)}
+                        key={star}
+                    >
+                        {' '}★{' '}
+                    </Box>
+                ))}
             </div>
         )
     };
@@ -79,3 +72,4 @@ function Rating({ rating, setRating, addRating, updateRating, hover, setHover })
 };
 
 export default Rating;
+

@@ -178,7 +178,7 @@ function BookDetail() {
             try {
                 async function showRating() {
                     let res = await BookMarkerApi.getRating(book.volumeId, currentUser.username);
-                    console.log('rating**', res)
+
                     if (res) {
                         setRating(res.rating)
                         setRatingId(res.id)
@@ -197,7 +197,6 @@ function BookDetail() {
         if (currentUser) {
             try {
                 let res = await BookMarkerApi.addRating(book.volumeId, currentUser.username, { rating: star });
-
                 setRating(star);
                 setRatingId(res.id);
             } catch (err) {
@@ -213,7 +212,6 @@ function BookDetail() {
         if (currentUser) {
             try {
                 let res = await BookMarkerApi.updateRating(ratingId, currentUser.username, { rating: star });
-
                 setRating(star);
                 setRatingId(res.id);
             } catch (err) {
@@ -341,8 +339,16 @@ function BookDetail() {
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={4} sx={{ mx: 3, display: 'flex', justifyContent: 'center' }}>
                     <Box sx={{ width: '100%', mt: 2, ml: 1 }}>
-                        {bookStatus === true ? <h3 style={{ marginBottom: 0, fontSize: 20 }}>Read:</h3> : null}
-                        {bookStatus === false ? <h3 style={{ marginBottom: 0, marginLeft: 6, fontSize: 20 }}>Wish To Read:</h3> : null}
+                        {bookStatus === true ? (
+                            <Box component="h3" sx={{ mb: 0, ml: { lg: .5 }, fontSize: { xs: 20, lg: 18.5 } }}>
+                                Read:
+                            </Box>
+                        ) : null}
+                        {bookStatus === false ? (
+                            <Box component="h3" sx={{ mb: 0, ml: { lg: .5 }, fontSize: { xs: 20, lg: 18.5 } }}>
+                                Wish To Read:
+                            </Box>
+                        ) : null}
                     </Box>
 
                     {/* Card to display book image */}
@@ -352,16 +358,16 @@ function BookDetail() {
                             <Box component="section">
                                 <Box sx={{ display: "flex", justifyContent: "center" }}>
                                     <Box component="img" src={book.image ? book.image : defaultBookImage}
-                                        sx={{ width: { xs: 215, md: 320 } }}>
+                                        sx={{ width: { xs: 215, lg: 288 } }}>
                                     </Box>
                                 </Box>
 
                                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                    <Button onClick={addBookOrChangeBookStatus} variant="contained" sx={{ mt: 3, backgroundColor: '#cf8d86' }}>
+                                    <Button onClick={addBookOrChangeBookStatus} variant="contained" sx={{ mt: 3, backgroundColor: '#cf8d86', fontSize: { lg: 13 } }}>
                                         Read
                                     </Button>
 
-                                    <Button onClick={addBookOrChangeBookStatus} variant="contained" sx={{ mt: 3, ml: 2, backgroundColor: '#cf8d86' }}>
+                                    <Button onClick={addBookOrChangeBookStatus} variant="contained" sx={{ mt: 3, ml: 2, backgroundColor: '#cf8d86', fontSize: { lg: 13 } }}>
                                         Wish To Read
                                     </Button>
                                 </Box>
@@ -369,8 +375,7 @@ function BookDetail() {
                                 {bookError ?
                                     <TimedMessage setState={setBookError} />
                                     :
-                                    null
-                                }
+                                    null}
                             </Box>
                         </Card>
                     </Grid>
@@ -379,11 +384,11 @@ function BookDetail() {
                     <Grid size={{ xs: 12, lg: 6 }} sx={{ display: "flex", justifyContent: "center", }}>
                         <Card sx={{ width: '100%', minHeight: '500px', display: "flex", flexDirection: 'column', position: 'relative', textAlign: 'center' }}>
                             <Box component="section" sx={{ px: 4, pt: 2, pb: 3, flexGrow: 1 }}>
-                                <Typography sx={{ mt: 1, fontSize: '33px', }}>{book.title}</Typography>
-                                <Typography sx={{ mt: 1 }}>By {book.author}</Typography>
-                                <Typography sx={{ mt: 1 }}>Publisher: {book.publisher}</Typography>
-                                <Typography sx={{ mt: 1 }}>Categories: {book.category}</Typography>
-                                <Typography sx={{ mt: 1 }}>{!book.description ? null : removeHtmlTags(book.description)}</Typography>
+                                <Typography sx={{ mt: 1, fontSize: { xs: '34px', lg: '30px' } }}>{book.title}</Typography>
+                                <Typography sx={{ mt: 1, fontSize: { xs: '18px', lg: '16px' } }}>By {book.author}</Typography>
+                                <Typography sx={{ mt: 1, fontSize: { xs: '18px', lg: '16px' } }}>Publisher: {book.publisher}</Typography>
+                                <Typography sx={{ mt: 1, fontSize: { xs: '18px', lg: '16px' } }}>Categories: {book.category}</Typography>
+                                <Typography sx={{ mt: 1, fontSize: { xs: '18px', lg: '16px' } }}>{!book.description ? '' : removeHtmlTags(book.description)}</Typography>
                             </Box>
                         </Card>
                     </Grid>
@@ -392,38 +397,41 @@ function BookDetail() {
             </Box >
 
             {/* Shows the star rating, optional reviews, and delete book message*/}
-            <Divider sx={{ mt: 6, borderWidth: 1 }} />
-            <Box sx={{ position: 'absolute', right: 0 }}>
-                {
-                    currentUser && hasSavedBook(book.volumeId)
-                        ?
-                        <>
-                            <IconButton onClick={showBookDeleteMessage} aria-label="delete review"  >
-                                <HighlightOffIcon />
-                            </IconButton>
+            < Divider sx={{ mt: 6, borderWidth: 1 }} />
+            < Box sx={{ position: 'absolute', right: 0 }}>
+                {currentUser && hasSavedBook(book.volumeId)
+                    ?
+                    <>
+                        <IconButton onClick={showBookDeleteMessage} aria-label="delete review" >
+                            <HighlightOffIcon />
+                        </IconButton>
 
-                            <Modal
-                                open={openBookDeleteMessage}
-                                onClose={closeBookDeleteMessage}
-                            >
-                                <Box sx={{ ...style, border: 2, borderRadius: 2, width: { xs: 348, sm: 446, md: 600, lg: 620 } }}>
-                                    <Box sx={{ m: 2 }}>
-                                        <Typography style={{ fontSize: '19px', textAlign: 'center' }}>
-                                            Are you sure you want to delete this book?
-                                            Deleting this book will also delete your review and rating.
-                                        </Typography>
-                                    </Box>
-
-                                    <Box sx={{ mt: 5, display: 'flex', justifyContent: 'center', gap: 2 }}>
-                                        <Button variant="contained" onClick={removeSavedBook} >OK</Button>
-                                        <Button variant="contained" onClick={closeBookDeleteMessage} >Cancel</Button>
-                                    </Box>
+                        <Modal
+                            open={openBookDeleteMessage}
+                            onClose={closeBookDeleteMessage}
+                        >
+                            <Box sx={{ ...style, border: 2, borderRadius: 2, width: { xs: 348, sm: 446, lg: 620 } }}>
+                                <Box sx={{ mb: 2, mt: { xs: 2, lg: 1 }, mx: { xs: 2, lg: 3 } }}>
+                                    <Typography sx={{ fontSize: { xs: '19px', lg: '17px' }, textAlign: 'center' }}>
+                                        Are you sure you want to delete this book?
+                                        Deleting this book will also delete your review and rating.
+                                    </Typography>
                                 </Box>
-                            </Modal>
-                        </>
-                        :
-                        null
-                }
+
+                                <Box sx={{ mt: 4, mb: .5, display: 'flex', justifyContent: 'center', gap: 2 }}>
+                                    <Button onClick={removeSavedBook} variant="contained" sx={{ fontSize: { lg: '14px' } }} >OK</Button>
+                                    <Button onClick={closeBookDeleteMessage} variant="contained" sx={{ fontSize: { lg: '14px' } }} >Cancel</Button>
+                                </Box>
+                            </Box>
+                        </Modal>
+                    </>
+                    :
+                    null}
+            </Box >
+
+            <Box component='h1'
+                sx={{ fontSize: { xs: 26, lg: 27 }, mt: 3, textDecoration: 'underline', textAlign: 'center', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                My Rating:
             </Box>
 
             <Box component="section" sx={{ pb: 9, mt: 2, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -434,11 +442,11 @@ function BookDetail() {
             <Box component="section" sx={{ pb: 3, mr: { lg: 4 }, display: 'flex', gap: 2, justifyContent: { xs: 'center', lg: 'end' }, alignItems: 'center' }}>
                 {!review && (
                     <>
-                        <Button variant="outlined" onClick={showReviewForm} >Write A Review</Button>
+                        <Button onClick={showReviewForm} variant="outlined" sx={{ fontSize: { lg: '13.5px' } }}>Write A Review</Button>
                     </>
                 )}
 
-                <Button variant="outlined" onClick={showReviews}>All Reviews</Button>
+                <Button onClick={showReviews} variant="outlined" sx={{ fontSize: { lg: '13.5px' } }}>All Reviews</Button>
             </Box>
 
             {/* User's review and all reviews */}
@@ -455,8 +463,6 @@ function BookDetail() {
             <Modal
                 open={openReviewForm}
                 onClose={closeReviewForm}
-                aria-labelledby="modal-modal-reviewForm"
-                aria-describedby="modal-modal-reviewForm"
             >
                 <Box sx={{ ...style, width: { xs: 348, sm: 446, md: 600, lg: 620 } }}>
                     <ReviewForm setScrollToReview={setScrollToReview} book={book} addBook={addBook} setReviewChange={setReviewChange} setOpenReviewForm={setOpenReviewForm} setBookStatus={setBookStatus} />
@@ -471,7 +477,6 @@ function BookDetail() {
                     </Box>
                 }
             </div>
-
         </div >
     )
 };

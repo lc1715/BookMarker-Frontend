@@ -20,6 +20,7 @@ import Typography from '@mui/material/Typography';
  * 
  * Route: /profile
  */
+
 function ProfileForm() {
     const { currentUser, setCurrentUser } = useContext(UserContext);
 
@@ -74,18 +75,17 @@ function ProfileForm() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                mt: { xs: 7, md: 10 },
+                mt: { xs: 7, lg: 10 },
                 mb: 4
             }}>
                 <Paper elevation={4}
                     sx={{
-                        width: '90%',
+                        width: { xs: '90%', lg: '86%' },
                         backgroundColor: '#FCFBF4'
-                    }}
-                >
+                    }}>
                     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                         <Typography sx={{
-                            fontSize: { xs: '35px', md: '46px' },
+                            fontSize: { xs: '35px', lg: '40px' },
                             textAlign: 'center',
                             mt: 4
                         }}>
@@ -100,7 +100,7 @@ function ProfileForm() {
                             onChange={handleChange}
                             label="Username"
                             disabled={true}
-                            sx={{ width: '75%' }}
+                            sx={{ width: { xs: '75%', lg: '73%' } }}
                         />
                     </Box>
 
@@ -110,7 +110,7 @@ function ProfileForm() {
                             value={formData.email}
                             onChange={handleChange}
                             label="Email"
-                            sx={{ width: '75%' }}
+                            sx={{ width: { xs: '75%', lg: '73%' } }}
                             type='email'
                         />
                     </Box>
@@ -120,22 +120,20 @@ function ProfileForm() {
                             <ShowAlert type='error' messages={formErrors} />
                         </Box>
                         :
-                        null
-                    }
+                        null}
 
                     {isSaved ?
                         <Box sx={{ mt: 2, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <ShowAlert type='success' messages={['Updated successfully']} />
                         </Box>
                         :
-                        null
-                    }
+                        null}
 
                     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                         <Button
                             variant="contained"
                             size="medium"
-                            sx={{ mt: 4, mb: 8, width: '75%', height: 54, backgroundColor: '#cf8d86' }}
+                            sx={{ mt: 4, mb: 8, width: { xs: '75%', lg: '73%' }, height: 54, backgroundColor: '#cf8d86' }}
                             onClick={handleSubmit}
                             type='submit'
                         >

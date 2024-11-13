@@ -62,8 +62,7 @@ function ReviewForm({ book, addBook, setReviewChange, setOpenReviewForm, setBook
                         width: { xs: 320, sm: 400, md: 555, lg: 575 },
                         height: 200,
                         mb: 2
-                    }}
-                >
+                    }}>
                     <TextField
                         name='comment'
                         value={formData.comment}
@@ -72,18 +71,18 @@ function ReviewForm({ book, addBook, setReviewChange, setOpenReviewForm, setBook
                         rows={7}
                         multiline
                     />
-
                 </FormControl>
+
                 <Button variant="contained"
-                    size="medium"
                     type='submit'
+                    sx={{ fontSize: { lg: '13px' } }}
                 >
                     Add Review
                 </Button>
 
                 <Button variant="contained"
                     size="medium"
-                    sx={{ ml: 1 }}
+                    sx={{ ml: 1, fontSize: { lg: '13px' } }}
                     type='button'
                     onClick={() => (setOpenReviewForm(false))}
                 >

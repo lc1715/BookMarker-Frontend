@@ -51,33 +51,33 @@ function NavBar({ logout }) {
             <Box sx={{ flexGrow: 1 }}>
                 <AppBar position="static" sx={{
                     backgroundColor: '#748cab',
-                    boxShadow: 'none',
+                    boxShadow: 'none'
                 }}>
-                    <Toolbar sx={{ flexWrap: 'wrap', gap: 2, pl: 1 }}>
-                        <Button href='/' sx={{ color: 'white', textTransform: 'none', fontSize: { xs: '21px', sm: '21px' } }} >
-                            <i class="fa-solid fa-feather" style={{ marginRight: 6 }}></i>
+                    <Toolbar sx={{ flexWrap: 'wrap', gap: 2, pl: 1, height: { lg: '69px' }, alignContent: { lg: 'center' } }} >
+                        <Button href='/' sx={{ color: 'white', textTransform: 'none', fontSize: { xs: '21px', sm: '18px' } }} >
+                            <i className="fa-solid fa-feather" style={{ marginRight: 6 }}></i>
                             BookMarker
                         </Button>
 
                         {/* On medium screens and larger, show full navbar */}
                         {matches ?
                             <>
-                                <Button href='/books/read' sx={{ color: 'white', fontSize: { xs: 'medium', sm: 'large' } }}>
+                                <Button href='/books/read' sx={{ color: 'white', fontSize: 'medium' }}>
                                     Read
                                     <i className="fa-solid fa-book" style={{ marginLeft: '4px' }}></i>
                                 </Button>
-                                <Button href='/books/wish' sx={{ color: 'white', fontSize: { xs: 'medium', sm: 'large' } }}>
+                                <Button href='/books/wish' sx={{ color: 'white', fontSize: 'medium' }}>
                                     Wish To Read
-                                    <i class="fa-solid fa-book-open" style={{ marginLeft: '4px' }}></i>
+                                    <i className="fa-solid fa-book-open" style={{ marginLeft: '4px' }}></i>
                                 </Button>
 
-                                {/* Take up space between nav links */}
+                                {/* Takes up space between nav links */}
                                 <Box sx={{ flexGrow: 1 }} />
 
-                                <Button href='/profile' sx={{ color: 'white', my: 2, fontSize: { xs: 'medium', sm: 'large' } }}>
+                                <Button href='/profile' sx={{ color: 'white', my: 2, fontSize: 'medium' }}>
                                     Profile
                                 </Button>
-                                <Button href='/' onClick={logout} sx={{ color: 'white', my: 2, fontSize: { xs: 'medium', sm: 'large' } }}>
+                                <Button href='/' onClick={logout} sx={{ color: 'white', my: 2, fontSize: 'medium' }}>
                                     LogOut
                                 </Button>
                             </>
@@ -125,7 +125,7 @@ function NavBar({ logout }) {
                                     <MenuItem onClick={handleCloseMenu}>
                                         <Link href="/books/wish" underline="none" sx={{ fontSize: '18px' }}>
                                             Wish To Read
-                                            <i class="fa-solid fa-book-open" style={{ marginLeft: '5px' }}></i>
+                                            <i className="fa-solid fa-book-open" style={{ marginLeft: '5px' }}></i>
                                         </Link>
                                     </MenuItem>
 
@@ -152,22 +152,22 @@ function NavBar({ logout }) {
     function loggedOutNav() {
         return (
             <Box sx={{ flexGrow: 1 }}>
-                <AppBar className='navbar' position="static" sx={{
+                <AppBar position="static" sx={{
                     backgroundColor: '#748cab',
                     boxShadow: 'none'
                 }}>
-                    <Toolbar sx={{ flexWrap: 'wrap', gap: 1 }}>
-                        <Button href='/' sx={{ pl: { xs: 0 }, textTransform: 'none', color: 'white', fontSize: { xs: '19px', sm: '21px' } }} >
-                            <i class="fa-solid fa-feather" style={{ marginRight: 6 }}></i>
+                    <Toolbar sx={{ flexWrap: 'wrap', height: { lg: '69px' }, alignContent: { lg: 'center' } }}>
+                        <Button href='/' sx={{ pl: { xs: 0 }, textTransform: 'none', color: 'white', fontSize: '19px' }} >
+                            <i className="fa-solid fa-feather" style={{ marginRight: 6 }}></i>
                             BookMarker
                         </Button>
 
                         <Box sx={{ flexGrow: 1 }} />
 
-                        <Button href='/login' sx={{ my: 2, color: 'white', fontSize: { xs: '15px', sm: 'large' } }}>
+                        <Button href='/login' sx={{ mr: 1, my: 2, color: 'white', fontSize: { xs: '15px', sm: 'medium' } }}>
                             Login
                         </Button>
-                        <Button href='/signup' sx={{ pl: 0, my: 2, color: 'white', fontSize: { xs: '15px', sm: 'large' } }}>
+                        <Button href='/signup' sx={{ pl: 0, color: 'white', fontSize: { xs: '15px', sm: 'medium' } }}>
                             Sign Up
                         </Button>
                     </Toolbar>

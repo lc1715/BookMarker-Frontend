@@ -23,30 +23,30 @@ function AllReviews({ allReviews, setShowAllReviews }) {
     return (
         <div>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h2 style={{ marginTop: '30px', marginLeft: '25px', textDecoration: 'underline', }}>
+                <Box component='h2'
+                    sx={{ fontSize: { lg: '21.7px' }, marginTop: '30px', marginLeft: '25px', textDecoration: 'underline' }}>
                     All Reviews:
-                </h2>
-
-                <IconButton onClick={() => (setShowAllReviews(false))} sx={{ mr: { xs: 1, lg: 2 } }} size="large" color='warning' aria-label="close all reviews">
+                </Box>
+                <IconButton onClick={() => (setShowAllReviews(false))} sx={{ mr: { xs: 1.36, lg: 2.2 } }} size="large" color='warning'>
                     <CloseIcon fontSize="inherit" />
                 </IconButton>
             </Box>
 
-            {
-                allReviews.toReversed().map((review) => (
-                    <div key={review.id} >
-                        <Box sx={{ mx: 3, mt: 1, mb: 4 }}>
-                            <Typography sx={{ fontSize: 19, wordBreak: "break-word" }}>{review.comment}</Typography>
+            {allReviews.toReversed().map((review) => (
+                <div key={review.id} >
+                    <Box sx={{ mx: 3, mt: 1, mb: 4 }}>
+                        <Typography sx={{ fontSize: { xs: 19, lg: 17 }, wordBreak: "break-word" }}>
+                            {review.comment}
+                        </Typography>
 
-                            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '18px', color: '#5A5A5A', mt: 2, mb: 1 }}>
-                                {review.username} - {new Date(review.created_at).toLocaleDateString()}
-                            </Box>
-
-                            < Divider sx={{ mb: '30px' }} />
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: { xs: 18, lg: 16.4 }, color: '#424242', mt: 2, mb: 1 }}>
+                            {review.username} - {new Date(review.created_at).toLocaleDateString()}
                         </Box>
-                    </div>
-                ))
-            }
+
+                        < Divider sx={{ mb: '30px' }} />
+                    </Box>
+                </div>
+            ))}
         </div >
     )
 };
