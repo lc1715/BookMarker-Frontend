@@ -4,12 +4,8 @@ import Box from '@mui/material/Box';
 
 
 function Rating({ rating, setRating, addRating, updateRating, hover, setHover }) {
-    console.log('rating=', rating)
-
     const { currentUser } = useContext(UserContext);
 
-
-    /* click on star, update rating if rating already exists otherwise add new rating*/
     async function submitRating(star) {
         console.log('star=', star)
 
@@ -30,7 +26,8 @@ function Rating({ rating, setRating, addRating, updateRating, hover, setHover })
                         sx={{
                             color: star <= (hover || rating) ? '#e87400' : 'gray',
                             cursor: 'pointer',
-                            fontSize: { xs: '39px', lg: '38px' }
+                            fontSize: '38px'
+                            // fontSize: { xs: '39px', lg: '38px' }
                         }}
                         onClick={() => submitRating(star)}
                         onMouseEnter={() => setHover(star)}
@@ -52,7 +49,7 @@ function Rating({ rating, setRating, addRating, updateRating, hover, setHover })
                         sx={{
                             color: 'gray',
                             cursor: 'pointer',
-                            fontSize: { xs: '39px', lg: '38px' }
+                            fontSize: '38px'
                         }}
                         onClick={() => submitRating(star)}
                         key={star}

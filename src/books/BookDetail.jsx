@@ -23,63 +23,31 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 
 function BookDetail() {
-    //states for books
+    // states for books
     const [book, setBook] = useState(null);
-    console.log('book=', book)
-
     const [bookStatus, setBookStatus] = useState(null);
-    console.log('bookStatus=', bookStatus)
-
     const [openBookDeleteMessage, setOpenBookDeleteMessage] = useState(false);
-
-    //states for reviews
-    const [allReviews, setAllReviews] = useState([]);
-    console.log('allReviews state=', allReviews)
-
+    // states for reviews
     const [review, setReview] = useState(null);
-    console.log('review state=', review)
-
     const [reviewChange, setReviewChange] = useState(false);
-    console.log('reviewChange state=', reviewChange)
-
     const [openReviewForm, setOpenReviewForm] = useState(false);
-
+    const [allReviews, setAllReviews] = useState([]);
     const [showAllReviews, setShowAllReviews] = useState(false);
-
-    //states for rating
-    const [rating, setRating] = useState(0);
-    console.log('rating state=', rating)
-
-    const [ratingId, setRatingId] = useState(null);
-    console.log('ratingId state=', ratingId)
-
-    const [hover, setHover] = useState(null);
-    console.log('hover state=', hover)
-
-    //states for errors
-    const [error, setError] = useState(false);
-    console.log('error=', error)
-
-    const [bookError, setBookError] = useState(false);
-    console.log('bookError=', bookError)
-
-    //states for scrolling to user's review
     const [scrollToReview, setScrollToReview] = useState(false);
-
     const [ranFirstScroll, setRanFirstScroll] = useState(false);
-
-
-    const { currentUser, hasSavedBook, saveBook, deleteSavedBook } = useContext(UserContext);
-    console.log('currentUser in BookDetail=', currentUser)
+    // states for rating
+    const [rating, setRating] = useState(0);
+    const [ratingId, setRatingId] = useState(null);
+    const [hover, setHover] = useState(null);
+    // states for errors
+    const [error, setError] = useState(false);
+    const [bookError, setBookError] = useState(false);
 
     const { bookId, bookIdType } = useParams();
-    //get url params from BookCard. {isbn, 234234} or {volumeId, e783hf39}
-    console.log('bookId=', bookId, 'bookIdType=', bookIdType)
+    const { currentUser, hasSavedBook, saveBook, deleteSavedBook } = useContext(UserContext);
 
-    //Gets book details
-    //if bookId is isbn, call API getGoogleBookFromNYT method to get book detail
-    //if bookId is volumeId, call API getGoogleBook method to get book detail
-    //both API methods will return a Google Book with volumeId
+
+    // Gets the book data from the Google Books API and sets the book state
     useEffect(() => {
         async function getBookDetails() {
             try {
@@ -95,7 +63,7 @@ function BookDetail() {
         getBookDetails()
     }, [bookId, bookIdType]);
 
-    //Gets book status to label book as Read or Wish To Read status
+    // Gets the book status to label book as Read or Wish To Read status
     useEffect(() => {
         if (currentUser && book) {
             try {
@@ -112,27 +80,23 @@ function BookDetail() {
         }
     }, [book])
 
-    //Gets all reviews and user's review on the book  
+    // Gets all reviews and user's review on the book  
     useEffect(() => {
         if (book) {
             try {
                 async function getAllReviewsAndUserReview() {
-                    //get all reviews
+                    // get all reviews
                     let reviews = await BookMarkerApi.getAllReviews(book.volumeId);
-                    console.log('reviews=', reviews)
-
                     if (!reviews.length) {
                         setReview(null);
-                        setAllReviews(reviews);
                         setReviewChange(false);
+                        setAllReviews(reviews);
                         return;
                     }
 
-                    //get user's review
+                    // get user's review
                     if (currentUser) {
                         let review = reviews.filter((review) => (review.username === currentUser.username))
-                        console.log('user review=', review)
-
                         review.length ? setReview(review[0]) : setReview(null);
                     }
 
@@ -147,10 +111,8 @@ function BookDetail() {
     }, [book, reviewChange]);
 
     const scrollRef = useRef(null);
-    console.log('scrollToReview=', scrollToReview)
-    console.log('ranFirstScroll=', ranFirstScroll)
 
-    //Scroll to user's review first time it is rendered
+    // Scroll to the user's review the first time it is rendered
     useEffect(() => {
         if (scrollToReview && !ranFirstScroll && review) {
             scrollRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -158,27 +120,26 @@ function BookDetail() {
         }
     }, [scrollToReview, ranFirstScroll, review])
 
-    //Scroll to all reviews
+    // Scroll to all reviews
     useEffect(() => {
         if (showAllReviews) {
             scrollRef.current.scrollIntoView({ behavior: 'smooth' });
         }
     }, [showAllReviews])
 
-    //Scroll to error message
+    // Scroll to error message
     useEffect(() => {
         if (error) {
             scrollRef.current.scrollIntoView({ behavior: 'smooth' });
         }
     }, [error])
 
-    //Get user's rating on a book 
+    // Gets a user's rating on a book 
     useEffect(() => {
         if (currentUser && book) {
             try {
                 async function showRating() {
                     let res = await BookMarkerApi.getRating(book.volumeId, currentUser.username);
-
                     if (res) {
                         setRating(res.rating)
                         setRatingId(res.id)
@@ -191,8 +152,7 @@ function BookDetail() {
         }
     }, [book]);
 
-
-    //Add user's rating on a book
+    // Function to add user's book rating to the database
     async function addRating(star) {
         if (currentUser) {
             try {
@@ -207,7 +167,7 @@ function BookDetail() {
         }
     }
 
-    //Update user's rating on a book
+    // Function to update user's book rating to the database
     async function updateRating(star) {
         if (currentUser) {
             try {
@@ -222,22 +182,17 @@ function BookDetail() {
         }
     }
 
-    //Add a book to db or update book status
+    // Function to add a book or change the book status to the database when user clicks on 'Read' or 'Wish To Read' buttons
     async function addBookOrChangeBookStatus(evt) {
         if (currentUser) {
-            //check if user's has_read value is true or false
+            // get the user's has_read value for the book 
             let has_read_value;
-            console.log('has_read_value=', has_read_value)
-
             evt.target.innerText === 'READ' ? has_read_value = true : has_read_value = false;
-            console.log('evt.target.innerText=', evt.target.innerText)
 
-            //if book has not been saved, add book. otherwise update book status.
-            if (!hasSavedBook(book.volumeId)) {
-                let res = await addBook(has_read_value);
-
-                setBookStatus(res.has_read);
-            } else {
+            // check if the book has already been saved by the user
+            // if it has, then update the book status
+            // if it hasn't, then add the book to the user's saved books
+            if (hasSavedBook(book.volumeId)) {
                 try {
                     let res = await BookMarkerApi.changeBookStatus(
                         book.volumeId,
@@ -248,6 +203,9 @@ function BookDetail() {
                 } catch (err) {
                     console.log(err);
                 }
+            } else {
+                let res = await addBook(book, has_read_value);
+                setBookStatus(res.has_read);
             }
 
         } else {
@@ -255,8 +213,8 @@ function BookDetail() {
         }
     };
 
-    //Contains the book details to add a book. Used by BookDetail and ReviewForm components.
-    async function addBook(has_read_value) {
+    // Helper function to save a book. Used by BookDetail and ReviewForm components.
+    async function addBook(book, has_read_value) {
         let savedBook = await saveBook(book.volumeId, {
             volume_id: book.volumeId,
             title: book.title,
@@ -271,7 +229,7 @@ function BookDetail() {
         return savedBook;
     }
 
-    //Delete a user's saved book, review and rating
+    // Function to delete a user's saved book, review and rating from the database
     async function removeSavedBook() {
         try {
             await deleteSavedBook(book.volumeId, currentUser.username);
@@ -279,9 +237,8 @@ function BookDetail() {
 
             if (review) {
                 await BookMarkerApi.deleteReview(review.id, currentUser.username);
-
                 setReviewChange(true);
-            };
+            }
 
             if (rating) {
                 await BookMarkerApi.deleteRating(ratingId, currentUser.username);
@@ -294,32 +251,32 @@ function BookDetail() {
         }
     };
 
-    //Shows all of the reviews for a book
+    // Shows all of the reviews for a book
     async function showReviews() {
         setShowAllReviews(true)
     };
 
-    //Opens modal to show review text input
+    // Opens modal to show review text input
     function showReviewForm() {
         currentUser ? setOpenReviewForm(true) : setError(true);
     };
 
-    //Closes modal to show review text input
+    // Closes modal for the review text input
     function closeReviewForm() {
         setOpenReviewForm(false);
     }
 
-    //Opens modal to show delete book warning message
+    // Opens modal to show delete book warning message
     const showBookDeleteMessage = () => {
         setOpenBookDeleteMessage(true);
     };
 
-    //Closes modal for delete book warning message
+    // Closes modal for delete book warning message
     const closeBookDeleteMessage = () => {
         setOpenBookDeleteMessage(false);
     };
 
-    //Styles the modal for review form and delete book warning message
+    // Styles the modal for the review form and delete book warning message
     const style = {
         position: 'absolute',
         top: '50%',
@@ -398,7 +355,7 @@ function BookDetail() {
 
             {/* Shows the star rating, optional reviews, and delete book message*/}
             < Divider sx={{ mt: 6, borderWidth: 1 }} />
-            < Box sx={{ position: 'absolute', right: 0 }}>
+            < Box sx={{ position: 'absolute', right: { lg: 6 } }}>
                 {currentUser && hasSavedBook(book.volumeId)
                     ?
                     <>
@@ -430,7 +387,7 @@ function BookDetail() {
             </Box >
 
             <Box component='h1'
-                sx={{ fontSize: { xs: 26, lg: 27 }, mt: 3, textDecoration: 'underline', textAlign: 'center', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                sx={{ fontSize: 27, mt: 3, textDecoration: 'underline', textAlign: 'center', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 My Rating:
             </Box>
 
