@@ -3,7 +3,7 @@
 exports[`matches snapshot when user is logged in 1`] = `
 <DocumentFragment>
   <div
-    class="MuiBox-root css-j3lysa"
+    class="MuiBox-root css-1lx8dk"
   >
     <p
       class="MuiTypography-root MuiTypography-body1 css-lr6t8-MuiTypography-root"
@@ -21,7 +21,7 @@ exports[`matches snapshot when user is logged in 1`] = `
 exports[`matches snapshot when user is logged out 1`] = `
 <DocumentFragment>
   <div
-    class="MuiBox-root css-j3lysa"
+    class="MuiBox-root css-1lx8dk"
   >
     <p
       class="MuiTypography-root MuiTypography-body1 css-lr6t8-MuiTypography-root"

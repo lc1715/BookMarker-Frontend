@@ -46,7 +46,6 @@ function BookDetail() {
     const { bookId, bookIdType } = useParams();
     const { currentUser, hasSavedBook, saveBook, deleteSavedBook } = useContext(UserContext);
 
-
     // Gets the book data from the Google Books API and sets the book state
     useEffect(() => {
         async function getBookDetails() {
@@ -63,9 +62,10 @@ function BookDetail() {
         getBookDetails()
     }, [bookId, bookIdType]);
 
-    // Gets the book status to label book as Read or Wish To Read status
+    // If book has already been saved, gets the saved book and sets the bookStatus state
+    // so book can be labeled as Read or Wish To Read status
     useEffect(() => {
-        if (currentUser && book) {
+        if (currentUser && book && hasSavedBook(book.volumeId)) {
             try {
                 async function getBookStatus() {
                     let res = await BookMarkerApi.getSavedBook(book.volumeId, currentUser.username);
@@ -93,13 +93,11 @@ function BookDetail() {
                         setAllReviews(reviews);
                         return;
                     }
-
                     // get user's review
                     if (currentUser) {
                         let review = reviews.filter((review) => (review.username === currentUser.username))
                         review.length ? setReview(review[0]) : setReview(null);
                     }
-
                     setAllReviews(reviews);
                     setReviewChange(false);
                 };
@@ -189,21 +187,20 @@ function BookDetail() {
             let has_read_value;
             evt.target.innerText === 'READ' ? has_read_value = true : has_read_value = false;
 
-            // check if the book has already been saved by the user
-            // if it has, then update the book status
-            // if it hasn't, then add the book to the user's saved books
-            if (hasSavedBook(book.volumeId)) {
+            // if book has been saved and there is a change in user's has_read value for the book, 
+            // then update the book status
+            // if book has not been saved, add the book to saved books
+            if (hasSavedBook(book.volumeId) && bookStatus != has_read_value) {
                 try {
                     let res = await BookMarkerApi.changeBookStatus(
                         book.volumeId,
                         currentUser.username,
                         { has_read: has_read_value });
-
                     setBookStatus(res.has_read);
                 } catch (err) {
                     console.log(err);
                 }
-            } else {
+            } else if (!hasSavedBook(book.volumeId)) {
                 let res = await addBook(book, has_read_value);
                 setBookStatus(res.has_read);
             }
@@ -225,7 +222,6 @@ function BookDetail() {
             image: book.image,
             has_read: has_read_value
         });
-
         return savedBook;
     }
 
@@ -242,7 +238,6 @@ function BookDetail() {
 
             if (rating) {
                 await BookMarkerApi.deleteRating(ratingId, currentUser.username);
-
                 setRating(0);
                 setRatingId(null);
             }
@@ -294,7 +289,7 @@ function BookDetail() {
     return (
         <div>
             <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={4} sx={{ mx: 3, display: 'flex', justifyContent: 'center' }}>
+                <Grid container spacing={4} sx={{ mx: { sm: 3 }, display: 'flex', justifyContent: 'center' }}>
                     <Box sx={{ width: '100%', mt: 2, ml: 1 }}>
                         {bookStatus === true ? (
                             <Box component="h3" sx={{ mb: 0, ml: { lg: .5 }, fontSize: { xs: 20, lg: 18.5 } }}>
@@ -320,13 +315,14 @@ function BookDetail() {
                                 </Box>
 
                                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                    <Button onClick={addBookOrChangeBookStatus} variant="contained" sx={{ mt: 3, backgroundColor: '#cf8d86', fontSize: { lg: 13 } }}>
-                                        Read
-                                    </Button>
-
-                                    <Button onClick={addBookOrChangeBookStatus} variant="contained" sx={{ mt: 3, ml: 2, backgroundColor: '#cf8d86', fontSize: { lg: 13 } }}>
-                                        Wish To Read
-                                    </Button>
+                                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                                        <Button onClick={addBookOrChangeBookStatus} variant="contained" sx={{ mt: 3, backgroundColor: '#cf8d86', fontSize: { lg: 13 } }}>
+                                            Read
+                                        </Button>
+                                        <Button onClick={addBookOrChangeBookStatus} variant="contained" sx={{ mt: 3, ml: 2, backgroundColor: '#cf8d86', fontSize: { lg: 13 } }}>
+                                            Wish To Read
+                                        </Button>
+                                    </Box>
                                 </Box>
 
                                 {bookError ?
@@ -340,22 +336,21 @@ function BookDetail() {
                     {/* Card to display book details */}
                     <Grid size={{ xs: 12, lg: 6 }} sx={{ display: "flex", justifyContent: "center", }}>
                         <Card sx={{ width: '100%', minHeight: '500px', display: "flex", flexDirection: 'column', position: 'relative', textAlign: 'center' }}>
-                            <Box component="section" sx={{ px: 4, pt: 2, pb: 3, flexGrow: 1 }}>
-                                <Typography sx={{ mt: 1, fontSize: { xs: '34px', lg: '30px' } }}>{book.title}</Typography>
-                                <Typography sx={{ mt: 1, fontSize: { xs: '18px', lg: '16px' } }}>By {book.author}</Typography>
-                                <Typography sx={{ mt: 1, fontSize: { xs: '18px', lg: '16px' } }}>Publisher: {book.publisher}</Typography>
-                                <Typography sx={{ mt: 1, fontSize: { xs: '18px', lg: '16px' } }}>Categories: {book.category}</Typography>
-                                <Typography sx={{ mt: 1, fontSize: { xs: '18px', lg: '16px' } }}>{!book.description ? '' : removeHtmlTags(book.description)}</Typography>
+                            <Box component="section" sx={{ px: { xs: 2, sm: 4 }, pt: 2, pb: 3, flexGrow: 1 }}>
+                                <Typography sx={{ mt: 1, fontSize: { xs: '33px', lg: '30px' } }}>{book.title}</Typography>
+                                <Typography sx={{ mt: 1, fontSize: { xs: '17px', lg: '16px' } }}>By {book.author}</Typography>
+                                <Typography sx={{ mt: 1, fontSize: { xs: '17px', lg: '16px' } }}>Publisher: {book.publisher}</Typography>
+                                <Typography sx={{ mt: 1, fontSize: { xs: '17px', lg: '16px' } }}>Categories: {book.category}</Typography>
+                                <Typography sx={{ mt: 1, fontSize: { xs: '17px', lg: '16px' } }}>{!book.description ? '' : removeHtmlTags(book.description)}</Typography>
                             </Box>
                         </Card>
                     </Grid>
-
                 </Grid>
             </Box >
 
             {/* Shows the star rating, optional reviews, and delete book message*/}
-            < Divider sx={{ mt: 6, borderWidth: 1 }} />
-            < Box sx={{ position: 'absolute', right: { lg: 6 } }}>
+            <Divider sx={{ mt: 6, borderWidth: 1 }} />
+            <Box sx={{ position: 'absolute', right: { xs: 0, lg: 6 } }}>
                 {currentUser && hasSavedBook(book.volumeId)
                     ?
                     <>
@@ -366,18 +361,22 @@ function BookDetail() {
                         <Modal
                             open={openBookDeleteMessage}
                             onClose={closeBookDeleteMessage}
+                            aria-label='delete book warning'
                         >
-                            <Box sx={{ ...style, border: 2, borderRadius: 2, width: { xs: 348, sm: 446, lg: 620 } }}>
-                                <Box sx={{ mb: 2, mt: { xs: 2, lg: 1 }, mx: { xs: 2, lg: 3 } }}>
+                            <Box sx={{ ...style, border: 2, borderRadius: 2, width: { xs: 348, sm: 445, lg: 620 } }}>
+                                <Box sx={{ mb: 2, mt: { xs: 1.5, sm: 1 }, mx: { xs: 2, sm: 4, lg: 3 } }}>
                                     <Typography sx={{ fontSize: { xs: '19px', lg: '17px' }, textAlign: 'center' }}>
                                         Are you sure you want to delete this book?
                                         Deleting this book will also delete your review and rating.
                                     </Typography>
                                 </Box>
-
-                                <Box sx={{ mt: 4, mb: .5, display: 'flex', justifyContent: 'center', gap: 2 }}>
-                                    <Button onClick={removeSavedBook} variant="contained" sx={{ fontSize: { lg: '14px' } }} >OK</Button>
-                                    <Button onClick={closeBookDeleteMessage} variant="contained" sx={{ fontSize: { lg: '14px' } }} >Cancel</Button>
+                                <Box sx={{ mt: { xs: 3.5, lg: 4.5 }, mb: { xs: .3, sm: .4 }, display: 'flex', justifyContent: 'center', gap: 2 }}>
+                                    <Button onClick={removeSavedBook} variant="contained" sx={{ fontSize: { lg: '14px' } }}>
+                                        OK
+                                    </Button>
+                                    <Button onClick={closeBookDeleteMessage} variant="contained" sx={{ fontSize: { lg: '14px' } }}>
+                                        Cancel
+                                    </Button>
                                 </Box>
                             </Box>
                         </Modal>
@@ -396,14 +395,15 @@ function BookDetail() {
             </Box>
 
             {/* Buttons to show review form and all reviews */}
-            <Box component="section" sx={{ pb: 3, mr: { lg: 4 }, display: 'flex', gap: 2, justifyContent: { xs: 'center', lg: 'end' }, alignItems: 'center' }}>
+            <Box component="section" sx={{ pb: 3, mr: { lg: 4 }, gap: 2, display: 'flex', justifyContent: { xs: 'center', lg: 'end' }, alignItems: 'center' }}>
                 {!review && (
-                    <>
-                        <Button onClick={showReviewForm} variant="outlined" sx={{ fontSize: { lg: '13.5px' } }}>Write A Review</Button>
-                    </>
+                    <Button onClick={showReviewForm} variant="outlined" sx={{ fontSize: { lg: '13.5px' } }}>
+                        Write A Review
+                    </Button>
                 )}
-
-                <Button onClick={showReviews} variant="outlined" sx={{ fontSize: { lg: '13.5px' } }}>All Reviews</Button>
+                <Button onClick={showReviews} variant="outlined" sx={{ fontSize: { lg: '13.5px' } }}>
+                    All Reviews
+                </Button>
             </Box>
 
             {/* User's review and all reviews */}
@@ -420,6 +420,7 @@ function BookDetail() {
             <Modal
                 open={openReviewForm}
                 onClose={closeReviewForm}
+                aria-label='write a review'
             >
                 <Box sx={{ ...style, width: { xs: 348, sm: 446, md: 600, lg: 620 } }}>
                     <ReviewForm setScrollToReview={setScrollToReview} book={book} addBook={addBook} setReviewChange={setReviewChange} setOpenReviewForm={setOpenReviewForm} setBookStatus={setBookStatus} />

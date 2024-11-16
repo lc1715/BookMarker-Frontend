@@ -26,6 +26,7 @@ exports[`matches with snapshot 1`] = `
               class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-sizeMedium css-elo8k2-MuiInputAdornment-root"
             >
               <button
+                aria-label="search"
                 class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeLarge css-oh9jts-MuiButtonBase-root-MuiIconButton-root"
                 tabindex="0"
                 type="submit"
@@ -60,6 +61,7 @@ exports[`matches with snapshot 1`] = `
           </div>
         </div>
         <button
+          aria-label="advanced search"
           class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-ge03ab-MuiButtonBase-root-MuiButton-root"
           tabindex="0"
           type="button"
@@ -71,7 +73,7 @@ exports[`matches with snapshot 1`] = `
       </div>
     </form>
     <p
-      class="MuiTypography-root MuiTypography-body1 css-fumpcn-MuiTypography-root"
+      class="MuiTypography-root MuiTypography-body1 css-1m96ahv-MuiTypography-root"
     >
       My Wish To Read Books:
     </p>
@@ -100,17 +102,17 @@ exports[`matches with snapshot 1`] = `
             class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
           >
             <p
-              class="MuiTypography-root MuiTypography-body1 css-1oth169-MuiTypography-root"
+              class="MuiTypography-root MuiTypography-body1 css-zsy7af-MuiTypography-root"
             >
               title1
             </p>
             <p
-              class="MuiTypography-root MuiTypography-body1 css-l5k6vd-MuiTypography-root"
+              class="MuiTypography-root MuiTypography-body1 css-o4dsdx-MuiTypography-root"
             >
               By auth1
             </p>
             <p
-              class="MuiTypography-root MuiTypography-body1 css-1a5af2-MuiTypography-root"
+              class="MuiTypography-root MuiTypography-body1 css-11msyt5-MuiTypography-root"
             >
               desc1
             </p>

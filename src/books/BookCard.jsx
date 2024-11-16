@@ -49,15 +49,15 @@ function BookCard({ book }) {
                 </Box>
 
                 <CardContent>
-                    <Typography sx={{ color: 'text.primary', fontSize: { xs: 20, lg: 18 }, fontWeight: 'bold', textAlign: 'center' }}>
+                    <Typography sx={{ color: 'text.primary', fontSize: { xs: 19, lg: 18 }, fontWeight: 'bold', textAlign: 'center' }}>
                         {book.title}
                     </Typography>
 
-                    <Typography sx={{ color: 'text.primary', fontSize: { xs: 18, lg: 16 }, mb: 1.5, mt: 1.5, textAlign: 'center' }} >
+                    <Typography sx={{ color: 'text.primary', fontSize: { xs: 17, lg: 16 }, mb: 1.5, mt: 1.5, textAlign: 'center' }} >
                         By {book.author}
                     </Typography>
 
-                    <Typography sx={{ color: 'text.primary', fontSize: { xs: 18, lg: 16 }, mb: 3, mt: 1.5, mx: 2, textAlign: 'center' }}>
+                    <Typography sx={{ color: 'text.primary', fontSize: { xs: 17, lg: 16 }, mb: 3, mt: 1.5, mx: 2, textAlign: 'center' }}>
                         {!book.description ? '' : removeHtmlTags(book.description).length > 200 ? removeHtmlTags(book.description).slice(0, 200) + '...' : removeHtmlTags(book.description)}
                     </Typography>
                 </CardContent>

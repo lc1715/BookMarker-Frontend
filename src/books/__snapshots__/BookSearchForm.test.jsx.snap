@@ -25,6 +25,7 @@ exports[`matches with snapshot 1`] = `
             class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-sizeMedium css-elo8k2-MuiInputAdornment-root"
           >
             <button
+              aria-label="search"
               class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeLarge css-oh9jts-MuiButtonBase-root-MuiIconButton-root"
               tabindex="0"
               type="submit"
@@ -59,6 +60,7 @@ exports[`matches with snapshot 1`] = `
         </div>
       </div>
       <button
+        aria-label="advanced search"
         class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-ge03ab-MuiButtonBase-root-MuiButton-root"
         tabindex="0"
         type="button"

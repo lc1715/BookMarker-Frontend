@@ -27,7 +27,6 @@ function BookList({ books, booksLabel }) {
     console.debug('books:', books, 'booksLabel:', booksLabel)
 
     const [searchedBooks, setSearchedBooks] = useState(null);
-    //search term from book search form
     const { term } = useParams();
 
     const bookList = searchedBooks || books;
@@ -63,7 +62,7 @@ function BookList({ books, booksLabel }) {
             <div>
                 <BookSearchForm />
 
-                <Typography sx={{ mt: 6, mb: 4, color: 'text.secondary', fontWeight: '200', fontSize: { xs: 30, lg: 34.5 }, textAlign: 'center' }}>
+                <Typography sx={{ mt: 6, mb: 4, color: 'text.secondary', fontWeight: '200', fontSize: { xs: 28, sm: 30, lg: 34.5 }, textAlign: 'center' }}>
                     {booksLabel}
                 </Typography>
 
@@ -81,8 +80,8 @@ function BookList({ books, booksLabel }) {
                 <BookSearchForm />
 
                 <Box sx={{ mt: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    {booksLabel === 'My Read Books:' ? <ShowAlert type={'info'} messages={['You have no Read Books']} /> : null}
-                    {booksLabel === 'My Wish To Read Books:' ? <ShowAlert type={'info'} messages={['You have no Wish To Read Books']} /> : null}
+                    {booksLabel === 'My Read Books:' ? <ShowAlert type={'info'} messages={['You have no Read books']} /> : null}
+                    {booksLabel === 'My Wish To Read Books:' ? <ShowAlert type={'info'} messages={['You have no Wish To Read books']} /> : null}
                     {booksLabel === 'NYT Bestsellers' || !booksLabel ? <ShowAlert type={'info'} messages={['Sorry, no results were found!']} /> : null}
                 </Box>
             </div>

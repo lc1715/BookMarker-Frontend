@@ -7,7 +7,7 @@ exports[`matches with snapshot 1`] = `
       class="MuiBox-root css-i9gxme"
     >
       <div
-        class="MuiGrid2-root MuiGrid2-container MuiGrid2-direction-xs-row MuiGrid2-spacing-xs-4 css-1sxk2hj-MuiGrid2-root"
+        class="MuiGrid2-root MuiGrid2-container MuiGrid2-direction-xs-row MuiGrid2-spacing-xs-4 css-15lz0tr-MuiGrid2-root"
       >
         <div
           class="MuiBox-root css-1hnsab4"
@@ -33,20 +33,24 @@ exports[`matches with snapshot 1`] = `
               <div
                 class="MuiBox-root css-1l4w6pd"
               >
-                <button
-                  class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-1ac7a5z-MuiButtonBase-root-MuiButton-root"
-                  tabindex="0"
-                  type="button"
+                <div
+                  class="MuiBox-root css-1l4w6pd"
                 >
-                  Read
-                </button>
-                <button
-                  class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-16qe4es-MuiButtonBase-root-MuiButton-root"
-                  tabindex="0"
-                  type="button"
-                >
-                  Wish To Read
-                </button>
+                  <button
+                    class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-1ac7a5z-MuiButtonBase-root-MuiButton-root"
+                    tabindex="0"
+                    type="button"
+                  >
+                    Read
+                  </button>
+                  <button
+                    class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-16qe4es-MuiButtonBase-root-MuiButton-root"
+                    tabindex="0"
+                    type="button"
+                  >
+                    Wish To Read
+                  </button>
+                </div>
               </div>
             </section>
           </div>
@@ -59,30 +63,30 @@ exports[`matches with snapshot 1`] = `
             style="--Paper-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);"
           >
             <section
-              class="MuiBox-root css-13bjnlf"
+              class="MuiBox-root css-1m7pd8k"
             >
               <p
-                class="MuiTypography-root MuiTypography-body1 css-1n8x42m-MuiTypography-root"
+                class="MuiTypography-root MuiTypography-body1 css-1ddgwaq-MuiTypography-root"
               >
                 title1
               </p>
               <p
-                class="MuiTypography-root MuiTypography-body1 css-1hpjpa3-MuiTypography-root"
+                class="MuiTypography-root MuiTypography-body1 css-1g186f3-MuiTypography-root"
               >
                 By auth1
               </p>
               <p
-                class="MuiTypography-root MuiTypography-body1 css-1hpjpa3-MuiTypography-root"
+                class="MuiTypography-root MuiTypography-body1 css-1g186f3-MuiTypography-root"
               >
                 Publisher: pub1
               </p>
               <p
-                class="MuiTypography-root MuiTypography-body1 css-1hpjpa3-MuiTypography-root"
+                class="MuiTypography-root MuiTypography-body1 css-1g186f3-MuiTypography-root"
               >
                 Categories: cat1
               </p>
               <p
-                class="MuiTypography-root MuiTypography-body1 css-1hpjpa3-MuiTypography-root"
+                class="MuiTypography-root MuiTypography-body1 css-1g186f3-MuiTypography-root"
               >
                 desc1
               </p>
@@ -95,7 +99,7 @@ exports[`matches with snapshot 1`] = `
       class="MuiDivider-root MuiDivider-fullWidth css-ecyuml-MuiDivider-root"
     />
     <div
-      class="MuiBox-root css-1g4x5kn"
+      class="MuiBox-root css-gfj153"
     >
       <button
         aria-label="delete review"
@@ -117,7 +121,7 @@ exports[`matches with snapshot 1`] = `
       </button>
     </div>
     <h1
-      class="MuiBox-root css-1oearft"
+      class="MuiBox-root css-vd1f38"
     >
       My Rating:
     </h1>
@@ -126,34 +130,34 @@ exports[`matches with snapshot 1`] = `
     >
       <div>
         <span
-          class="MuiBox-root css-1yn93rs"
+          class="MuiBox-root css-1h0szju"
         >
            ★ 
         </span>
         <span
-          class="MuiBox-root css-1yn93rs"
+          class="MuiBox-root css-1h0szju"
         >
            ★ 
         </span>
         <span
-          class="MuiBox-root css-1yn93rs"
+          class="MuiBox-root css-1h0szju"
         >
            ★ 
         </span>
         <span
-          class="MuiBox-root css-1yn93rs"
+          class="MuiBox-root css-1h0szju"
         >
            ★ 
         </span>
         <span
-          class="MuiBox-root css-1yn93rs"
+          class="MuiBox-root css-1h0szju"
         >
            ★ 
         </span>
       </div>
     </section>
     <section
-      class="MuiBox-root css-1vh9hqw"
+      class="MuiBox-root css-1eow6de"
     >
       <button
         class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorPrimary css-1gzvxnb-MuiButtonBase-root-MuiButton-root"

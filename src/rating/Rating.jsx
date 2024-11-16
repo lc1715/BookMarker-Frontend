@@ -27,7 +27,6 @@ function Rating({ rating, setRating, addRating, updateRating, hover, setHover })
                             color: star <= (hover || rating) ? '#e87400' : 'gray',
                             cursor: 'pointer',
                             fontSize: '38px'
-                            // fontSize: { xs: '39px', lg: '38px' }
                         }}
                         onClick={() => submitRating(star)}
                         onMouseEnter={() => setHover(star)}

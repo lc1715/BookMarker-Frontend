@@ -24,17 +24,17 @@ exports[`matches with snapshot 1`] = `
         class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
       >
         <p
-          class="MuiTypography-root MuiTypography-body1 css-1oth169-MuiTypography-root"
+          class="MuiTypography-root MuiTypography-body1 css-zsy7af-MuiTypography-root"
         >
           title1
         </p>
         <p
-          class="MuiTypography-root MuiTypography-body1 css-l5k6vd-MuiTypography-root"
+          class="MuiTypography-root MuiTypography-body1 css-o4dsdx-MuiTypography-root"
         >
           By auth1
         </p>
         <p
-          class="MuiTypography-root MuiTypography-body1 css-1a5af2-MuiTypography-root"
+          class="MuiTypography-root MuiTypography-body1 css-11msyt5-MuiTypography-root"
         >
           desc1
         </p>

@@ -12,6 +12,7 @@ exports[`matches with snapshot 1`] = `
         All Reviews:
       </h2>
       <button
+        aria-label="close"
         class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorWarning MuiIconButton-sizeLarge css-1mhl10j-MuiButtonBase-root-MuiIconButton-root"
         tabindex="0"
         type="button"

@@ -13,6 +13,7 @@ exports[`matches with snapshot when logged in 1`] = `
         class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-mywmkt-MuiToolbar-root"
       >
         <a
+          aria-label="Navigate to homepage"
           class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary css-c1pv86-MuiButtonBase-root-MuiButton-root"
           href="/"
           tabindex="0"
@@ -30,6 +31,9 @@ exports[`matches with snapshot when logged in 1`] = `
           class="MuiBox-root css-5nwj3y"
         >
           <button
+            aria-controls="user-menu"
+            aria-expanded="true"
+            aria-haspopup="true"
             aria-label="open-menu"
             class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeLarge css-gdplcp-MuiButtonBase-root-MuiIconButton-root"
             data-mui-internal-clone-element="true"
@@ -62,6 +66,7 @@ exports[`matches with snapshot when logged out 1`] = `
         class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-18r5587-MuiToolbar-root"
       >
         <a
+          aria-label="Navigate to homepage"
           class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary css-1k5ggxq-MuiButtonBase-root-MuiButton-root"
           href="/"
           tabindex="0"
