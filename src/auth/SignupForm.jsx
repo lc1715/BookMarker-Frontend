@@ -41,8 +41,8 @@ function SignupForm({ signup }) {
     async function handleSubmit(evt) {
         evt.preventDefault();
         setLoadingInfo(true);
-
         let result = await signup(formData);
+        console.log('result=', result)
         if (result.success) {
             navigate('/');
         } else {
@@ -127,7 +127,7 @@ function SignupForm({ signup }) {
                         <Button
                             variant="contained"
                             size="medium"
-                            sx={{ mt: { xs: 3, lg: 2.5 }, mb: { xs: 6.5, lg: 8 }, width: { xs: '75%', lg: '73%' }, height: 54, backgroundColor: '#cf8d86' }}
+                            sx={{ width: { xs: '75%', lg: '73%' }, height: 54, mt: { xs: 3, lg: 2.5 }, mb: { xs: 6.5, sm: 7.9, lg: 8 }, backgroundColor: '#cf8d86' }}
                             onClick={handleSubmit}
                             type='submit'
                         >

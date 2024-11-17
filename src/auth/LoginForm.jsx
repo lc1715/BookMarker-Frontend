@@ -41,6 +41,7 @@ function LoginForm({ login }) {
         evt.preventDefault();
         setLoadingInfo(true);
         let result = await login(data);
+        console.log('result=', result)
 
         if (result.success) {
             navigate('/');
@@ -84,7 +85,7 @@ function LoginForm({ login }) {
                         </Typography>
                     </Box>
 
-                    <Box sx={{ width: '100%', mt: { xs: 4, lg: 3 }, display: 'flex', justifyContent: 'center' }}>
+                    <Box sx={{ width: '100%', mt: { xs: 3, sm: 4, lg: 3 }, display: 'flex', justifyContent: 'center' }}>
                         <TextField
                             name="username"
                             value={formData.username}
@@ -94,7 +95,7 @@ function LoginForm({ login }) {
                         />
                     </Box>
 
-                    <Box sx={{ width: '100%', mt: { xs: 4, lg: 3 }, display: 'flex', justifyContent: 'center' }}>
+                    <Box sx={{ width: '100%', mt: { xs: 3, sm: 4, lg: 3 }, display: 'flex', justifyContent: 'center' }}>
                         <TextField
                             type="password"
                             name="password"
@@ -116,7 +117,7 @@ function LoginForm({ login }) {
                         <Button
                             variant="contained"
                             size="medium"
-                            sx={{ width: { xs: '75%', lg: '73%' }, height: '54px', mt: { xs: 4, lg: 3 }, backgroundColor: '#cf8d86' }}
+                            sx={{ width: { xs: '75%', lg: '73%' }, height: '54px', mt: { xs: 3, sm: 4, lg: 3 }, backgroundColor: '#cf8d86' }}
                             onClick={(evt) => (handleSubmit(evt, formData))}
                             type='submit'
                         >
@@ -128,7 +129,7 @@ function LoginForm({ login }) {
                         <Button
                             variant="text"
                             size="medium"
-                            sx={{ py: 1, mt: { xs: 4.5, lg: 3.5 }, mb: 4.5, color: 'text.secondary' }}
+                            sx={{ py: 1, mt: { xs: 3.5, sm: 4.5, lg: 3.5 }, mb: { xs: 3.5, sm: 4.5 }, color: 'text.secondary' }}
                             onClick={(evt) => (handleSubmit(evt, { username: 'TestUser', password: 'Password123' }))}
                             type='submit'
                         >

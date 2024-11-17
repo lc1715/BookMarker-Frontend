@@ -25,7 +25,9 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 function BookDetail() {
     // states for books
     const [book, setBook] = useState(null);
+    console.log('book=', book)
     const [bookStatus, setBookStatus] = useState(null);
+    console.log('bookStatus=', bookStatus)
     const [openBookDeleteMessage, setOpenBookDeleteMessage] = useState(false);
     // states for reviews
     const [review, setReview] = useState(null);
@@ -62,8 +64,8 @@ function BookDetail() {
         getBookDetails()
     }, [bookId, bookIdType]);
 
-    // If book has already been saved, gets the saved book and sets the bookStatus state
-    // so book can be labeled as Read or Wish To Read status
+    // If the book is already saved, gets the saved book and sets the bookStatus state
+    // so that book can be labeled as Read or Wish To Read status
     useEffect(() => {
         if (currentUser && book && hasSavedBook(book.volumeId)) {
             try {
@@ -150,7 +152,7 @@ function BookDetail() {
         }
     }, [book]);
 
-    // Function to add user's book rating to the database
+    // Function to add user's book rating in the database
     async function addRating(star) {
         if (currentUser) {
             try {
@@ -165,7 +167,7 @@ function BookDetail() {
         }
     }
 
-    // Function to update user's book rating to the database
+    // Function to update user's book rating in the database
     async function updateRating(star) {
         if (currentUser) {
             try {
@@ -180,38 +182,42 @@ function BookDetail() {
         }
     }
 
-    // Function to add a book or change the book status to the database when user clicks on 'Read' or 'Wish To Read' buttons
+    // Function to add a book or update the book status in the database when user clicks on 'Read' or 'Wish To Read' buttons
     async function addBookOrChangeBookStatus(evt) {
         if (currentUser) {
             // get the user's has_read value for the book 
-            let has_read_value;
-            evt.target.innerText === 'READ' ? has_read_value = true : has_read_value = false;
+            const has_read_value = evt.currentTarget.dataset.status === 'Read';
+            console.debug('has_read_value=', has_read_value)
+            console.debug('evt.currentTarget.dataset=', evt.currentTarget.dataset)
 
-            // if book has been saved and there is a change in user's has_read value for the book, 
+            // if the book is already saved and the has_read value is changing, 
             // then update the book status
-            // if book has not been saved, add the book to saved books
-            if (hasSavedBook(book.volumeId) && bookStatus != has_read_value) {
+            // otherwise, if the book is not saved, add the book to saved books
+            if (hasSavedBook(book.volumeId) && bookStatus !== has_read_value) {
                 try {
                     let res = await BookMarkerApi.changeBookStatus(
                         book.volumeId,
                         currentUser.username,
                         { has_read: has_read_value });
+                    console.debug('change book status', res)
+
                     setBookStatus(res.has_read);
                 } catch (err) {
                     console.log(err);
                 }
             } else if (!hasSavedBook(book.volumeId)) {
                 let res = await addBook(book, has_read_value);
+                console.debug('add book to db', res)
+
                 setBookStatus(res.has_read);
             }
-
         } else {
             setBookError(true);
         }
     };
 
     // Helper function to save a book. Used by BookDetail and ReviewForm components.
-    async function addBook(book, has_read_value) {
+    async function addBook(book, has_read) {
         let savedBook = await saveBook(book.volumeId, {
             volume_id: book.volumeId,
             title: book.title,
@@ -220,7 +226,7 @@ function BookDetail() {
             category: book.category,
             description: book.description,
             image: book.image,
-            has_read: has_read_value
+            has_read: has_read
         });
         return savedBook;
     }
@@ -228,8 +234,10 @@ function BookDetail() {
     // Function to delete a user's saved book, review and rating from the database
     async function removeSavedBook() {
         try {
-            await deleteSavedBook(book.volumeId, currentUser.username);
+            const res = await deleteSavedBook(book.volumeId, currentUser.username);
+            console.log('deleted book', res)
             setBookStatus(null);
+            setOpenBookDeleteMessage(false);
 
             if (review) {
                 await BookMarkerApi.deleteReview(review.id, currentUser.username);
@@ -315,14 +323,12 @@ function BookDetail() {
                                 </Box>
 
                                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                        <Button onClick={addBookOrChangeBookStatus} variant="contained" sx={{ mt: 3, backgroundColor: '#cf8d86', fontSize: { lg: 13 } }}>
-                                            Read
-                                        </Button>
-                                        <Button onClick={addBookOrChangeBookStatus} variant="contained" sx={{ mt: 3, ml: 2, backgroundColor: '#cf8d86', fontSize: { lg: 13 } }}>
-                                            Wish To Read
-                                        </Button>
-                                    </Box>
+                                    <Button onClick={addBookOrChangeBookStatus} data-status='Read' variant="contained" sx={{ mt: 3, backgroundColor: '#cf8d86', fontSize: { lg: 13 } }} >
+                                        Read
+                                    </Button>
+                                    <Button onClick={addBookOrChangeBookStatus} data-status='Wish To Read' variant="contained" sx={{ mt: 3, ml: 2, backgroundColor: '#cf8d86', fontSize: { lg: 13 } }} >
+                                        Wish To Read
+                                    </Button>
                                 </Box>
 
                                 {bookError ?
@@ -336,12 +342,12 @@ function BookDetail() {
                     {/* Card to display book details */}
                     <Grid size={{ xs: 12, lg: 6 }} sx={{ display: "flex", justifyContent: "center", }}>
                         <Card sx={{ width: '100%', minHeight: '500px', display: "flex", flexDirection: 'column', position: 'relative', textAlign: 'center' }}>
-                            <Box component="section" sx={{ px: { xs: 2, sm: 4 }, pt: 2, pb: 3, flexGrow: 1 }}>
-                                <Typography sx={{ mt: 1, fontSize: { xs: '33px', lg: '30px' } }}>{book.title}</Typography>
-                                <Typography sx={{ mt: 1, fontSize: { xs: '17px', lg: '16px' } }}>By {book.author}</Typography>
-                                <Typography sx={{ mt: 1, fontSize: { xs: '17px', lg: '16px' } }}>Publisher: {book.publisher}</Typography>
-                                <Typography sx={{ mt: 1, fontSize: { xs: '17px', lg: '16px' } }}>Categories: {book.category}</Typography>
-                                <Typography sx={{ mt: 1, fontSize: { xs: '17px', lg: '16px' } }}>{!book.description ? '' : removeHtmlTags(book.description)}</Typography>
+                            <Box component="section" sx={{ px: { xs: 2, sm: 4 }, pt: 2, pb: 3, flexGrow: 1, '@media (max-width: 899px) and (orientation: landscape)': { '& *': { fontSize: '18px' } } }}>
+                                <Typography sx={{ mt: 1, fontSize: { xs: '34px', lg: '30px' } }}>{book.title}</Typography>
+                                <Typography sx={{ mt: 1, fontSize: { xs: '18px', lg: '16px' } }}>By {book.author}</Typography>
+                                <Typography sx={{ mt: 1, fontSize: { xs: '18px', lg: '16px' } }}>Publisher: {book.publisher}</Typography>
+                                <Typography sx={{ mt: 1, fontSize: { xs: '18px', lg: '16px' } }}>Categories: {book.category}</Typography>
+                                <Typography sx={{ mt: 1, fontSize: { xs: '18px', lg: '16px' } }}>{!book.description ? '' : removeHtmlTags(book.description)}</Typography>
                             </Box>
                         </Card>
                     </Grid>
@@ -423,7 +429,14 @@ function BookDetail() {
                 aria-label='write a review'
             >
                 <Box sx={{ ...style, width: { xs: 348, sm: 446, md: 600, lg: 620 } }}>
-                    <ReviewForm setScrollToReview={setScrollToReview} book={book} addBook={addBook} setReviewChange={setReviewChange} setOpenReviewForm={setOpenReviewForm} setBookStatus={setBookStatus} />
+                    <ReviewForm
+                        book={book}
+                        addBook={addBook}
+                        setBookStatus={setBookStatus}
+                        setReviewChange={setReviewChange}
+                        setOpenReviewForm={setOpenReviewForm}
+                        setScrollToReview={setScrollToReview}
+                    />
                 </Box>
             </Modal>
 
