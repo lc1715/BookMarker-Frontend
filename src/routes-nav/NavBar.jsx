@@ -32,7 +32,6 @@ function NavBar({ logout }) {
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('md'));
 
-
     const handleOpenMenu = (evt) => {
         setAnchorEl(evt.currentTarget);
     }
@@ -54,7 +53,9 @@ function NavBar({ logout }) {
                     boxShadow: 'none'
                 }}>
                     <Toolbar sx={{ flexWrap: 'wrap', gap: 2, pl: 1, height: { lg: '69px' }, alignContent: { lg: 'center' } }} >
-                        <Button href='/' sx={{ color: 'white', textTransform: 'none', fontSize: { xs: '21px', sm: '18px' } }} >
+                        <Button href='/'
+                            sx={{ color: 'white', textTransform: 'none', fontSize: { xs: '21px', sm: '18px' } }}
+                            aria-label='Navigate to homepage'>
                             <i className="fa-solid fa-feather" style={{ marginRight: 6 }}></i>
                             BookMarker
                         </Button>
@@ -62,11 +63,15 @@ function NavBar({ logout }) {
                         {/* On medium screens and larger, show full navbar */}
                         {matches ?
                             <>
-                                <Button href='/books/read' sx={{ color: 'white', fontSize: 'medium' }}>
+                                <Button href='/books/read'
+                                    sx={{ color: 'white', fontSize: 'medium' }}
+                                    aria-label='Navigate to read books'>
                                     Read
                                     <i className="fa-solid fa-book" style={{ marginLeft: '4px' }}></i>
                                 </Button>
-                                <Button href='/books/wish' sx={{ color: 'white', fontSize: 'medium' }}>
+                                <Button href='/books/wish'
+                                    sx={{ color: 'white', fontSize: 'medium' }}
+                                    aria-label='Navigate to wish to read books'>
                                     Wish To Read
                                     <i className="fa-solid fa-book-open" style={{ marginLeft: '4px' }}></i>
                                 </Button>
@@ -92,6 +97,9 @@ function NavBar({ logout }) {
                                             onClick={handleOpenMenu}
                                             size="large"
                                             sx={{ py: 0 }}
+                                            aria-controls={open ? 'user-menu' : undefined}
+                                            aria-haspopup="true"
+                                            aria-expanded={open ? 'true' : undefined}
                                         >
                                             <Avatar sx={{ width: 41, height: 40 }}>
                                                 {currentUser.username.slice(0, 1).toUpperCase()}
@@ -115,15 +123,17 @@ function NavBar({ logout }) {
                                         horizontal: 'right'
                                     }}
                                 >
-                                    <MenuItem onClick={handleCloseMenu} sx={{}}>
-                                        <Link href="/books/read" underline="none" sx={{ fontSize: '18px' }}>
+                                    <MenuItem onClick={handleCloseMenu}>
+                                        <Link href="/books/read" underline="none" sx={{ fontSize: '18px' }}
+                                            aria-label='Navigate to read books'>
                                             Read
                                             <i className="fa-solid fa-book" style={{ marginLeft: '5px' }}></i>
                                         </Link>
                                     </MenuItem>
 
                                     <MenuItem onClick={handleCloseMenu}>
-                                        <Link href="/books/wish" underline="none" sx={{ fontSize: '18px' }}>
+                                        <Link href="/books/wish" underline="none" sx={{ fontSize: '18px' }}
+                                            aria-label='Navigate to wish to read books'>
                                             Wish To Read
                                             <i className="fa-solid fa-book-open" style={{ marginLeft: '5px' }}></i>
                                         </Link>
@@ -157,7 +167,9 @@ function NavBar({ logout }) {
                     boxShadow: 'none'
                 }}>
                     <Toolbar sx={{ flexWrap: 'wrap', height: { lg: '69px' }, alignContent: { lg: 'center' } }}>
-                        <Button href='/' sx={{ pl: { xs: 0 }, textTransform: 'none', color: 'white', fontSize: '19px' }} >
+                        <Button href='/'
+                            sx={{ pl: { xs: 0 }, textTransform: 'none', color: 'white', fontSize: '19px' }}
+                            aria-label='Navigate to homepage'>
                             <i className="fa-solid fa-feather" style={{ marginRight: 6 }}></i>
                             BookMarker
                         </Button>

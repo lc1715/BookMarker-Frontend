@@ -18,40 +18,34 @@ function BookSearchForm() {
         isbn: '',
         keyword: ''
     }
-
     const [formData, setFormData] = useState(initialState);
     const [openAdvancedSearch, setOpenAdvancedSearch] = useState(false);
     const navigate = useNavigate();
 
-    //create advanced search term
+    // Create advanced search term
     function advancedSearchTerm() {
         let advancedTerm = '';
-
         advancedTerm += formData.title ? `intitle:${formData.title}+` : '';
         advancedTerm += formData.author ? `inauthor:${formData.author}+` : '';
         advancedTerm += formData.isbn ? `inisbn:${formData.isbn}+` : '';
         advancedTerm += formData.keyword ? `${formData.keyword}` : '';
 
-        // remove '+' at end of string
         if (advancedTerm[advancedTerm.length - 1] === '+') {
             advancedTerm = advancedTerm.slice(0, -1);
         }
 
         return advancedTerm;
     }
-    // advancedTerm = 'inauthor:michael crichton+intitle:airframe'
 
-    //on form submit, check that search terms exist and navigate to BookList component
+    // On form submit, check that search terms exist and navigate to BookList component
     async function handleSubmit(evt) {
         evt.preventDefault();
         let advancedTerm = advancedSearchTerm();
 
-        //check if term is an empty string because user did not fill in search fields
         if (formData.term === '' && advancedTerm === '') {
             return;
-        };
+        }
 
-        //navigate to BookList component 
         if (formData.term) {
             navigate(`/books/search/${formData.term}`);
         } else {
@@ -61,7 +55,7 @@ function BookSearchForm() {
         setFormData(initialState);
     };
 
-    //Handles changing form data
+    // Handles form data changing
     function handleChange(evt) {
         const { name, value } = evt.target;
         setFormData((data) => ({ ...data, [name]: value }));
@@ -124,18 +118,20 @@ function BookSearchForm() {
                             <Button
                                 variant="contained"
                                 size="medium"
-                                sx={{ mt: 1, ml: .4, height: { xs: '54px', lg: '54px' }, minWidth: 'unset', width: { xs: '59px', lg: '56px' }, backgroundColor: '#748cab' }}
+                                sx={{ mt: 1, ml: .4, height: '54px', minWidth: 'unset', width: { xs: '59px', lg: '56px' }, backgroundColor: '#748cab' }}
                                 onClick={handleSubmit}
                                 type='submit'
+                                aria-label="search"
                             >
-                                <SearchIcon sx={{ fontSize: '31px' }} />
+                                <SearchIcon sx={{ fontSize: { xs: '33px', lg: '31px' } }} />
                             </Button>
 
                             <Button
                                 variant="contained"
                                 size="medium"
-                                sx={{ mt: 1, ml: 1.5, height: { xs: '54px', lg: '54px' }, minWidth: 'unset', width: { xs: '59px', lg: '56px' }, backgroundColor: '#748cab' }}
+                                sx={{ mt: 1, ml: 1.5, height: '54px', minWidth: 'unset', width: { xs: '59px', lg: '56px' }, backgroundColor: '#748cab' }}
                                 onClick={() => (setOpenAdvancedSearch(false))}
+                                aria-label="advanced search"
                             >
                                 <i className="fa-solid fa-up-down-left-right fa-2xl"></i>
                             </Button>
@@ -162,6 +158,7 @@ function BookSearchForm() {
                                     size="large"
                                     onClick={handleSubmit}
                                     type='submit'
+                                    aria-label="search"
                                 >
                                     <SearchIcon />
                                 </IconButton>
@@ -172,8 +169,9 @@ function BookSearchForm() {
 
                 <Button
                     variant="contained"
-                    sx={{ mt: 1, mr: 2, ml: .5, height: '54px', minWidth: 'unset', width: '59px', backgroundColor: '#748cab' }}
+                    sx={{ mt: 1, mr: 2, ml: .5, height: { xs: '55px', lg: '54px' }, minWidth: 'unset', width: '59px', backgroundColor: '#748cab' }}
                     onClick={() => (setOpenAdvancedSearch(true))}
+                    aria-label="advanced search"
                 >
                     <i className="fa-solid fa-up-down-left-right fa-2xl"></i>
                 </Button>

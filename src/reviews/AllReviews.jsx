@@ -27,7 +27,7 @@ function AllReviews({ allReviews, setShowAllReviews }) {
                     sx={{ fontSize: { lg: '21.7px' }, marginTop: '30px', marginLeft: '25px', textDecoration: 'underline' }}>
                     All Reviews:
                 </Box>
-                <IconButton onClick={() => (setShowAllReviews(false))} sx={{ mr: { xs: 1.36, lg: 2.2 } }} size="large" color='warning'>
+                <IconButton onClick={() => (setShowAllReviews(false))} sx={{ mr: { xs: 1.36, lg: 2.2 } }} size="large" color='warning' aria-label="close">
                     <CloseIcon fontSize="inherit" />
                 </IconButton>
             </Box>

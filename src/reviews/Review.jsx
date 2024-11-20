@@ -10,29 +10,27 @@ import IconButton from '@mui/material/IconButton';
 import Divider from '@mui/material/Divider';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-// import { useTheme } from '@mui/material/styles';
-// import useMediaQuery from '@mui/material/useMediaQuery';
 
 
-//shows review. has option to edit or delete review
 function Review({ userReview, setReviewChange, setRanFirstScroll, setScrollToReview }) {
     console.log('userReview=', userReview)
     const [editReviewForm, setEditReviewForm] = useState(false);
     const { currentUser } = useContext(UserContext);
 
-
+    // Opens modal to show edit review form
     async function openEditReviewForm() {
         setEditReviewForm(true);
     };
 
+    // Closes modal for the edit review form
     function closeEditReviewForm() {
         setEditReviewForm(false);
     }
 
+    // Makes API call to delete the user's review in the database
     async function deleteReview() {
         try {
             await BookMarkerApi.deleteReview(userReview.id, currentUser.username);
-
             setReviewChange(true);
             setScrollToReview(false);
             setRanFirstScroll(false);
@@ -41,7 +39,7 @@ function Review({ userReview, setReviewChange, setRanFirstScroll, setScrollToRev
         }
     };
 
-    //styles the modal for edit review form
+    // Styles the modal for edit review form
     const style = {
         position: 'absolute',
         top: '50%',
@@ -85,6 +83,7 @@ function Review({ userReview, setReviewChange, setRanFirstScroll, setScrollToRev
                 <Modal
                     open={editReviewForm}
                     onClose={closeEditReviewForm}
+                    aria-label='edit your review'
                 >
                     <Box sx={{ ...style, width: { xs: 348, sm: 446, md: 600, lg: 620 } }}>
                         <EditReviewForm userReview={userReview} setReviewChange={setReviewChange} setEditReviewForm={setEditReviewForm} />

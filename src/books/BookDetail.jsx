@@ -64,8 +64,8 @@ function BookDetail() {
         getBookDetails()
     }, [bookId, bookIdType]);
 
-    // If the book is already saved, gets the saved book and sets the bookStatus state
-    // so that book can be labeled as Read or Wish To Read status
+    // If the book is already saved, gets the saved book and updates the bookStatus state
+    // to reflect the book's status as either 'Read' or 'Wish To Read'
     useEffect(() => {
         if (currentUser && book && hasSavedBook(book.volumeId)) {
             try {
@@ -342,7 +342,8 @@ function BookDetail() {
                     {/* Card to display book details */}
                     <Grid size={{ xs: 12, lg: 6 }} sx={{ display: "flex", justifyContent: "center", }}>
                         <Card sx={{ width: '100%', minHeight: '500px', display: "flex", flexDirection: 'column', position: 'relative', textAlign: 'center' }}>
-                            <Box component="section" sx={{ px: { xs: 2, sm: 4 }, pt: 2, pb: 3, flexGrow: 1, '@media (max-width: 899px) and (orientation: landscape)': { '& *': { fontSize: '18px' } } }}>
+                            <Box component="section"
+                                sx={{ px: { xs: 1, sm: 4 }, pt: 2, pb: 3, flexGrow: 1, '@media (max-width: 899px) and (orientation: landscape)': { '& .MuiTypography-root': { fontSize: '18px' } } }}>
                                 <Typography sx={{ mt: 1, fontSize: { xs: '34px', lg: '30px' } }}>{book.title}</Typography>
                                 <Typography sx={{ mt: 1, fontSize: { xs: '18px', lg: '16px' } }}>By {book.author}</Typography>
                                 <Typography sx={{ mt: 1, fontSize: { xs: '18px', lg: '16px' } }}>Publisher: {book.publisher}</Typography>
@@ -360,7 +361,7 @@ function BookDetail() {
                 {currentUser && hasSavedBook(book.volumeId)
                     ?
                     <>
-                        <IconButton onClick={showBookDeleteMessage} aria-label="delete review" >
+                        <IconButton onClick={showBookDeleteMessage} aria-label="delete review">
                             <HighlightOffIcon />
                         </IconButton>
 
