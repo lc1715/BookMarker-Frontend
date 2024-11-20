@@ -12,8 +12,14 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
+/**Review component
+ * - shows the user's review and buttons to edit the review or delete the review
+ * - editing the review will open modal to show the edit review form
+ * - deleting the review will remove it from the database
+ * - component using Review: BookDetail
+ */
+
 function Review({ userReview, setReviewChange, setRanFirstScroll, setScrollToReview }) {
-    console.log('userReview=', userReview)
     const [editReviewForm, setEditReviewForm] = useState(false);
     const { currentUser } = useContext(UserContext);
 

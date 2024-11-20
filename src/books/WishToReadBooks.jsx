@@ -4,18 +4,20 @@ import UserContext from '../auth/UserContext';
 import BookList from './BookList';
 
 
+/** WishToReadBooks component
+ * -makes API call to fetch user's 'Wish To Read' books
+ * -passes 'Wish To Read' books and its label as props to BookList component
+ * 
+ * Route: 'books/wish'
+ */
 function WishToReadBooks() {
     const [wishBooks, setWishBooks] = useState(null);
-
     const { currentUser } = useContext(UserContext);
 
-    //get wish to read books
     useEffect(() => {
         try {
             async function getWishToReadBooks() {
                 const books = await BookMarkerApi.getWishBooks(currentUser.username, { has_read: false });
-                console.log('wish to read books=', books);
-
                 setWishBooks(books);
             }
             getWishToReadBooks();

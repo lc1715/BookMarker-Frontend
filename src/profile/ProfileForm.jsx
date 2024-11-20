@@ -11,12 +11,12 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 
-/** Edit profile form.
+/** Edit profile form
  *
  * - Displays profile form
  * - Submitting the form calls the BookMarkerApi to update user profile
  * - If successful, triggers current user to be reloaded throughout the site and
- * shows successful alert message
+ *  shows successful alert message
  * 
  * Route: /profile
  */
@@ -31,8 +31,7 @@ function ProfileForm() {
     const [formErrors, setFormErrors] = useState([]);
     const [isSaved, setIsSaved] = useState(false);
 
-
-    /** on form submit:
+    /** On form submit:
      * - attempt to save new user info to backend & report any errors
      * - if successful
      *   - clear previous error messages
@@ -44,7 +43,6 @@ function ProfileForm() {
         let username = formData.username;
         let newEmail = formData.email;
         let updatedUser;
-
         try {
             updatedUser = await BookMarkerApi.updateUserProfile(username, { email: newEmail });
         } catch (err) {

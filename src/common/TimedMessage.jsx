@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Alert from '@mui/material/Alert';
 
-
 /** Message shown to user for a limited amount of time. 
  *- If user is not logged in and tries to save a book, write a review 
  *  or rate a book, timed message will show. 
@@ -14,8 +13,6 @@ import Alert from '@mui/material/Alert';
  **/
 
 function TimedMessage({ setState, type = 'error', message = 'Please login or signup to access this feature' }) {
-    console.debug('TimedMessage:', 'setState:', setState, 'type:', type, 'message:', message);
-
     let [active, setActive] = useState(true);
 
     setTimeout(() => {

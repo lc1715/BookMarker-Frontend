@@ -10,31 +10,32 @@ import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 
 
+/**ReviewForm component
+ * - Shows review form and allows users to write a review on a book
+ * - Component using ReviewForm: BookDetail
+ */
 function ReviewForm({ book, addBook, setReviewChange, setOpenReviewForm, setBookStatus, setScrollToReview }) {
     const [formData, setFormData] = useState({
         comment: ''
     });
-
     const [formErrors, setFormErrors] = useState([]);
-
     const { currentUser, hasSavedBook } = useContext(UserContext);
 
-    //adds review to db. check if book has already been saved in saved books.
-    //if not, then add review and add book to read books
+    /**Handles form submission 
+     * - If user writes a review on a book but the book has not been saved, 
+     *  then automatically save book for user under 'Read' status 
+     * - Set the openReviewForm state and scrollToReview state to scroll to 
+     *  the user's review the very first time it is rendered
+     */
     async function handleSubmit(evt) {
         evt.preventDefault();
-        //if book has not been saved and user tries to write a review,
-        //then automatically add book to Read status 
         if (!hasSavedBook(book.volumeId)) {
-            await addBook(true);
-
+            await addBook(book, true);
             setBookStatus(true);
         }
 
-        //add the review to db
         try {
             await BookMarkerApi.addReview(book.volumeId, currentUser.username, { ...formData });
-
             setReviewChange(true);
             setOpenReviewForm(false);
             setScrollToReview(true);

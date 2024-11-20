@@ -11,21 +11,19 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 
-/** BookList 
- * 
- * - prop: nyt bestseller books, user's Read books, or user's Wish To Read books
- * - state: google searched books
- * - only set google books as state if term received from search form submission
- * - if term received, fetch the google books from Google Books API and update state 
- * - render google books if state exists otherwise render prop
+/** BookList
+ *
+ * - props: nyt books, Read books, or Wish To Read books and their labels as props
+ * - state: searched books
+ * - only set searched books into state if term received from search form submission
+ * - if term received, fetch the google books from Google Books API and update state
+ * - render searched books if the state was updated, otherwise render prop
  * - components using BooksList: Homepage, BookSearchForm, ReadBooks, WishToReadBooks
- * 
+ *
  * Route: '/books/search/:term'
  */
 
 function BookList({ books, booksLabel }) {
-    console.debug('books:', books, 'booksLabel:', booksLabel)
-
     const [searchedBooks, setSearchedBooks] = useState(null);
     const { term } = useParams();
 

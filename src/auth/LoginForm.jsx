@@ -15,8 +15,8 @@ import Typography from '@mui/material/Typography';
  * 
  * Route is '/login'
  * 
- * Shows form and manages the update to formData state 
- * when values in input fields change.
+ * - shows form
+ * - updates the formData state when values in the input fields change
  * 
  * On submission:
  * - calls login function prop
@@ -41,7 +41,6 @@ function LoginForm({ login }) {
         evt.preventDefault();
         setLoadingInfo(true);
         let result = await login(data);
-        console.log('result=', result)
 
         if (result.success) {
             navigate('/');
@@ -51,7 +50,7 @@ function LoginForm({ login }) {
         }
     }
 
-    /**Update the formData state and render those changes in the input fields */
+    /**Update the formData state and show those changes in the input fields */
     function handleChange(evt) {
         const { name, value } = evt.target;
         setFormData(data => ({ ...data, [name]: value }));

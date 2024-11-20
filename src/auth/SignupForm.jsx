@@ -15,8 +15,8 @@ import Typography from '@mui/material/Typography';
  *
  * Route is '/signup'
  * 
- * Shows form and manages the update to formData state 
- * when values in input fields change.
+ * - shows form
+ * - updates the formData state when values in the input fields change
  * 
  * On submission:
  * - calls the signup function prop 
@@ -42,7 +42,7 @@ function SignupForm({ signup }) {
         evt.preventDefault();
         setLoadingInfo(true);
         let result = await signup(formData);
-        console.log('result=', result)
+
         if (result.success) {
             navigate('/');
         } else {
@@ -51,7 +51,7 @@ function SignupForm({ signup }) {
         }
     }
 
-    /**Update the formData state and render those changes in the input fields */
+    /**Update the formData state and show those changes in the input fields */
     function handleChange(evt) {
         const { name, value } = evt.target;
         setFormData(data => ({ ...data, [name]: value }));

@@ -10,24 +10,25 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
 
+/**EditReviewForm component
+ * - shows form and allows users to edit their own review
+ * - component using EditReviewForm: Review
+ */
 function EditReviewForm({ userReview, setReviewChange, setEditReviewForm }) {
     const [formData, setFormData] = useState({
         comment: userReview.comment
     });
-
     const [formErrors, setFormErrors] = useState([]);
-
     const { currentUser } = useContext(UserContext);
 
-    //update review
+    /**Handles form submission. 
+     * Sends user's updated review to the database  
+     */
     async function handleSubmit(evt) {
         evt.preventDefault();
         try {
-            const newReview = await BookMarkerApi.updateReview(userReview.id, currentUser.username, { ...formData });
-            console.log('newReview=', newReview)
-
+            await BookMarkerApi.updateReview(userReview.id, currentUser.username, { ...formData });
             setReviewChange(true);
-
             setEditReviewForm(false);
         } catch (err) {
             setFormErrors(err);

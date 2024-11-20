@@ -3,12 +3,17 @@ import UserContext from '../auth/UserContext';
 import Box from '@mui/material/Box';
 
 
+/**Rating component
+ * - shows star ratings
+ * - if user is logged in, user can click on star which will add rating or update rating
+ * - if there is no logged in user, only gray stars will be shown
+ * - component using Rating: BookDetail
+ */
+
 function Rating({ rating, setRating, addRating, updateRating, hover, setHover }) {
     const { currentUser } = useContext(UserContext);
 
     async function submitRating(star) {
-        console.log('star=', star)
-
         if (!rating) {
             await addRating(star);
         } else {

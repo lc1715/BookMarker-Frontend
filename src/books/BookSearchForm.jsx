@@ -10,6 +10,15 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 
 
+/** BookSearchForm component
+ *
+ * -gets the search terms from search input fields
+ * -creates advanced search term
+ * -on form submit, pass search term or advanced search term into URL parameter 
+ *  and navigate to BookList component
+ * -component using BookSearchForm: BookList
+ */
+
 function BookSearchForm() {
     const initialState = {
         term: '',

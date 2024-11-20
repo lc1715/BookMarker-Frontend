@@ -14,8 +14,6 @@ class BookMarkerApi {
     static token;
 
     static async request(endpoint, data = {}, method = "get") {
-        console.debug('API Call:', 'endpoint:', endpoint, 'data:', data, 'method:', method)
-
         const url = `${BASE_URL}/${endpoint}`;
         const headers = { Authorization: `Bearer ${BookMarkerApi.token}` };
         const params = (method === "get") ? data : {};
@@ -56,7 +54,6 @@ class BookMarkerApi {
      */
     static async updateUserProfile(username, data) {
         const res = await this.request(`users/${username}`, data, "patch");
-        console.log('res:', res)
         return res.updatedUser;
     }
 
@@ -114,7 +111,6 @@ class BookMarkerApi {
      */
     static async getSavedBook(volumeId, username) {
         const res = await this.request(`savedbooks/${volumeId}/user/${username}`);
-        console.log('res=', res)
         return res.savedBook;
     }
 
@@ -123,7 +119,6 @@ class BookMarkerApi {
      */
     static async deleteSavedBook(volumeId, username) {
         const res = await this.request(`savedbooks/${volumeId}/user/${username}`, {}, "delete");
-        console.log('deletedBook:', res.deletedBookId)
         return res.deletedBookId;
     }
 
@@ -233,7 +228,6 @@ class BookMarkerApi {
      */
     static async getGoogleBookFromNYT(isbn) {
         const res = await this.request(`books/bestsellers/details/${isbn}`);
-        console.log('res***', res)
         return res;
     }
 }

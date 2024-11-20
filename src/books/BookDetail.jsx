@@ -22,12 +22,19 @@ import IconButton from '@mui/material/IconButton';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 
+/**BookDetail component
+ *
+ * - Shows the book details, reviews, and rating
+ * - BookCard component passes in bookId and bookIdType into URL parameters
+ * - Contains functions to add, update and delete a user's book and rating
+ *
+ * Route: 'books/:bookIdType/:bookId'
+ */
+
 function BookDetail() {
     // states for books
     const [book, setBook] = useState(null);
-    console.log('book=', book)
     const [bookStatus, setBookStatus] = useState(null);
-    console.log('bookStatus=', bookStatus)
     const [openBookDeleteMessage, setOpenBookDeleteMessage] = useState(false);
     // states for reviews
     const [review, setReview] = useState(null);
@@ -71,8 +78,6 @@ function BookDetail() {
             try {
                 async function getBookStatus() {
                     let res = await BookMarkerApi.getSavedBook(book.volumeId, currentUser.username);
-                    console.log('book status=', res);
-
                     if (res) setBookStatus(res.has_read);
                 }
                 getBookStatus();
@@ -187,8 +192,6 @@ function BookDetail() {
         if (currentUser) {
             // get the user's has_read value for the book 
             const has_read_value = evt.currentTarget.dataset.status === 'Read';
-            console.debug('has_read_value=', has_read_value)
-            console.debug('evt.currentTarget.dataset=', evt.currentTarget.dataset)
 
             // if the book is already saved and the has_read value is changing, 
             // then update the book status
@@ -199,16 +202,12 @@ function BookDetail() {
                         book.volumeId,
                         currentUser.username,
                         { has_read: has_read_value });
-                    console.debug('change book status', res)
-
                     setBookStatus(res.has_read);
                 } catch (err) {
                     console.log(err);
                 }
             } else if (!hasSavedBook(book.volumeId)) {
                 let res = await addBook(book, has_read_value);
-                console.debug('add book to db', res)
-
                 setBookStatus(res.has_read);
             }
         } else {
@@ -234,8 +233,7 @@ function BookDetail() {
     // Function to delete a user's saved book, review and rating from the database
     async function removeSavedBook() {
         try {
-            const res = await deleteSavedBook(book.volumeId, currentUser.username);
-            console.log('deleted book', res)
+            await deleteSavedBook(book.volumeId, currentUser.username);
             setBookStatus(null);
             setOpenBookDeleteMessage(false);
 

@@ -20,8 +20,6 @@ import Typography from '@mui/material/Typography';
  */
 
 function BookCard({ book }) {
-    console.log('book=', book)
-
     let bookId;
     let bookIdType;
 
@@ -32,8 +30,6 @@ function BookCard({ book }) {
         bookId = book.volumeId;
         bookIdType = 'volumeId'
     }
-    console.log('book.descriptiopn', book.description)
-    console.log('book.image', book.image)
 
     return (
         <Card sx={{ minWidth: { xs: 275, lg: 265 }, maxWidth: 150, minHeight: { xs: 500, lg: 485 }, mx: 5.5, mb: 5, backgroundColor: '#FCFBF4' }}>

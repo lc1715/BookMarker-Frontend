@@ -7,9 +7,13 @@ import Divider from '@mui/material/Divider';
 import CloseIcon from '@mui/icons-material/Close';
 
 
-//show all reviews on a book
+/**AllReviews component
+ * - render all of a book's reviews
+ * - if there are no reviews, then render the no reviews message
+ * - component using AllReviews: BookDetail
+ */
+
 function AllReviews({ allReviews, setShowAllReviews }) {
-    console.log('allReviews=', allReviews)
     if (!allReviews.length) {
         return (
             <div>

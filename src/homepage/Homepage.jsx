@@ -5,38 +5,45 @@ import getNYTBooks from '../common/loadNYTBooks'
 import useLocalStorage from '../hooks/useLocalStorage';
 
 
+/**Homepage component
+ * 
+ * - calls getNYTBooks function to get nytbooks and checks if nytbooks contain new nyt books and timestamp
+ *   or the stored nyt books from local storage
+ * - if new nyt books and time stamp are returned, store them into local storage
+ * - passes nytbooks and label for nyt books as props to BookList component
+ * 
+ * Route: '/'
+ */
 function Homepage() {
     const [nytBooks, setNytBooks] = useState(null);
     const [nytBookList, setNytBookList] = useLocalStorage('nytBooks');
     const [nytTimestamp, setNytTimestamp] = useLocalStorage('nytBooksTimestamp');
-    console.log('nytBooks=', nytBooks)
 
-    //runs at first render to get nyt book list and timestamp
+    // Runs at first render to get nyt book list and timestamp
     useEffect(() => {
         async function loadNYTBooks() {
-            //gets stored nytbooks or new nytbooks and timestamp
+            // gets stored nytbooks or new nytbooks and timestamp
             let bookList = await getNYTBooks();
-            console.log('bookList=', bookList)
 
-            //check if new nyt book list and current timestamp exists 
-            //if they do, add to local storage
-            if (bookList.newBooks && bookList.currentTimeStamp) {
+            // check if new nyt book list and current timestamp exists and add to local storage
+            if (bookList?.newBooks && bookList.currentTimeStamp) {
                 let newBooks = bookList.newBooks;
                 let currentTimeStamp = bookList.currentTimeStamp;
-                //check if nyt books is empty
+
+                // check if nyt books is empty
                 if (newBooks.length === 0) {
                     setNytBooks(newBooks);
                     return;
                 }
-                //add new nyt books and current time stamp into local storage
+                // add new nyt books and current time stamp into local storage
                 setNytBookList(JSON.stringify(newBooks));
                 setNytTimestamp(currentTimeStamp);
 
-                //set new nyt books to state
+                // set new nyt books to state
                 setNytBooks(newBooks);
             } else {
-                //set stored nyt books to state
-                setNytBooks(bookList.storedBooks);
+                // set stored nyt books to state
+                setNytBooks(bookList?.storedBooks);
             }
         };
 
