@@ -1,14 +1,14 @@
-import { it } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
+import { it, } from 'vitest';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import BookDetail from './BookDetail';
 import { UserProvider } from '../testUtils';
 
 const mockBook = {
     title: 'title1',
-    author: 'auth1',
+    author: ['auth1'],
     volumeId: 'vol1',
-    category: 'cat1',
+    category: ['cat1'],
     description: 'desc1',
     image: 'img1',
     publisher: 'pub1',
@@ -41,6 +41,7 @@ const mockSavedBook = {
     rating: { ...mockRating }
 }
 
+//mocks the useParams hook in react-router-dom
 vi.mock('react-router-dom', async () => {
     await vi.importActual('react-router-dom');
     const actual = await vi.importActual('react-router-dom');
@@ -64,14 +65,14 @@ afterEach(() => {
     vi.clearAllMocks();
 });
 
-it('renders BookDetail component', () => {
-    render(
+it('renders BookDetail component', async () => {
+    await act(async () => render(
         <MemoryRouter>
             <UserProvider>
                 <BookDetail />
             </UserProvider>
         </MemoryRouter>
-    )
+    ))
 })
 
 it('matches with snapshot', async () => {

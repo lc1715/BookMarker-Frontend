@@ -1,5 +1,5 @@
 import { it, vi } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { UserProvider } from '../testUtils';
 import WishToReadBooks from './WishToReadBooks';
@@ -24,14 +24,14 @@ vi.mock('../api/api', () => ({
     },
 }));
 
-it('renders WishToReadBooks component', () => {
-    render(
+it('renders WishToReadBooks component', async () => {
+    await act(async () => render(
         <MemoryRouter>
             <UserProvider>
                 <WishToReadBooks />
             </UserProvider>
         </MemoryRouter>
-    )
+    ))
 })
 
 it('matches with snapshot', async () => {
