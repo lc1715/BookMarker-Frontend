@@ -63,7 +63,7 @@ function BookCard({ book }) {
                         By {formatAuthorNames(book.author)}
                     </Typography>
 
-                    <Typography sx={{ color: 'text.primary', fontSize: { xs: 18, lg: 16 }, mb: 3, mt: 1.5, mx: { xs: 1, lg: 2 }, textAlign: 'center' }}>
+                    <Typography sx={{ color: 'text.primary', fontSize: { xs: 18, lg: 16 }, mb: 3, mt: 1.5, mx: 2, textAlign: 'center' }}>
                         {!book.description ? '' : removeHtmlTags(book.description).length > 200 ? removeHtmlTags(book.description).slice(0, 200) + '...' : removeHtmlTags(book.description)}
                     </Typography>
                 </CardContent>

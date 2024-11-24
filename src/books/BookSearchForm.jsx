@@ -178,7 +178,7 @@ function BookSearchForm() {
 
                 <Button
                     variant="contained"
-                    sx={{ mr: 2, ml: .5, mt: { xs: 1.1, lg: 1 }, height: { xs: '54px' }, minWidth: 'unset', width: '59px', backgroundColor: '#748cab' }}
+                    sx={{ mr: 2, ml: .5, mt: 1, height: { xs: '55px', xl: '54px' }, minWidth: 'unset', width: { xs: '58.6px', xl: '59px' }, backgroundColor: '#748cab' }}
                     onClick={() => (setOpenAdvancedSearch(true))}
                     aria-label="advanced search"
                 >
