@@ -136,10 +136,10 @@ function BookSearchForm() {
                             </Button>
 
                             <Button
+                                onClick={() => (setOpenAdvancedSearch(false))}
                                 variant="contained"
                                 size="medium"
                                 sx={{ mt: 1, ml: 1.5, height: '54px', minWidth: 'unset', width: { xs: '59px', lg: '56px' }, backgroundColor: '#748cab' }}
-                                onClick={() => (setOpenAdvancedSearch(false))}
                                 aria-label="advanced search"
                             >
                                 <i className="fa-solid fa-up-down-left-right fa-2xl"></i>
@@ -177,9 +177,9 @@ function BookSearchForm() {
                 </FormControl>
 
                 <Button
-                    variant="contained"
-                    sx={{ mr: 2, ml: .5, mt: 1, height: { xs: '55px', xl: '54px' }, minWidth: 'unset', width: { xs: '58.6px', xl: '59px' }, backgroundColor: '#748cab' }}
                     onClick={() => (setOpenAdvancedSearch(true))}
+                    variant="contained"
+                    sx={{ mr: 2, ml: .5, mt: 1, height: { xs: '55px', xl: '54px' }, minWidth: 'unset', width: { xs: '58.7px', xl: '59px' }, backgroundColor: '#748cab' }}
                     aria-label="advanced search"
                 >
                     <i className="fa-solid fa-up-down-left-right fa-2xl"></i>

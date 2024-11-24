@@ -9,6 +9,13 @@ import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
 /** Login form
@@ -24,6 +31,13 @@ import Typography from '@mui/material/Typography';
  */
 
 function LoginForm({ login }) {
+    /**Material UI's reveal/hide password related */
+    const [showPassword, setShowPassword] = useState(false);
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleMouseDownPassword = (event) => { event.preventDefault() };
+    const handleMouseUpPassword = (event) => { event.preventDefault() };
+    /**End Material UI's reveal/hide password related */
+
     const [formData, setFormData] = useState({
         username: '',
         password: ''
@@ -76,7 +90,7 @@ function LoginForm({ login }) {
                     }}>
                     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                         <Typography sx={{
-                            fontSize: { xs: '35px', lg: '40px' },
+                            fontSize: { xs: '35px', lg: '36px', xl: '40px' },
                             textAlign: 'center',
                             mt: 5
                         }}>
@@ -84,7 +98,7 @@ function LoginForm({ login }) {
                         </Typography>
                     </Box>
 
-                    <Box sx={{ width: '100%', mt: { xs: 3, sm: 4, lg: 3 }, display: 'flex', justifyContent: 'center' }}>
+                    <Box sx={{ width: '100%', mt: { xs: 2, sm: 3, xl: 2 }, display: 'flex', justifyContent: 'center' }}>
                         <TextField
                             name="username"
                             value={formData.username}
@@ -94,15 +108,31 @@ function LoginForm({ login }) {
                         />
                     </Box>
 
-                    <Box sx={{ width: '100%', mt: { xs: 3, sm: 4, lg: 3 }, display: 'flex', justifyContent: 'center' }}>
-                        <TextField
-                            type="password"
-                            name="password"
-                            value={formData.password}
-                            onChange={handleChange}
-                            label="Password"
-                            sx={{ width: { xs: '75%', lg: '73%' } }}
-                        />
+                    <Box sx={{ width: '100%', mt: { xs: 2, sm: 3, lg: 2 }, display: 'flex', justifyContent: 'center' }}>
+                        <FormControl sx={{ m: 1, width: { xs: '75%', lg: '73%' } }} variant="outlined">
+                            <InputLabel htmlFor="password">Password</InputLabel>
+                            <OutlinedInput
+                                id="password"
+                                name="password"
+                                value={formData.password}
+                                onChange={handleChange}
+                                label="Password"
+                                type={showPassword ? 'text' : 'password'}
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label={showPassword ? 'hide password' : 'display password'}
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                            onMouseUp={handleMouseUpPassword}
+                                            edge="end"
+                                        >
+                                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                            />
+                        </FormControl>
                     </Box>
 
                     {formErrors.length ?
@@ -116,7 +146,7 @@ function LoginForm({ login }) {
                         <Button
                             variant="contained"
                             size="medium"
-                            sx={{ width: { xs: '75%', lg: '73%' }, height: '54px', mt: { xs: 3, sm: 4, lg: 3 }, backgroundColor: '#cf8d86' }}
+                            sx={{ width: { xs: '75%', lg: '73%' }, height: '54px', mt: { xs: 2, sm: 3, lg: 2 }, backgroundColor: '#cf8d86' }}
                             onClick={(evt) => (handleSubmit(evt, formData))}
                             type='submit'
                         >
