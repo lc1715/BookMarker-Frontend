@@ -340,10 +340,9 @@ function BookDetail() {
                     {/* Card to display book details */}
                     <Grid size={{ xs: 12, lg: 6 }} sx={{ display: "flex", justifyContent: "center", }}>
                         <Card sx={{ width: '100%', minHeight: '500px', display: "flex", flexDirection: 'column', position: 'relative', textAlign: 'center' }}>
-                            <Box component="section"
-                                sx={{ px: { xs: 1, sm: 4 }, pt: 2, pb: 3, flexGrow: 1, '@media (max-width: 899px) and (orientation: landscape)': { '& .MuiTypography-root': { fontSize: '18px' } } }}>
+                            <Box component="section" sx={{ px: { xs: 1, sm: 4 }, pt: 2, pb: 3, flexGrow: 1 }}>
                                 <Typography sx={{ mt: 1, fontSize: { xs: '34px', lg: '30px' } }}>{book.title}</Typography>
-                                <Typography sx={{ mt: 1, fontSize: { xs: '18px', lg: '16px' } }}>By {book.author}</Typography>
+                                <Typography sx={{ mt: 1, fontSize: { xs: '18px', lg: '16px' } }}>By {book.author ? book.author.join(', ') : ''}</Typography>
                                 <Typography sx={{ mt: 1, fontSize: { xs: '18px', lg: '16px' } }}>Publisher: {book.publisher}</Typography>
                                 <Typography sx={{ mt: 1, fontSize: { xs: '18px', lg: '16px' } }}>Categories: {book.category}</Typography>
                                 <Typography sx={{ mt: 1, fontSize: { xs: '18px', lg: '16px' } }}>{!book.description ? '' : removeHtmlTags(book.description)}</Typography>

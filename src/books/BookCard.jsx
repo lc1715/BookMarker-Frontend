@@ -31,6 +31,16 @@ function BookCard({ book }) {
         bookIdType = 'volumeId'
     }
 
+    const formatAuthorNames = (author) => {
+        if (author === undefined || author === null) {
+            return '';
+        }
+        if (Array.isArray(author)) {
+            return author.join(', ');
+        }
+        return author.replace(/[{"}]/g, '').replace(/,/g, ', ');
+    };
+
     return (
         <Card sx={{ minWidth: { xs: 275, lg: 265 }, maxWidth: 150, minHeight: { xs: 500, lg: 485 }, mx: 5.5, mb: 5, backgroundColor: '#FCFBF4' }}>
             < Link to={`/books/${bookIdType}/${bookId}`} style={{ textDecoration: 'none' }}>
@@ -50,10 +60,10 @@ function BookCard({ book }) {
                     </Typography>
 
                     <Typography sx={{ color: 'text.primary', fontSize: { xs: 18, lg: 16 }, mb: 1.5, mt: 1.5, textAlign: 'center' }} >
-                        By {book.author}
+                        By {formatAuthorNames(book.author)}
                     </Typography>
 
-                    <Typography sx={{ color: 'text.primary', fontSize: { xs: 18, lg: 16 }, mb: 3, mt: 1.5, mx: 2, textAlign: 'center' }}>
+                    <Typography sx={{ color: 'text.primary', fontSize: { xs: 18, lg: 16 }, mb: 3, mt: 1.5, mx: { xs: 1, lg: 2 }, textAlign: 'center' }}>
                         {!book.description ? '' : removeHtmlTags(book.description).length > 200 ? removeHtmlTags(book.description).slice(0, 200) + '...' : removeHtmlTags(book.description)}
                     </Typography>
                 </CardContent>

@@ -60,7 +60,7 @@ function BookList({ books, booksLabel }) {
             <div>
                 <BookSearchForm />
 
-                <Typography sx={{ mt: 6, mb: 4, color: 'text.secondary', fontWeight: '200', fontSize: { xs: 28, sm: 30, lg: 34.5 }, textAlign: 'center' }}>
+                <Typography sx={{ mt: 6, mb: 4, color: 'text.secondary', fontWeight: '200', fontSize: { xs: 28, sm: 30, xl: 34.5 }, textAlign: 'center' }}>
                     {booksLabel}
                 </Typography>
 
